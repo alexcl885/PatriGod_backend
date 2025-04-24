@@ -1,0 +1,23 @@
+package com.patrigod.patrigod.servicios;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.patrigod.patrigod.modelos.Monumento;
+import com.patrigod.patrigod.repos.RepoMonumento;
+
+@Service
+public class ServiMonumento {
+    @Autowired
+    private RepoMonumento repoMonumento;
+
+    public List<Monumento> findAll(){
+        System.err.println(repoMonumento.findAll());
+        return repoMonumento.findAll();
+    }
+
+
+
+}
