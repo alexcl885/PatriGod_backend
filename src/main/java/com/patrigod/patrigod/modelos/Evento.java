@@ -2,14 +2,17 @@ package com.patrigod.patrigod.modelos;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+// Subclase de Articulo que representa un evento.
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Evento {
+@EqualsAndHashCode(callSuper = true) 
+public class Evento extends Articulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

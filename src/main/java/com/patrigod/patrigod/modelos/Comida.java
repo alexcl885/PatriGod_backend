@@ -2,12 +2,14 @@ package com.patrigod.patrigod.modelos;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
+// Subclase de Articulo que representa una comida típica de la ciudad.
 @Entity
 @Data
 @NoArgsConstructor
-public class Comida  {
+@EqualsAndHashCode(callSuper = false)
+public class Comida extends Articulo  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -47,3 +47,44 @@ INSERT INTO ciudad (id, nombre, comunidad_autonoma, provincia, descripcion, fech
 (16, 'Elche', 'Comunidad Valenciana', 'Alicante',
  'Conocida por su palmeral histórico.',
  '2000-12-02', 38.2699, -0.7126, 'elche.jpg');
+
+INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `password`, `tipo`) VALUES
+(b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', 'hashedpassword1', 'USUARIO'),
+(b'1', NOW(), 2, 'marcos', 'marcos@example.com', 'hashedpassword2', 'USUARIO'),
+(b'1', NOW(), 3, 'dani', 'dani@example.com', 'hashedpassword3', 'USUARIO'),
+(b'1', NOW(), 4, 'admin', 'admin@admin.com', 'adminpass', 'ADMINISTRADOR');
+
+INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
+(1, 1, 'Monumento histórico más representativo de Córdoba.', 'Mezquita-Catedral'),
+(3, 2, 'Edificio icónico de Salamanca con decoración plateresca.', 'Universidad de Salamanca');
+
+INSERT INTO `monumento` (`articulo_id`, `id`, `imagen`) VALUES
+(1, 1, 'mezquita.jpg'),
+(2, 2, 'universidad.jpg');
+
+INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
+(12, 3, 'Festival cultural renacentista.', 'Festival de Baeza'),
+(11, 4, 'Concierto anual en la Sacra Capilla.', 'Concierto Coral Úbeda');
+
+INSERT INTO `evento` (`articulo_id`, `id`, `fecha`) VALUES
+(3, 3, '2025-06-10'),
+(4, 4, '2025-09-15');
+
+INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
+(7, 5, 'Tapa típica con embutidos y pan.', 'Tosta Extremeña'),
+(10, 6, 'Plato típico ibicenco de mariscos.', 'Bullit de peix');
+
+INSERT INTO `comida` (`articulo_id`, `id`, `imagen`) VALUES
+(5, 5, 'tosta.jpg'),
+(6, 6, 'bullit.jpg');
+
+
+INSERT INTO `comentario` (`articulo_id`, `fecha`, `id`, `user_id`, `contenido`) VALUES
+(1, NOW(), 1, 1, 'Impresionante arquitectura islámica.'),
+(3, NOW(), 2, 2, 'Una experiencia increíble en el festival.'),
+(6, NOW(), 3, 3, 'Delicioso, muy recomendable.');
+
+INSERT INTO `puntuacion` (`puntuacion`, `articulo_id`, `id`, `user_id`) VALUES
+(4.8, 1, 1, 1),
+(4.5, 3, 2, 2),
+(5.0, 6, 3, 3);

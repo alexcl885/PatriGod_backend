@@ -4,10 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// Clase abstracta base que representa un elemento que puede ser calificado y comentado.
+// Se utiliza herencia JOINED para que cada subclase tenga su propia tabla en la base de datos,
+// y comparta las columnas comunes con esta tabla 'articulo'.
+
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) 
 @Data
 @NoArgsConstructor
-public class Articulo {
+public abstract class Articulo { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

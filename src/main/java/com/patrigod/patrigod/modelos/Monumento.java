@@ -2,12 +2,15 @@ package com.patrigod.patrigod.modelos;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
+// Subclase de Articulo que representa un monumento.
+// Tendrá su propia tabla 'monumento' relacionada con 'articulo' por la clave primaria (id).
 @Entity
 @Data
 @NoArgsConstructor
-public class Monumento {
+@EqualsAndHashCode(callSuper = true) 
+public class Monumento extends Articulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
