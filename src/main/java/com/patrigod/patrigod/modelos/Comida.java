@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Comida {
+public class Comida  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
