@@ -1,17 +1,13 @@
 package com.patrigod.patrigod.modelos;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
+import lombok.ToString;
 import java.time.LocalDate;
-// Subclase de Articulo que representa un evento.
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("evento")
 @Entity
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true) 
 public class Evento extends Articulo {
 
     @Id
@@ -20,10 +16,12 @@ public class Evento extends Articulo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ciudad_id", nullable = false, foreignKey = @ForeignKey(name = "fk_evento_ciudad"))
+    @ToString.Exclude
     private Ciudad ciudad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "articulo_id", nullable = false, foreignKey = @ForeignKey(name = "fk_evento_articulo"))
+    @ToString.Exclude
     private Articulo articulo;
 
     @Column(nullable = false, length = 255)

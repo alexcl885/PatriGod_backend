@@ -1,5 +1,8 @@
 package com.patrigod.patrigod.modelos;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +15,17 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED) 
 @Data
 @NoArgsConstructor
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME, // Usar un nombre en el JSON para identificar el tipo de subclase
+    include = JsonTypeInfo.As.EXISTING_PROPERTY, 
+    property = "type" // El campo "type" será utilizado para diferenciar las subclases
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Monumento.class, name = "monumento"),
+    @JsonSubTypes.Type(value = Comida.class, name = "comida"),
+    @JsonSubTypes.Type(value = Evento.class, name = "evento")
+    // Añadir otras subclases aquí si las tienes
+})
 public abstract class Articulo { 
 
     @Id

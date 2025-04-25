@@ -1,14 +1,14 @@
 package com.patrigod.patrigod.modelos;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 // Subclase de Articulo que representa una comida típica de la ciudad.
+@JsonTypeName("comida")
 @Entity
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class Comida extends Articulo  {
 
     @Id
@@ -17,10 +17,12 @@ public class Comida extends Articulo  {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ciudad_id", nullable = false, foreignKey = @ForeignKey(name = "fk_comida_ciudad"))
+    @ToString.Exclude
     private Ciudad ciudad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "articulo_id", nullable = false, foreignKey = @ForeignKey(name = "fk_comida_articulo"))
+    @ToString.Exclude
     private Articulo articulo;
 
     @Column(nullable = false, length = 255)
