@@ -13,12 +13,12 @@ public class Puntuacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_puntuacion_usuario"))
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "articulo_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_puntuacion_articulo"))
     private Articulo articulo;

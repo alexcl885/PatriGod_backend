@@ -54,37 +54,49 @@ INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `p
 (b'1', NOW(), 3, 'dani', 'dani@example.com', 'hashedpassword3', 'USUARIO'),
 (b'1', NOW(), 4, 'admin', 'admin@admin.com', 'adminpass', 'ADMINISTRADOR');
 
-INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
-(1, 1, 'Monumento histórico más representativo de Córdoba.', 'Mezquita-Catedral'),
-(3, 2, 'Edificio icónico de Salamanca con decoración plateresca.', 'Universidad de Salamanca');
+-- --------------------------------------------------
+-- Ejemplos de artículos (padre)
+-- --------------------------------------------------
+INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
+  (1,  1, 'Mezquita-Catedral',   'Monumento emblemático de Córdoba, mezcla de arquitectura califal y renacentista.'),
+  (2,  2, 'Corpus Christi',      'Feria y festividad religiosa que acoge a miles de visitantes cada año.'),
+  (3,  3, 'Fiesta de San Juan',  'Celebración de la noche de San Juan con hogueras en las plazas.'),
+  (4,  4, 'Tapas Ibéricas',      'Selección de tapas típicas de Ávila con productos de la tierra.'),
+  (5, 11, 'Capilla del Salvador','Lugar donde se reúnen el coro y orquesta de Úbeda para conciertos.');
 
-INSERT INTO `monumento` (`articulo_id`, `id`, `imagen`) VALUES
-(1, 1, 'mezquita.jpg'),
-(2, 2, 'universidad.jpg');
+-- --------------------------------------------------
+-- Subtabla: monumento
+-- --------------------------------------------------
+INSERT INTO `monumento` (`id`, `imagen`) VALUES
+  (1, 'mezquita_catedral.jpg'),
+  (5, 'capilla_salvador.jpg');
 
-INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
-(12, 3, 'Festival cultural renacentista.', 'Festival de Baeza'),
-(11, 4, 'Concierto anual en la Sacra Capilla.', 'Concierto Coral Úbeda');
+-- --------------------------------------------------
+-- Subtabla: evento
+-- --------------------------------------------------
+INSERT INTO `evento` (`id`, `fecha`) VALUES
+  (2, '2025-06-15'),
+  (3, '2025-06-24');
 
-INSERT INTO `evento` (`articulo_id`, `id`, `fecha`) VALUES
-(3, 3, '2025-06-10'),
-(4, 4, '2025-09-15');
+-- --------------------------------------------------
+-- Subtabla: comida
+-- --------------------------------------------------
+INSERT INTO `comida` (`id`, `imagen`) VALUES
+  (4, 'tapas_ibericas.jpg');
 
-INSERT INTO `articulo` (`ciudad_id`, `id`, `descripcion`, `nombre`) VALUES
-(7, 5, 'Tapa típica con embutidos y pan.', 'Tosta Extremeña'),
-(10, 6, 'Plato típico ibicenco de mariscos.', 'Bullit de peix');
+-- --------------------------------------------------
+-- Ejemplos de comentarios
+-- --------------------------------------------------
+INSERT INTO `comentario` (`id`, `user_id`, `articulo_id`, `contenido`, `fecha`) VALUES
+  (1, 1, 1, '¡Impresionante por dentro y por fuera!',      '2025-04-28 10:15:00'),
+  (2, 2, 2, 'La procesión es muy emotiva, ¡muy recomendable!', '2025-04-29 12:30:00'),
+  (3, 3, 4, 'Las tapas estaban deliciosas y muy variadas.',    '2025-04-29 14:45:00');
 
-INSERT INTO `comida` (`articulo_id`, `id`, `imagen`) VALUES
-(5, 5, 'tosta.jpg'),
-(6, 6, 'bullit.jpg');
-
-
-INSERT INTO `comentario` (`articulo_id`, `fecha`, `id`, `user_id`, `contenido`) VALUES
-(1, NOW(), 1, 1, 'Impresionante arquitectura islámica.'),
-(3, NOW(), 2, 2, 'Una experiencia increíble en el festival.'),
-(6, NOW(), 3, 3, 'Delicioso, muy recomendable.');
-
-INSERT INTO `puntuacion` (`puntuacion`, `articulo_id`, `id`, `user_id`) VALUES
-(4.8, 1, 1, 1),
-(4.5, 3, 2, 2),
-(5.0, 6, 3, 3);
+-- --------------------------------------------------
+-- Ejemplos de puntuaciones
+-- --------------------------------------------------
+INSERT INTO `puntuacion` (`id`, `user_id`, `articulo_id`, `puntuacion`) VALUES
+  (1, 1, 1, 4.8),
+  (2, 2, 2, 4.5),
+  (3, 3, 4, 4.2),
+  (4, 4, 5, 5.0);

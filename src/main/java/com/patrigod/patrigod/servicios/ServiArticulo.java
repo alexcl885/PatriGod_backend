@@ -23,7 +23,20 @@ public class ServiArticulo {
         return repoArticulo.findAll();
     }
     public List<Monumento> findAllMonumentos() {
-    return repoMonumento.findAll();  // Esto solo debería devolver Monumentos, no Articulos
-}
+        return repoMonumento.findAll();  // Esto solo debería devolver Monumentos, no Articulos
+    }
+    
+    public Articulo saveArticulo(Articulo articulo) {
+        return repoArticulo.save(articulo);  // Esto debería asignar el ID automáticamente
+    }
+    public List<Articulo> getAllArticulos() {
+        List<Articulo> articulos = repoArticulo.findAll();
+        for (Articulo articulo : articulos) {
+            System.out.println("ID artículo recuperado: " + articulo.getId());  // Asegúrate de que el ID no sea null
+        }
+        return articulos;
+    }
     
 }
+    
+

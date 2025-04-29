@@ -164,9 +164,100 @@ Finalmente, creo el controlador con el nombre `EntidadController`, por ejemplo `
 
 ## 🔁 Y así con todas las entidades...
 
-Repetiré este proceso con cada entidad de mi proyecto (por ejemplo, `Ciudad`, `Usuario`, `Comentario`, etc.), asegurándome de que **cada una tenga su modelo, repositorio, servicio y controlador**.
+Repetiré este proceso con cada entidad de mi proyecto (mo del todo como Articulo y sus subclases ya que las he programado de otra manera que se ve abajo), asegurándome de que **cada una tenga su modelo, repositorio, servicio y controlador**.
 
 De esta manera, el backend estará bien estructurado, escalable y fácil de mantener.
+
+## Clase abstracta articulo y subclases: Monumento,Evento y comida.
+
+La entidad `Articulo` define los atributos comunes a todos los elementos calificables (monumentos, eventos y comidas). Cada subtipo hereda de Articulo y solo declara los campos específicos de su propia tabla, compartiendo la clave primaria id.
+
+### `Articulo` (Entidad Padre)
+```java
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type"
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Monumento.class, name = "monumento"),
+    @JsonSubTypes.Type(value = Comida.class,    name = "comida"),
+    @JsonSubTypes.Type(value = Evento.class,    name = "evento")
+})
+public abstract class Articulo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ciudad_id", nullable = false,
+                foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
+    private Ciudad ciudad;
+
+    @Column(nullable = false, length = 255)
+    private String nombre;
+
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
+}
+```
+
+- **@Entity**: Define la clase como entidad JPA.
+- **@Inheritance(JOINED)**: Crea una tabla principal `articulo` y tablas hijas que comparten la misma PK.
+- **@JsonTypeInfo / @JsonSubTypes**: Configura Jackson para incluir un campo `type` en JSON, indicando la subclase concreta.
+
+### Subclases (`Monumento`, `Evento`, `Comida`)
+Cada subclase **hereda** de `Articulo` y sólo declara sus campos específicos:
+
+```java
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
+@JsonTypeName("monumento")
+@Data @NoArgsConstructor
+public class Monumento extends Articulo {
+    @Column(length = 255)
+    private String imagen;
+}
+```
+
+```java
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
+@JsonTypeName("comida")
+@Data @NoArgsConstructor
+public class Comida extends Articulo {
+    @Column(length = 255)
+    private String imagen;
+}
+```
+
+```java
+@Entity
+@PrimaryKeyJoinColumn(name = "id")
+@JsonTypeName("evento")
+@Data @NoArgsConstructor
+public class Evento extends Articulo {
+    private LocalDate fecha;
+}
+```
+
+- **@PrimaryKeyJoinColumn(name = "id")**: Indica que la PK de la entidad hija es exactamente la misma que la PK de `Articulo`.
+- **@JsonTypeName**: Nombre que se usa en el JSON para este subtipo.
+
+---
+
+### 📦 Esquema de Base de Datos
+
+- **Tabla `articulo`** (padre): contiene `id`, `ciudad_id`, `nombre`, `descripcion`.
+- **Tablas hijas (`monumento`, `evento`, `comida`)**: PK `id` como FK a `articulo.id`, más sus columnas propias (`imagen`, `fecha`, etc.).
+- **Herencia `JOINED`** en JPA mapea directamente esta estructura.
+
+---
 
 
 ## Autor 

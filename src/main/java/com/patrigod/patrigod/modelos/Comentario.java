@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -13,14 +15,15 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "articulo_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_comentario_articulo"))
     private Articulo articulo;

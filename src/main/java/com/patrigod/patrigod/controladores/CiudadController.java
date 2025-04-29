@@ -21,5 +21,12 @@ public class CiudadController {
     public List<Ciudad> findAll() {
         return serviCiudad.findAll();
     }
+
+    /*@GetMapping("/rank")
+    public List<Ciudad> ranking() {
+        return serviCiudad.obtenerRankingDeCiudades ();
+    }*/
+
+
     
 }

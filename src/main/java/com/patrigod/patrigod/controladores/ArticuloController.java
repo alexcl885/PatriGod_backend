@@ -19,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api/articulo")
 public class ArticuloController {
-
     @Autowired
     private ServiArticulo serviArticulo;
     
     @GetMapping
-    public ResponseEntity<List<Monumento>> getAllArticulos() {
-        List<Monumento> articulos = serviArticulo.findAllMonumentos();
-        return ResponseEntity.ok(articulos);  // Esto debería devolver los artículos con sus tipos correctamente serializados
-    }
+    public ResponseEntity<List<Articulo>> getAllArticulos() {
+    return ResponseEntity.ok(serviArticulo.findAll());
+}
 
 
     
