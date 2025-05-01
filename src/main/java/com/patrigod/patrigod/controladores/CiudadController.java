@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patrigod.patrigod.modelos.Ciudad;
 import com.patrigod.patrigod.servicios.ServiCiudad;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CiudadController {
     @Autowired
     private ServiCiudad serviCiudad;
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public List<Ciudad> findAll() {
         return serviCiudad.findAll();
