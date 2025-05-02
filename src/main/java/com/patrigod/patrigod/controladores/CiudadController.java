@@ -13,6 +13,9 @@ import com.patrigod.patrigod.modelos.Comida;
 import com.patrigod.patrigod.modelos.Evento;
 import com.patrigod.patrigod.modelos.Monumento;
 import com.patrigod.patrigod.servicios.ServiCiudad;
+import com.patrigod.patrigod.servicios.ServiComida;
+import com.patrigod.patrigod.servicios.ServiEvento;
+import com.patrigod.patrigod.servicios.ServiMonumento;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CiudadController {
     @Autowired
     private ServiCiudad serviCiudad;
+
+    @Autowired
+    private ServiMonumento serviMonumento;
+
+    @Autowired
+    private ServiComida serviComida;
+
+    @Autowired
+    private ServiEvento serviEvento;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
@@ -72,7 +84,36 @@ public class CiudadController {
         return serviCiudad.findEventosByCiudad(id);
     }
 
+     /**
+     * 
+     * @param id indentificar de la ciudad
+     * @return un monumento de una ciudad
+     */
+    @GetMapping("/{id}/monumentos/{idMonumento}")
+    public Optional<Monumento> findMonumentoByCiudad(@PathVariable @NonNull Long idMonumento){
+        return serviMonumento.findMonumento(idMonumento);
+    }
     
+    /**
+     * 
+     * @param id indentificar de la ciudad
+     * @return una comida de una ciudad
+     */
+    @GetMapping("/{id}/comidas/{idComida}")
+    public Optional<Comida> findComidaByCiudad(@PathVariable @NonNull Long idComida){
+        return serviComida.findComida(idComida);
+    }
+
+
+    /**
+     * 
+     * @param id indentificar de la ciudad
+     * @return una comida de una ciudad
+     */
+    @GetMapping("/{id}/eventos/{idEvento}")
+    public Optional<Evento> findEventoByCiudad(@PathVariable @NonNull Long idEvento){
+        return serviEvento.findEvento(idEvento);
+    }
 
     /*@GetMapping("/rank")
     public List<Ciudad> ranking() {

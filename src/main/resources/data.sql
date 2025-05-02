@@ -91,56 +91,131 @@ INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
   (29, 13, 'Calle Mayor',                    'Vial principal de Alcalá con casas nobiliarias.'),
   (30, 14, 'Puerta de San Pedro',            'Acceso principal a la muralla de Lugo.'),
   (31, 15, 'Forum de la Colonia',            'Plaza central romana en Tarragona.'),
-  (32, 16, 'Huerto del Cura',                'Jardín botánico dentro del Palmeral de Elche.');
+  (32, 16, 'Huerto del Cura',                'Jardín botánico dentro del Palmeral de Elche.'),
+  (33, 11, 'Ochios',                'Muy buenos');
 
 -- --------------------------------------------------
 -- Subtabla: monumento
 -- --------------------------------------------------
-INSERT INTO `monumento` (`id`, `imagen`) VALUES
-  (1,  'mezquita_catedral.jpg'),
-  (6,  'puente_romano.jpg'),
-  (7,  'alhambra_granada.jpg'),
-  (10, 'dalt_vila_ibiza.jpg'),
-  (11, 'sacra_capilla_salvador.jpg'),
-  (13, 'universidad_cisneriana.jpg'),
-  (14, 'muralla_lugo.jpg'),
-  (15, 'anfiteatro_tarragona.jpg'),
-  (16, 'palmeral_elche.jpg'),
-  (19, 'casa_conchas_salamanca.jpg'),
-  (22, 'alcazar_segovia.jpg'),
-  (24, 'catedral_cuenca.jpg'),
-  (27, 'palacio_molina_ubeda.jpg'),
-  (30, 'puerta_san_pedro_lugo.jpg');
+INSERT INTO `monumento` (
+  `id`, `imagen`, `estilo_arquitectonico`, `epoca_construccion`, `ubicacion`,
+  `horario_visitas`, `precio_entrada`, `declaracion_unesco`, `altura`,
+  `materiales_principales`, `curiosidades`
+) VALUES
+(1, 'mezquita_catedral.jpg', 'Islámico y Gótico', 'Siglo VIII - XVI', 'Calle Cardenal Herrero, Córdoba',
+ '10:00 - 19:00', '13€', '1984', 30.0, 'Piedra arenisca y mármol',
+ 'Fue mezquita durante el Califato de Córdoba y luego convertida en catedral católica.'),
+
+(6, 'puente_romano.jpg', 'Romano', 'Siglo I d.C.', 'Río Guadalquivir, Córdoba',
+ 'Abierto todo el día', 'Gratis', '1984', 16.0, 'Piedra y mortero romano',
+ 'Fue parte de la Vía Augusta, una de las vías principales del Imperio Romano.'),
+
+(7, 'alhambra_granada.jpg', 'Nazarí y Renacentista', 'Siglo XIII - XV', 'Calle Real de la Alhambra, Granada',
+ '08:30 - 20:00', '14€', '1984', 50.0, 'Yeso, ladrillo, cerámica vidriada',
+ 'Fue residencia de los reyes nazaríes y una de las joyas arquitectónicas de Europa.'),
+
+(10, 'dalt_vila_ibiza.jpg', 'Renaixentista', 'Siglo XVI', 'Ibiza ciudad',
+ '10:00 - 18:00', 'Gratis', '1999', 20.0, 'Piedra caliza',
+ 'Constituye el recinto fortificado mejor conservado del Mediterráneo.'),
+
+(11, 'sacra_capilla_salvador.jpg', 'Renacentista', 'Siglo XVI', 'Plaza Vázquez de Molina, Úbeda',
+ '10:00 - 14:00 / 16:00 - 19:00', '5€', '2003', 35.0, 'Piedra de cantera local',
+ 'Diseñada por Diego de Siloé y Andrés de Vandelvira, es un referente del renacimiento andaluz.'),
+
+(13, 'universidad_cisneriana.jpg', 'Renacentista', 'Siglo XV', 'Calle Libreros, Alcalá de Henares',
+ '10:00 - 18:00', '4€', '1998', 28.0, 'Piedra caliza',
+ 'Fundada por el Cardenal Cisneros, fue una de las primeras universidades modernas.'),
+
+(14, 'muralla_lugo.jpg', 'Romano', 'Siglo III', 'Centro histórico, Lugo',
+ 'Libre acceso', 'Gratis', '2000', 10.0, 'Granito',
+ 'Es la única muralla romana completa que se conserva en el mundo.'),
+
+(15, 'anfiteatro_tarragona.jpg', 'Romano', 'Siglo II', 'Rambla Vella, Tarragona',
+ '09:00 - 20:00', '5€', '2000', 18.0, 'Piedra',
+ 'Podía albergar hasta 15.000 espectadores y fue escenario de luchas de gladiadores.'),
+
+(16, 'palmeral_elche.jpg', 'Árabe', 'Siglo X', 'Centro histórico, Elche',
+ 'Libre acceso', 'Gratis', '2000', NULL, 'Palmeras, acequias',
+ 'Es el mayor palmeral de Europa, con más de 200.000 ejemplares.'),
+
+(19, 'casa_conchas_salamanca.jpg', 'Gótico tardío', 'Siglo XV', 'Calle Compañía, Salamanca',
+ '10:00 - 20:00', 'Gratis', '1988', 17.0, 'Piedra y conchas decorativas',
+ 'La fachada tiene más de 300 conchas de piedra, símbolo de la orden de Santiago.'),
+
+(22, 'alcazar_segovia.jpg', 'Gótico y Mudéjar', 'Siglo XII', 'Plaza Reina Victoria Eugenia, Segovia',
+ '10:00 - 18:00', '9€', '1985', 80.0, 'Piedra caliza',
+ 'Inspiró el castillo de Disney y fue residencia de reyes de Castilla.'),
+
+(24, 'catedral_cuenca.jpg', 'Gótico normando', 'Siglo XII', 'Plaza Mayor, Cuenca',
+ '10:00 - 18:30', '6€', '1996', 35.0, 'Piedra',
+ 'Fue una de las primeras catedrales góticas construidas en España.'),
+
+(27, 'palacio_molina_ubeda.jpg', 'Renacentista', 'Siglo XVI', 'Calle Juan Montilla, Úbeda',
+ '10:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 20.0, 'Piedra local',
+ 'Hoy alberga la Casa de la Cultura y exposiciones temporales.'),
+
+(30, 'puerta_san_pedro_lugo.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
+ 'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
+ 'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.');
+
 
 -- --------------------------------------------------
 -- Subtabla: evento
 -- --------------------------------------------------
-INSERT INTO `evento` (`id`, `fecha`) VALUES
-  (2,  '2025-06-15'),
-  (3,  '2025-06-24'),
-  (8,  '2025-07-10'),
-  (11, '2025-03-24'),
-  (14, '2025-10-12'),
-  (17, '2025-05-01'),
-  (18, '2025-09-21'),
-  (21, '2025-04-25'),
-  (23, '2025-08-15'),
-  (26, '2025-12-05'),
-  (29, '2025-11-01'),
-  (31, '2025-09-10');
+INSERT INTO `evento` (
+  `id`,
+  `fecha`,
+  `hora_evento`,
+  `lugar`,
+  `informacion_evento`,
+  `imagen`,
+  `tipo_evento`,
+  `organizador`,
+  `web_oficial`,
+  `precio`,
+  `duracion`
+) VALUES
+(2,  '2025-06-15', '19:00:00', 'Teatro Romano', 'Espectáculo nocturno con luces y música en un entorno histórico.', 'teatro_romano.jpg', 'Espectáculo', 'Asociación Cultural Roma', 'https://romashow.com', 'Gratis', 90),
+
+(3,  '2025-06-24', '22:00:00', 'Plaza Mayor', 'Fiesta de San Juan con hogueras, música y fuegos artificiales.', 'san_juan.jpg', 'Fiesta popular', 'Ayuntamiento de la ciudad', 'https://fiestasanjuán.org', 'Gratis', 120),
+
+(8,  '2025-07-10', '18:30:00', 'Auditorio Municipal', 'Festival de jazz con artistas internacionales.', 'jazz_festival.jpg', 'Concierto', 'JazzLocal', 'https://jazzlocalfest.com', '15€', 150),
+
+(11, '2025-03-24', '09:00:00', 'Centro de Convenciones', 'Feria gastronómica con degustaciones y talleres.', 'feria_gastronomia.jpg', 'Feria', 'Sabores del Sur', 'https://saboresdelsur.org', '5€', 240),
+
+(14, '2025-10-12', '12:00:00', 'Museo de Historia', 'Inauguración de la exposición "Patrimonio Vivo".', 'expo_patrimonio.jpg', 'Exposición', 'Museo de Historia', 'https://museohistoria.es/exposicion', 'Gratis', 60),
+
+(17, '2025-05-01', '10:30:00', 'Parque Natural', 'Ruta guiada con actividades en la naturaleza.', 'ruta_parque.jpg', 'Excursión', 'EcoTurismo Sierra', 'https://ecoturismo.es/rutas', '8€', 180),
+
+(18, '2025-09-21', '20:00:00', 'Castillo de la ciudad', 'Concierto de música medieval al atardecer.', 'concierto_castillo.jpg', 'Concierto', 'Música Viva', 'https://musicaviva.org', '10€', 100),
+
+(21, '2025-04-25', '17:00:00', 'Salón de Actos', 'Encuentro literario con autores y editoriales.', 'encuentro_literario.jpg', 'Encuentro', 'Editoriales Unidas', 'https://encuentrolibros.com', 'Gratis', 90),
+
+(23, '2025-08-15', '11:00:00', 'Plaza de toros', 'Feria de artesanía con productos locales.', 'feria_artesania.jpg', 'Feria', 'Artesanos Unidos', 'https://feriaartesania.org', 'Entrada libre', 300),
+
+(26, '2025-12-05', '16:00:00', 'Centro Cultural', 'Taller de cocina tradicional navideña.', 'taller_navidad.jpg', 'Taller', 'Sabor a Tradición', 'https://saboresnavidad.es', '12€', 120),
+
+(29, '2025-11-01', '19:30:00', 'Teatro Municipal', 'Obra de teatro inspirada en leyendas locales.', 'teatro_leyendas.jpg', 'Teatro', 'Compañía Dramática del Sur', 'https://teatrosur.org', '10€', 110),
+
+(31, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240);
+
 
 -- --------------------------------------------------
 -- Subtabla: comida
 -- --------------------------------------------------
-INSERT INTO `comida` (`id`, `imagen`) VALUES
-  (4,  'tapas_ibericas.jpg'),
-  (9,  'migas_serranas.jpg'),
-  (12, 'plaza_populo_baeza.jpg'),
-  (15, 'queso_manchego.jpg'),
-  (20, 'rosquillas_medievales_avila.jpg'),
-  (25, 'pimientos_padron_santiago.jpg'),
-  (28, 'perrunillas_baeza.jpg'),
-  (32, 'helado_palmera_elche.jpg');
+INSERT INTO `comida` 
+(`id`, `imagen`, `tipo`, `origen`, `ingredientes_principales`, `calorias_aprox`, `momento_consumo`, `apto_vegetarianos`, `acompañamientos_recomendados`, `curiosidades`) 
+VALUES
+(4,  'tapas_ibericas.jpg', 'Aperitivo', 'Ibérico', 'Jamón, queso, chorizo, aceitunas', 350, 'Todo el año', FALSE, 'Vino tinto, pan rústico', 'Las tapas surgieron como una manera de cubrir la bebida para evitar que entraran insectos.'),
+(9,  'migas_serranas.jpg', 'Plato principal', 'Castellano', 'Pan duro, ajo, pimientos, chorizo', 600, 'Invierno', FALSE, 'Uvas, huevo frito', 'Antiguamente era comida de pastores que aprovechaban el pan duro.'),
+(12, 'plaza_populo_baeza.jpg', 'Postre', 'Andalusí', 'Miel, almendras, harina', 450, 'Semana Santa', TRUE, 'Café o vino dulce', 'Inspirado en los dulces árabes tradicionales de la zona de Baeza.'),
+(15, 'queso_manchego.jpg', 'Aperitivo', 'Manchego', 'Leche de oveja manchega', 400, 'Todo el año', FALSE, 'Membrillo, pan de pueblo', 'Este queso tiene Denominación de Origen y siglos de historia.'),
+(20, 'rosquillas_medievales_avila.jpg', 'Postre', 'Medieval', 'Harina, azúcar, anís', 300, 'Fiestas Patronales', TRUE, 'Chocolate caliente', 'Receta típica de las fiestas de Santa Teresa en Ávila.'),
+(25, 'pimientos_padron_santiago.jpg', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
+(28, 'perrunillas_baeza.jpg', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
+(32, 'helado_palmera_elche.jpg', 'Postre', 'Moderno', 'Dátil, leche, azúcar', 220, 'Verano', TRUE, 'Galleta o barquillo', 'Un helado gourmet hecho con dátiles del famoso palmeral de Elche.'),
+(33, 'ochios_de_ubeda.jpg', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
+
 
 -- --------------------------------------------------
 -- Ejemplos de comentarios

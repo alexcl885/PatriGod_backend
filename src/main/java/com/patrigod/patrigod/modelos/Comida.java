@@ -12,6 +12,29 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Comida extends Articulo {
+
     @Column(length = 255)
     private String imagen;
+
+    @Column(length = 100)
+    private String tipo; 
+
+    @Column(length = 100)
+    private String origen; 
+
+    @Column(length = 255)
+    private String ingredientesPrincipales; 
+
+    private Integer caloriasAprox; 
+
+    @Column(length = 255)
+    private String momentoConsumo; 
+
+    private Boolean aptoVegetarianos; 
+
+    @Column(length = 255)
+    private String acompañamientosRecomendados; 
+
+    @Column(columnDefinition = "TEXT")
+    private String curiosidades; 
 }
