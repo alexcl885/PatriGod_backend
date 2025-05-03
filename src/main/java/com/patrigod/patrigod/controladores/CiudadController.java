@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patrigod.patrigod.DTO.RankingArticuloDTO;
 import com.patrigod.patrigod.modelos.Ciudad;
 import com.patrigod.patrigod.modelos.Comida;
 import com.patrigod.patrigod.modelos.Evento;
@@ -114,12 +115,42 @@ public class CiudadController {
     public Optional<Evento> findEventoByCiudad(@PathVariable @NonNull Long idEvento){
         return serviEvento.findEvento(idEvento);
     }
-
+    /**
+     * 
+     * @return lista de ciudades rankeadas por la suma de sus articulos
+     */
     @GetMapping("/rank")
     public List<Ciudad> ranking() {
         return serviCiudad.obtenerRankingDeCiudades ();
     }
+    /**
+     * 
+     * @return lista ciudades(DTO) segun la media de monumentos de cada ciudad
+     */
+    @GetMapping("/rankMonumento")
+    public List<RankingArticuloDTO> rankingMonumento() {
+        return serviCiudad.findRankingByMonumento();
+    }
+    /**
+     * 
+     * @return lista ciudades(DTO) segun la media de comidas de cada ciudad
+     */
+    @GetMapping("/rankComida")
+    public List<RankingArticuloDTO> rankingComida() {
+        return serviCiudad.findRankingByComida();
+    }
 
+    /**
+     * 
+     * @return lista ciudades(DTO) segun la media de eventos de cada ciudad
+     */
+    @GetMapping("/rankEvento")
+    public List<RankingArticuloDTO> rankingEvento() {
+        return serviCiudad.findRankignByEvento();
+    }
+
+
+    
 
     
 }

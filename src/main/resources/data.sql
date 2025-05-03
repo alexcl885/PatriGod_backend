@@ -232,4 +232,6 @@ INSERT INTO `puntuacion` (`id`, `user_id`, `articulo_id`, `puntuacion`) VALUES
   (1, 1, 1, 4.8),
   (2, 2, 2, 4.5),
   (3, 3, 4, 4.2),
-  (4, 4, 5, 5.0);
+  (4, 4, 5, 5.0),
+  (5, 1, 11, 2.0),
+  (6, 1, 27, 5.0);

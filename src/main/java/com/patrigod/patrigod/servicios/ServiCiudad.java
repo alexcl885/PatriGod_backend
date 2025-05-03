@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.patrigod.patrigod.DTO.RankingArticuloDTO;
 import com.patrigod.patrigod.DTO.RankingCiudadDTO;
 import com.patrigod.patrigod.modelos.Ciudad;
 import com.patrigod.patrigod.modelos.Comida;
@@ -122,7 +123,31 @@ public class ServiCiudad {
             }
         }
         return ciudadesCompletas;
-    }        
+    }    
+    /**
+     * Devuelve una lista en orden segun la puntuacion de los monumentos
+     * de cada ciudad.
+     * @return lista de ciudades segun la puntuacion de sus monumentos
+     */
+    public List<RankingArticuloDTO> findRankingByMonumento(){
+        return repoCiudad.findRankingByMonumento();
+    }
+    /**
+     * Devuelve una lista en orden segun la puntuacion de las comidas
+     * de cada ciudad.
+     * @return lista de ciudades segun la puntuacion de sus comidas
+     */
+    public List<RankingArticuloDTO> findRankingByComida(){
+        return repoCiudad.findRankingByComida();
+    }
+    /**
+     * Devuelve una lista en orden segun la puntuacion de los eventos
+     * de cada ciudad.
+     * @return lista de ciudades segun la puntuacion de sus eventos
+     */
+    public List<RankingArticuloDTO> findRankignByEvento(){
+        return repoCiudad.findRankingByEvento();
+    }
 
     
 }

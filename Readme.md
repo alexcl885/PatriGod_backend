@@ -369,7 +369,111 @@ public List<Ciudad> obtenerRankingDeCiudades() {
     return ciudadesCompletas; 
 }
 ```
+### 🏆 Ranking por Artículos
 
+En este apartado se ha desarrollado una funcionalidad para generar un **ranking de ciudades** basado en la **puntuación media de sus artículos**, dividiéndolos en tres categorías:
+
+- 🏛️ Monumentos  
+- 🍽️ Comidas  
+- 🎭 Eventos  
+
+El objetivo es mostrar de forma ordenada las ciudades con mejor valoración en cada tipo de artículo, facilitando así una visualización clara del patrimonio más destacado por parte de los usuarios.
+
+---
+
+## 🔧 ¿Cómo está implementado?
+
+### 📁  Repositorio `RepoCiudad`
+
+Se han definido tres consultas nativas (`@Query`) utilizando SQL con la función `ROW_NUMBER()` para obtener la posición de cada ciudad en el ranking.
+
+#### 🏛️ Ranking por Monumentos
+
+```java
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+    "FROM ciudad c " +
+    "JOIN articulo a ON c.id = a.ciudad_id " +
+    "JOIN monumento m ON a.id = m.id " +
+    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "GROUP BY c.id " +
+    "ORDER BY puntuacion_media DESC",
+    nativeQuery = true)
+List<RankingArticuloDTO> findRankingByMonumento();
+```
+#### 🏛️ Ranking por Comidas
+```java
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+    "FROM ciudad c " +
+    "JOIN articulo a ON c.id = a.ciudad_id " +
+    "JOIN comida co ON a.id = co.id " +
+    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "GROUP BY c.id " +
+    "ORDER BY puntuacion_media DESC",
+    nativeQuery = true)
+List<RankingArticuloDTO> findRankingByComida();
+```
+#### 🎭 Ranking por Eventos
+```java
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+    "FROM ciudad c " +
+    "JOIN articulo a ON c.id = a.ciudad_id " +
+    "JOIN evento e ON a.id = e.id " +
+    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "GROUP BY c.id " +
+    "ORDER BY puntuacion_media DESC",
+    nativeQuery = true)
+List<RankingArticuloDTO> findRankingByEvento();
+```
+### 💼  Servicio ServiCiudad
+
+Aquí se hace la llamada a los métodos del repositorio para obtener las listas ya ordenadas:
+```java
+public List<RankingArticuloDTO> findRankingByMonumento() {
+    return repoCiudad.findRankingByMonumento();
+}
+
+public List<RankingArticuloDTO> findRankingByComida() {
+    return repoCiudad.findRankingByComida();
+}
+
+public List<RankingArticuloDTO> findRankignByEvento() {
+    return repoCiudad.findRankingByEvento();
+}
+```
+
+### 🌐 3. Controlador CiudadController
+
+En el controlador, se exponen estas funcionalidades como endpoints GET, lo que permite al frontend o a cualquier cliente consumir esta información a través de la API.
+```java
+/**
+ * 
+ * @return lista ciudades(DTO) segun la media de monumentos de cada ciudad
+ */
+    @GetMapping("/rankMonumento")
+    public List<RankingArticuloDTO> rankingMonumento() {
+        return serviCiudad.findRankingByMonumento();
+    }
+/**
+ * 
+ * @return lista ciudades(DTO) segun la media de comidas de cada ciudad
+ */
+    @GetMapping("/rankComida")
+    public List<RankingArticuloDTO> rankingComida() {
+        return serviCiudad.findRankingByComida();
+    }
+
+/**
+ * 
+ * @return lista ciudades(DTO) segun la media de eventos de cada ciudad
+ */
+    @GetMapping("/rankEvento")
+    public List<RankingArticuloDTO> rankingEvento() {
+        return serviCiudad.findRankignByEvento();
+    }
+```
 ---
 
 
