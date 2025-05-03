@@ -1,4 +1,4 @@
-package com.patrigod.patrigod.modelos.DTO;
+package com.patrigod.patrigod.DTO;
 
 import com.patrigod.patrigod.modelos.Ciudad;
 

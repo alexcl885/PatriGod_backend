@@ -40,4 +40,6 @@ public class Ciudad {
 
     @Column(name = "imagen_principal", length = 255)
     private String imagenPrincipal;
+
+    private Double puntuacion;
 }

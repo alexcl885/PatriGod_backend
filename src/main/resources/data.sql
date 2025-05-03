@@ -118,7 +118,7 @@ INSERT INTO `monumento` (
  '10:00 - 18:00', 'Gratis', '1999', 20.0, 'Piedra caliza',
  'Constituye el recinto fortificado mejor conservado del Mediterráneo.'),
 
-(11, 'sacra_capilla_salvador.jpg', 'Renacentista', 'Siglo XVI', 'Plaza Vázquez de Molina, Úbeda',
+(11, 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Sacra_Capilla_del_Salvador%2C_%C3%9Abeda_%28Spain%29.jpg/2560px-Sacra_Capilla_del_Salvador%2C_%C3%9Abeda_%28Spain%29.jpg', 'Renacentista', 'Siglo XVI', 'Plaza Vázquez de Molina, Úbeda',
  '10:00 - 14:00 / 16:00 - 19:00', '5€', '2003', 35.0, 'Piedra de cantera local',
  'Diseñada por Diego de Siloé y Andrés de Vandelvira, es un referente del renacimiento andaluz.'),
 
@@ -150,7 +150,7 @@ INSERT INTO `monumento` (
  '10:00 - 18:30', '6€', '1996', 35.0, 'Piedra',
  'Fue una de las primeras catedrales góticas construidas en España.'),
 
-(27, 'palacio_molina_ubeda.jpg', 'Renacentista', 'Siglo XVI', 'Calle Juan Montilla, Úbeda',
+(27, 'https://www.gvam.es/wp-content/uploads/2020/05/Palacio-de-Juan-V%C3%A1zquez-de-Molina-%C3%9Abeda-700x467.jpg', 'Renacentista', 'Siglo XVI', 'Calle Juan Montilla, Úbeda',
  '10:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 20.0, 'Piedra local',
  'Hoy alberga la Casa de la Cultura y exposiciones temporales.'),
 
@@ -181,7 +181,7 @@ INSERT INTO `evento` (
 
 (8,  '2025-07-10', '18:30:00', 'Auditorio Municipal', 'Festival de jazz con artistas internacionales.', 'jazz_festival.jpg', 'Concierto', 'JazzLocal', 'https://jazzlocalfest.com', '15€', 150),
 
-(11, '2025-03-24', '09:00:00', 'Centro de Convenciones', 'Feria gastronómica con degustaciones y talleres.', 'feria_gastronomia.jpg', 'Feria', 'Sabores del Sur', 'https://saboresdelsur.org', '5€', 240),
+(11, '2025-03-24', '09:00:00', 'Centro de Convenciones', 'Feria gastronómica con degustaciones y talleres.', 'https://www.gvam.es/wp-content/uploads/2020/05/Palacio-de-Juan-V%C3%A1zquez-de-Molina-%C3%9Abeda-700x467.jpg', 'Feria', 'Sabores del Sur', 'https://saboresdelsur.org', '5€', 240),
 
 (14, '2025-10-12', '12:00:00', 'Museo de Historia', 'Inauguración de la exposición "Patrimonio Vivo".', 'expo_patrimonio.jpg', 'Exposición', 'Museo de Historia', 'https://museohistoria.es/exposicion', 'Gratis', 60),
 
@@ -214,7 +214,7 @@ VALUES
 (25, 'pimientos_padron_santiago.jpg', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
 (28, 'perrunillas_baeza.jpg', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
 (32, 'helado_palmera_elche.jpg', 'Postre', 'Moderno', 'Dátil, leche, azúcar', 220, 'Verano', TRUE, 'Galleta o barquillo', 'Un helado gourmet hecho con dátiles del famoso palmeral de Elche.'),
-(33, 'ochios_de_ubeda.jpg', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
+(33, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
 
 
 -- --------------------------------------------------

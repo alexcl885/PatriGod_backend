@@ -1,11 +1,14 @@
 package com.patrigod.patrigod.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.patrigod.patrigod.DTO.RankingCiudadDTO;
 import com.patrigod.patrigod.modelos.Ciudad;
 import com.patrigod.patrigod.modelos.Comida;
 import com.patrigod.patrigod.modelos.Evento;
@@ -81,25 +84,45 @@ public class ServiCiudad {
     }
     
 
-    
+    /**
+     * Este método realiza un ranking de las ciudades Patrimonio de la Humanidad
+     * basándose en la puntuación promedio de sus Eventos, Monumentos y Comidas.
+     * 
+     * Pasos:
+     * 1. Se realiza una consulta SQL para obtener el ranking de las ciudades con 
+     *    su puntuación promedio. Esta información se almacena en una lista de 
+     *    objetos `RankingCiudadDTO`.
+     * 2. Se crea una lista vacía donde se almacenarán las ciudades completas.
+     * 3. Se obtiene una lista de los IDs de las ciudades presentes en el ranking.
+     * 4. Con los IDs obtenidos, se consultan todas las ciudades correspondientes 
+     *    en la base de datos.
+     * 5. Se asocia la puntuación promedio de cada ciudad (proveniente del DTO) 
+     *    al objeto `Ciudad` y se agrega a la lista final de ciudades.
+     * 6. Se devuelve la lista de ciudades, ahora con su puntuación promedio.
+     * 
+     * @return Lista de ciudades ordenadas por su puntuación promedio de mayor a menor.
+     */
 
-    /*public List<Ciudad> obtenerRankingDeCiudades() {
+    public List<Ciudad> obtenerRankingDeCiudades() {
         List<RankingCiudadDTO> ranking = repoCiudad.findRankingCiudadesByPuntuacionPromedio();
-        
         List<Ciudad> ciudadesCompletas = new ArrayList<>();
+        List<Long> ciudadIds = ranking.stream()
+                                      .map(RankingCiudadDTO::getCiudad_id)
+                                      .collect(Collectors.toList());
         
+        List<Ciudad> ciudades = repoCiudad.findAllById(ciudadIds); // Obtener las ciudades con esos IDs
         for (RankingCiudadDTO dto : ranking) {
-            // Obtener la ciudad completa por su ID
-            Optional<Ciudad> ciudadOpt = repoCiudad.findById(dto.getCiudadId());
+            Optional<Ciudad> ciudadOpt = ciudades.stream()
+                                                 .filter(ciudad -> ciudad.getId().equals(dto.getCiudad_id()))
+                                                 .findFirst();
             if (ciudadOpt.isPresent()) {
                 Ciudad ciudad = ciudadOpt.get();
-                // Aquí puedes asociar la puntuación promedio al objeto Ciudad si lo deseas
-                // ciudad.setPuntuacionPromedio(dto.getPuntuacionPromedio());
+                ciudad.setPuntuacion(dto.getPuntuacion_promedio());
                 ciudadesCompletas.add(ciudad);
             }
         }
-        
         return ciudadesCompletas;
-    }*/
+    }        
+
     
 }

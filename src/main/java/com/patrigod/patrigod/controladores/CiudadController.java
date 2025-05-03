@@ -115,10 +115,10 @@ public class CiudadController {
         return serviEvento.findEvento(idEvento);
     }
 
-    /*@GetMapping("/rank")
+    @GetMapping("/rank")
     public List<Ciudad> ranking() {
         return serviCiudad.obtenerRankingDeCiudades ();
-    }*/
+    }
 
 
     

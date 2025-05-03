@@ -257,6 +257,119 @@ public class Evento extends Articulo {
 - **Tablas hijas (`monumento`, `evento`, `comida`)**: PK `id` como FK a `articulo.id`, más sus columnas propias (`imagen`, `fecha`, etc.).
 - **Herencia `JOINED`** en JPA mapea directamente esta estructura.
 
+## Ranking
+
+### Ranking por Ciudades
+
+En este punto vamos a tener que realizar DTO.
+
+**¿Que es una DTO?**
+Una DTO es una objeto especialmente diseñado para representar el resultado exacto de la consulta que querramos obtener.
+
+Entonces para rankear por ciudades segun sus articulos, he tenido que 
+crear una DTO:
+
+En este caso he utilizado una interfaz en vez de una clase. ¿Por que?
+He realizado una interfaz ya que solo me interesa leer datos, por lo que 
+realizo una interfaz para que salga mas ligera mi aplicación.
+
+En esta tabla se ve algunas de las diferencias entre realizar una interfaz o una clase con sus atributos y todo.
+
+### 🆚 Diferencia entre un DTO de clase y un DTO de interfaz
+
+| Característica                              | DTO clase (`@Data`, `class`)     | DTO interfaz (`interface`)       |
+|---------------------------------------------|----------------------------------|----------------------------------|
+| Se puede modificar (`setters`)              | ✅ Sí                             | ❌ No (solo lectura)             |
+| Control total de la lógica                  | ✅ Puedes usar constructores, lógica | ❌ Solo lectura directa      |
+| Útil para APIs o lógica de negocio          | ✅ Muy útil                       | ❌ Solo para leer datos de consulta |
+| Más ligero para proyecciones simples        | 🔸 Algo más pesado                | ✅ Muy ligero                    |
+
+Por lo que creo la siguiente interfaz DTO:
+
+```java
+public interface RankingCiudadDTO {
+    Integer getPosicion();
+    Long getCiudad_id();
+    String getCiudad_nombre();
+    Double getPuntuacion_promedio();
+}
+```
+
+#### Repo: RepoCiudad: `findRankingCiudadesByPuntuacionPromedio`
+
+Este método realiza una consulta SQL compleja que obtiene el **ranking de las ciudades Patrimonio de la Humanidad** basado en su **puntuación promedio**. Se utiliza la función `ROW_NUMBER()` para asignar una posición a cada ciudad según su puntuación promedio, de mayor a menor.
+
+##### Descripción de la Consulta
+
+La consulta se divide en dos partes:
+
+1. **Subconsulta Principal**: Realiza la agregación de la puntuación promedio de las ciudades, tomando en cuenta los artículos asociados a cada ciudad y su respectiva puntuación. En esta subconsulta se hace el siguiente procesamiento:
+   - Se obtiene el ID de la ciudad (`ciudad_id`) y su nombre (`ciudad_nombre`).
+   - Se calcula la puntuación promedio (`puntuacion_promedio`) de los artículos asociados a cada ciudad.
+   - Se utilizan varias uniones (JOIN) entre las tablas `ciudad`, `articulo`, `puntuacion`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
+   - Se agrupan los resultados por el ID y nombre de la ciudad.
+
+2. **Aplicación de `ROW_NUMBER()`**: Utiliza la función de ventana `ROW_NUMBER()` para asignar una posición a cada ciudad según su puntuación promedio, ordenando los resultados de manera descendente (de mayor a menor puntuación).
+
+```sql
+SELECT ROW_NUMBER() OVER (ORDER BY puntuacion_promedio DESC) AS posicion, 
+       ciudad_id, ciudad_nombre, puntuacion_promedio
+FROM (
+    SELECT c.id AS ciudad_id, 
+           c.nombre AS ciudad_nombre, 
+           AVG(p.puntuacion) AS puntuacion_promedio 
+    FROM ciudad c
+    JOIN articulo a ON a.ciudad_id = c.id
+    JOIN puntuacion p ON p.articulo_id = a.id
+    LEFT JOIN comida co ON co.id = a.id
+    LEFT JOIN evento e ON e.id = a.id
+    LEFT JOIN monumento m ON m.id = a.id
+    GROUP BY c.id, c.nombre
+) AS ranking
+ORDER BY puntuacion_promedio DESC
+```
+
+#### Servicio: ServiCiudad: `obtenerRankingDeCiudades`
+
+Este método realiza un ranking de las **ciudades Patrimonio de la Humanidad**, basándose en la **puntuación promedio** de sus Eventos, Monumentos y Comidas.
+
+##### Pasos del Método
+
+1. **Consulta SQL**: Se realiza una consulta SQL para obtener el ranking de las ciudades con su puntuación promedio. Esta información se almacena en una lista de objetos `RankingCiudadDTO`.
+
+2. **Lista Vacía**: Se crea una lista vacía llamada `ciudadesCompletas` donde se almacenarán las ciudades completas con su puntuación.
+
+3. **Obtención de IDs de Ciudades**: Se obtiene una lista de los IDs de las ciudades presentes en el ranking, que luego se utilizan para consultar las ciudades completas.
+
+4. **Consulta de Ciudades por ID**: Con los IDs obtenidos, se consultan todas las ciudades correspondientes en la base de datos.
+
+5. **Asociación de Puntuación**: Se asocia la puntuación promedio de cada ciudad (proveniente del DTO) al objeto `Ciudad` y se agrega a la lista final `ciudadesCompletas`.
+
+6. **Devolver Lista**: Finalmente, se devuelve la lista de **ciudades**, ahora con su puntuación promedio.
+
+```java
+public List<Ciudad> obtenerRankingDeCiudades() {
+    List<RankingCiudadDTO> ranking = repoCiudad.findRankingCiudadesByPuntuacionPromedio();
+    List<Ciudad> ciudadesCompletas = new ArrayList<>();
+    List<Long> ciudadIds = ranking.stream()
+                                  .map(RankingCiudadDTO::getCiudad_id)
+                                  .collect(Collectors.toList());
+    
+    List<Ciudad> ciudades = repoCiudad.findAllById(ciudadIds); 
+    for (RankingCiudadDTO dto : ranking) {
+        Optional<Ciudad> ciudadOpt = ciudades.stream()
+                                             .filter(ciudad -> ciudad.getId().equals(dto.getCiudad_id()))
+                                             .findFirst();
+        if (ciudadOpt.isPresent()) {
+            Ciudad ciudad = ciudadOpt.get();
+            ciudad.setPuntuacion(dto.getPuntuacion_promedio()); 
+            ciudadesCompletas.add(ciudad); 
+        }
+    }
+    return ciudadesCompletas; 
+}
+```
+
 ---
 
 
