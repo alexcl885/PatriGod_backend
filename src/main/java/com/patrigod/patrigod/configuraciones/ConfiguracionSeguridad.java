@@ -18,8 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 import com.patrigod.patrigod.componentes.JwtAuthenticationFilter;
-import com.patrigod.patrigod.servicios.ServiDetalleUsuario;@EnableWebSecurity
+import com.patrigod.patrigod.servicios.ServiDetalleUsuario;
+
 @Configuration
+@EnableWebSecurity
 public class ConfiguracionSeguridad {
 
     @Autowired

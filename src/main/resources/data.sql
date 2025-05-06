@@ -49,10 +49,10 @@ INSERT INTO ciudad (id, nombre, comunidad_autonoma, provincia, descripcion, fech
  '2000-12-02', 38.2699, -0.7126, 'https://revistaiberica.com/wp-content/uploads/2019/10/aqueduct-3754932_640.jpg');
 
 INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `password`, `tipo`) VALUES
-(b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', 'hashedpassword1', 'USUARIO'),
-(b'1', NOW(), 2, 'marcos', 'marcos@example.com', 'hashedpassword2', 'USUARIO'),
-(b'1', NOW(), 3, 'dani', 'dani@example.com', 'hashedpassword3', 'USUARIO'),
-(b'1', NOW(), 4, 'admin', 'admin@admin.com', 'adminpass', 'ADMINISTRADOR');
+(b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 2, 'marcos', 'marcos@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 3, 'dani', 'dani@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 4, 'admin', 'admin@admin.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'ADMINISTRADOR');
 
 -- SQL script: Insert ejemplo de artículos, monumentos, eventos y comidas para todas las ciudades patrimonio
 
