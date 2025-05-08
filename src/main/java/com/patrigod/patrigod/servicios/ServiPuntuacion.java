@@ -17,4 +17,8 @@ public class ServiPuntuacion {
         System.err.println(repoPuntuacion.findAll());
         return repoPuntuacion.findAll();
     }
+
+    public Puntuacion savePuntuacion(Puntuacion puntuacion){
+        return repoPuntuacion.save(puntuacion);
+    }
 }

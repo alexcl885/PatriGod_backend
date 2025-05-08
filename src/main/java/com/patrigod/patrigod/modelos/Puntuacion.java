@@ -14,13 +14,11 @@ public class Puntuacion {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false,
-                foreignKey = @ForeignKey(name = "fk_puntuacion_usuario"))
+    @JoinColumn(name = "user_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "articulo_id", nullable = false,
-                foreignKey = @ForeignKey(name = "fk_puntuacion_articulo"))
+    @JoinColumn(name = "articulo_id", nullable = false)
     private Articulo articulo;
 
     @Column(nullable = false)
