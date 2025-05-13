@@ -18,18 +18,24 @@ public class ServiPuntuacion {
         System.err.println(repoPuntuacion.findAll());
         return repoPuntuacion.findAll();
     }
-
+    /**
+     * Metodo que añade una nueva puntuacion de un articulo
+     * por lo que si existe se borra y se añade una nueva haciendo 
+     * como si fuera una actualizacion de la puntuacion.
+     * 
+     * @param puntuacion nueva puntuacion a añadir
+     * @return una nueva puntuación
+     */
     public Puntuacion savePuntuacion(Puntuacion puntuacion) {
         Long usuarioId = puntuacion.getUsuario().getId();
         Long articuloId = puntuacion.getArticulo().getId();
     
         Optional<Puntuacion> existente = repoPuntuacion.findByUsuarioIdAndArticuloId(usuarioId, articuloId);
     
-        if (existente.isPresent()) {
-            throw new IllegalStateException("Ya has puntuado este artículo.");
-        }
+        existente.ifPresent(p -> repoPuntuacion.deleteById(p.getId()));
     
         return repoPuntuacion.save(puntuacion);
     }
+    
     
 }
