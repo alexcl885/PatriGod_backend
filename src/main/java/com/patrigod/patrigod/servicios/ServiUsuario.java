@@ -54,6 +54,19 @@ public class ServiUsuario {
             return repoUsuario.save(existing);
         });
     }
+    public boolean cambiarEstado(Long id, boolean activo) {
+        Optional<Usuario> optionalUsuario = repoUsuario.findById(id);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            usuario.setActivo(activo);
+            repoUsuario.save(usuario);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
 
 
 }
