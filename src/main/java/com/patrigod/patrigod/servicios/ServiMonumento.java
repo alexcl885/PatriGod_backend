@@ -23,6 +23,10 @@ public class ServiMonumento {
         return repoMonumento.findById(id);
     }
 
+    public Monumento saveMonumento(Monumento monumento){
+        return repoMonumento.save(monumento);
+    }
+
 
 
 }

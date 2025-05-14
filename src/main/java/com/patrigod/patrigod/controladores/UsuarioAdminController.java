@@ -42,6 +42,13 @@ public class UsuarioAdminController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/search/{username}")
+    public List<Usuario> findUsersByUsername(@PathVariable String username) {
+        return serviUsuario.findByName(username);
+    }
+
+
     
     
 }

@@ -52,7 +52,12 @@ INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `p
 (b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
 (b'1', NOW(), 2, 'marcos', 'marcos@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
 (b'1', NOW(), 3, 'dani', 'dani@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 4, 'admin', 'admin@admin.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'ADMINISTRADOR');
+(b'1', NOW(), 4, 'admin', 'admin@admin.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'ADMINISTRADOR'),
+(b'1', NOW(), 5, 'miguelon', 'miguelon@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 6, 'copado', 'copado@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 7, 'alex', 'alex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
+(b'1', NOW(), 8, 'byalex', 'byalex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO');
+
 
 -- SQL script: Insert ejemplo de artículos, monumentos, eventos y comidas para todas las ciudades patrimonio
 

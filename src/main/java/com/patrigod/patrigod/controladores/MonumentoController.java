@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patrigod.patrigod.modelos.Monumento;
 import com.patrigod.patrigod.servicios.ServiMonumento;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/monumento")
@@ -20,6 +23,12 @@ public class MonumentoController {
     public List<Monumento> findAll() {
         return serviMonumento.findAll();
     }
+
+    @PostMapping
+    public Monumento saveMonumento(@RequestBody Monumento monumento) {
+        return serviMonumento.saveMonumento(monumento);
+    }
+    
 
 
 }
