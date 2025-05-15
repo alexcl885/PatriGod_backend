@@ -48,15 +48,15 @@ INSERT INTO ciudad (id, nombre, comunidad_autonoma, provincia, descripcion, fech
  'Elche es conocida por su Palmeral, un espacio único y monumental que se considera uno de los más grandes y mejor conservados de Europa. Este Palmeral, declarado Patrimonio de la Humanidad, es una obra de ingeniería hidráulica que data de la época musulmana. Elche también es famosa por su historia ligada a las culturas ibérica, romana y musulmana. La Dama de Elche, una de las piezas más emblemáticas del arte ibérico, fue descubierta en la ciudad y es una de las esculturas más importantes de la antigüedad española. La Basílica de Santa María y el Museo Escolar de Puçol son otros ejemplos de su riqueza histórica y cultural. Elche es una ciudad donde la tradición y la modernidad conviven en perfecta armonía, siendo un centro económico y cultural clave en la provincia de Alicante.',
  '2000-12-02', 38.2699, -0.7126, 'https://revistaiberica.com/wp-content/uploads/2019/10/aqueduct-3754932_640.jpg');
 
-INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `password`, `tipo`) VALUES
-(b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 2, 'marcos', 'marcos@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 3, 'dani', 'dani@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 4, 'admin', 'admin@admin.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'ADMINISTRADOR'),
-(b'1', NOW(), 5, 'miguelon', 'miguelon@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 6, 'copado', 'copado@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 7, 'alex', 'alex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO'),
-(b'1', NOW(), 8, 'byalex', 'byalex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO');
+INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `password`, `tipo`, `suscrito`) VALUES
+(b'1', NOW(), 1, 'alejandro', 'alejandro@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 2, 'marcos', 'marcos@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 3, 'dani', 'dani@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 4, 'admin', 'admin@admin.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'ADMINISTRADOR', false),
+(b'1', NOW(), 5, 'miguelon', 'miguelon@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 6, 'copado', 'copado@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 7, 'alex', 'alex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false),
+(b'1', NOW(), 8, 'byalex', 'byalex@example.com', '$2a$10$QvehKFggVEd50x9lfnuaCOiPuTb7oxP6oita3H8IciJAOJCJCM676', 'USUARIO', false);
 
 
 -- SQL script: Insert ejemplo de artículos, monumentos, eventos y comidas para todas las ciudades patrimonio

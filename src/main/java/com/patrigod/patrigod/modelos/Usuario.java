@@ -33,4 +33,7 @@ public class Usuario {
 
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private boolean suscrito;
 }
