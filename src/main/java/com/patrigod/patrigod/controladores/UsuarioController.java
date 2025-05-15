@@ -1,10 +1,8 @@
 package com.patrigod.patrigod.controladores;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,28 +21,39 @@ import com.patrigod.patrigod.servicios.ServiUsuario;
 @RequestMapping("/api/usuario")
 public class UsuarioController {
 
-    private final PasswordEncoder passwordEncoder;
-    @Autowired
-    private ServiUsuario serviUsuario;
+    private final PasswordEncoder passwordEncoder;  
+    private final ServiUsuario serviUsuario;
 
-    UsuarioController(PasswordEncoder passwordEncoder) {
+    UsuarioController(PasswordEncoder passwordEncoder, ServiUsuario serviUsuario) {
         this.passwordEncoder = passwordEncoder;
+        this.serviUsuario = serviUsuario;
     }
-
+    /**
+     * 
+     * @return el usuario logeado
+     */
     @GetMapping
     public Usuario getUser() {
         Usuario u = serviUsuario.getLoggedUser();
         u.setPassword("");
         return u;
     }
-
+    /**
+     * 
+     * @param id parametro para encontrar un usuario con un id
+     * @return un usuario segun el id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findOne(@PathVariable @NonNull Long id) {
         Optional<Usuario> oUsuario = serviUsuario.findById(id);
         return oUsuario.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    /**
+     * 
+     * @param u parametro usuario para añadir un usuario
+     * @return un nuevo usuario
+     */
     @PostMapping
     public ResponseEntity<Usuario> update(@RequestBody Usuario u) {
         Usuario loggedUser = serviUsuario.getLoggedUser();
@@ -58,7 +67,11 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         }
     }
-
+    /**
+     * 
+     * @param u recoge un usuario
+     * @return un usuario guardado registrado
+     */
     @PostMapping("/register")
     public ResponseEntity<Usuario> register(@RequestBody Usuario u) {
         if (u.getPassword() == null || u.getPassword().length() <= 4) {

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patrigod.patrigod.DTO.RankingArticuloDTO;
@@ -21,20 +20,21 @@ import com.patrigod.patrigod.repos.RepoMonumento;
 
 @Service
 public class ServiCiudad {
-    @Autowired
-    private RepoCiudad repoCiudad;
 
-    @Autowired
-    private RepoMonumento repoMonumento;
+    private final RepoCiudad repoCiudad;
+    private final RepoMonumento repoMonumento;
+    private final RepoComida repoComida;
+    private final RepoEvento repoEvento;
 
-    @Autowired 
-    private RepoComida repoComida;
-
-    @Autowired 
-    private RepoEvento repoEvento;
+    public ServiCiudad(RepoCiudad repoCiudad, RepoMonumento repoMonumento,
+                       RepoComida repoComida, RepoEvento repoEvento) {
+        this.repoCiudad = repoCiudad;
+        this.repoMonumento = repoMonumento;
+        this.repoComida = repoComida;
+        this.repoEvento = repoEvento;
+    }
 
     public List<Ciudad> findAll(){
-        System.err.println(repoCiudad.findAll());
         return repoCiudad.findAll();
     }
     /**

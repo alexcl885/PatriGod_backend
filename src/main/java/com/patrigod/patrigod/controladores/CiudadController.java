@@ -3,7 +3,6 @@ package com.patrigod.patrigod.controladores;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,18 +25,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/api/ciudad")
 public class CiudadController {
-    @Autowired
-    private ServiCiudad serviCiudad;
 
-    @Autowired
-    private ServiMonumento serviMonumento;
+    private final ServiCiudad serviCiudad;
+    private final ServiMonumento serviMonumento;
+    private final ServiComida serviComida;
+    private final ServiEvento serviEvento;
 
-    @Autowired
-    private ServiComida serviComida;
 
-    @Autowired
-    private ServiEvento serviEvento;
-
+    public CiudadController(ServiCiudad serviCiudad, ServiMonumento serviMonumento,
+                            ServiComida serviComida, ServiEvento serviEvento) {
+        this.serviCiudad = serviCiudad;
+        this.serviMonumento = serviMonumento;
+        this.serviComida = serviComida;
+        this.serviEvento = serviEvento;
+    }
+    /**
+     * Metodo que devuelve todas las ciudades
+     * @return una lista de ciudades
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public List<Ciudad> findAll() {
