@@ -1,30 +1,49 @@
 package com.patrigod.patrigod.controladores;
 
 import com.patrigod.patrigod.servicios.ServiEmail;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.patrigod.patrigod.servicios.ServiUsuario;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/email")
 public class EmailController {
 
-    @Autowired
-    private ServiEmail serviEmail;
+    private final ServiEmail serviEmail;
+
+    public EmailController(ServiEmail serviEmail) {
+        this.serviEmail = serviEmail;
+        
+    }
+
     /**
-     * Va perfecto!
-     * http://localhost:8080/send-email?to=alexcopado2005@gmail.com
-     * @param to persona a quien se le va a enviar el email
-     * @return un envio de email a una persona
+     * Enviar un correo de prueba con Resend.
+     * Ejemplo: http://localhost:8080/api/email/send-email?to=ejemplo@gmail.com
      */
     @GetMapping("/send-email")
-    public String sendNewPersonEmail(@RequestParam String to) {
-        try {
-            boolean enviado = serviEmail.sendEmail(to, "Prueba Resend", "<h1>Hola desde Spring Boot</h1><p>Este es un email de prueba.</p>");
-            return enviado ? "Email enviado con éxito!" : "Error al enviar email";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error: " + e.getMessage();
+    public ResponseEntity<String> sendNewPersonEmail(@RequestParam String to) {
+        boolean enviado = serviEmail.sendEmail(to, "Prueba Resend",
+                "<h1>Hola desde Spring Boot</h1><p>Este es un email de prueba.</p>");
+
+        if (enviado) {
+            return ResponseEntity.ok("Email enviado con éxito!");
+        } else {
+            return ResponseEntity.status(500).body("Error al enviar el email.");
+        }
+    }
+
+    /**
+     * Envía un correo de bienvenida a un usuario recién registrado.
+     */
+    @PostMapping("/registro/{email}")
+    public ResponseEntity<String> registrarUsuario(@PathVariable String email) {
+        boolean enviado = serviEmail.sendWelcomeEmail(email);
+
+        if (enviado) {
+            return ResponseEntity.ok("Usuario registrado y correo enviado.");
+        } else {
+            return ResponseEntity.status(500).body("Usuario registrado pero error al enviar el correo.");
         }
     }
 }

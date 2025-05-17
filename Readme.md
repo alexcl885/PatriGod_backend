@@ -475,6 +475,105 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
     }
 ```
 ---
+# ✉️ Servicio de Email con Resend.com
+
+Este proyecto integra un sistema de envío de correos electrónicos usando [Resend.com](https://resend.com), una plataforma moderna para gestionar emails transaccionales y notificaciones en aplicaciones web.
+
+---
+
+## 📌 Objetivo
+
+El objetivo principal es **enviar correos a los usuarios** para mantenerlos informados sobre las **últimas novedades, actualizaciones y eventos importantes** de la aplicación.
+
+---
+
+## 🛠️ Funcionalidades
+
+- Envío automático de correo de bienvenida al registrarse.
+- Suscripción a notificaciones por correo.
+- Envío periódico o manual de actualizaciones relevantes de la plataforma.
+- Futuras mejoras para gestionar preferencias de notificación de usuarios.
+
+---
+
+## 📧 ¿Por qué Resend.com?
+
+Resend.com fue elegido por:
+
+- Fácil integración en proyectos modernos.
+- API sencilla y bien documentada.
+- Alta fiabilidad y rapidez en el envío de correos.
+
+Actualmente, estamos en fase de testeo utilizando la cuenta gratuita de Resend.com, lo que implica que **solo es posible enviar correos a la dirección `alexcopado2005@gmail.com`**. 
+
+Para enviar emails a otros destinatarios será necesario verificar un dominio propio y actualizar el plan de Resend.com. Esta ampliación está prevista para futuras versiones del proyecto, permitiendo así enviar correos a todos los usuarios registrados.
+
+---
+
+## ⚙️ Configuración en Spring Boot
+
+En el proyecto se define un bean para la integración con Resend usando la clave API almacenada en `application.properties`:
+
+```java
+package com.patrigod.patrigod.configuraciones;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.resend.Resend;
+
+@Configuration
+public class ResendConfig {
+
+    @Value("${resend.api.key}")
+    private String resendApiKey;
+
+    @Bean
+    public Resend resendClient() {
+        return new Resend(resendApiKey);
+    }
+}
+```
+## Configuracion application.properties
+```properties
+resend.api.key=re_WUevzQu6_22MWhkPCTjYXtgLdFNBmTwcr
+```
+
+### Envio email al registrar un usuario
+Cuando un usuario se registra además de realizar una peticion POST para poder registrar al usuario también lo que se hara sera enviar un correo para que vea el usuario que se ha aplicado bien su correo electronico:
+
+```java
+public boolean sendEmail(String to, String subject, String htmlContent) {
+        CreateEmailOptions params = CreateEmailOptions.builder()
+                .from("Patrigod <onboarding@resend.dev>")
+                .to(to)
+                .subject(subject)
+                .html(htmlContent)
+                .build();
+
+        try {
+            CreateEmailResponse response = resend.emails().send(params);
+            System.out.println("Email enviado con ID: " + response.getId());
+            return response.getId() != null;
+        } catch (ResendException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean sendWelcomeEmail(String to) {
+        String subject = "¡Bienvenido a Patrigod!";
+        String htmlContent = getBaseTemplate("""
+            <h2>Gracias por registrarte 🎉</h2>
+            <p>Estamos encantados de tenerte con nosotros. A partir de ahora estarás al tanto de todas las novedades de la aplicación.</p>
+        """);
+        return sendEmail(to, subject, htmlContent);
+    }
+```
+
+---
+
 
 
 ## Autor 

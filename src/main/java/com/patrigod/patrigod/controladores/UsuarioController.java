@@ -81,6 +81,7 @@ public class UsuarioController {
         u.setActivo(true);
         u.setFechaCreacion(LocalDateTime.now());
         u.setTipo(TipoUsuario.USUARIO); // Asignación por defecto
+        u.setSuscrito(false);
         return ResponseEntity.ok(serviUsuario.save(u));
     }
 
