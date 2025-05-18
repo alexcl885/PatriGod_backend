@@ -1,7 +1,11 @@
 package com.patrigod.patrigod.controladores;
 
+import com.patrigod.patrigod.DTO.UpdateMessageRequestDTO;
+import com.patrigod.patrigod.modelos.Usuario;
 import com.patrigod.patrigod.servicios.ServiEmail;
 import com.patrigod.patrigod.servicios.ServiUsuario;
+
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class EmailController {
 
     private final ServiEmail serviEmail;
+    private final ServiUsuario serviUsuario;
 
-    public EmailController(ServiEmail serviEmail) {
+
+    public EmailController(ServiEmail serviEmail, ServiUsuario serviUsuario) {
         this.serviEmail = serviEmail;
-        
+        this.serviUsuario = serviUsuario;
     }
+    
 
     /**
      * Enviar un correo de prueba con Resend.
@@ -46,4 +53,32 @@ public class EmailController {
             return ResponseEntity.status(500).body("Usuario registrado pero error al enviar el correo.");
         }
     }
+    /**
+     * 
+     * @param request mensaje del admin al que mandara a todos los usuarios
+     * @return los correos que ha podido enviar desde resend.com
+     */
+    @PostMapping("/actualizacion")
+    public ResponseEntity<String> emailActualizacionPatriGod(@RequestBody UpdateMessageRequestDTO request) {
+    
+        List<Usuario> usuarios = serviUsuario.findTipoUsuario(); 
+        /*  
+            Esto seria para un plan mejor con resend.com
+            para que pueda enviar correos a todo el mundo
+
+        int enviados = 0;
+        for (Usuario usuario : usuarios) {
+            boolean enviado = serviEmail.sendUpdateNotification(usuario.getEmail(), request.getUpdateMessage());
+            if (enviado) enviados++;
+        }
+        */
+        /**
+         * Como tengo la version gratis solo puede ser a alexcopado2005@gmail.com
+         */
+        int enviados = 1;
+        serviEmail.sendUpdateNotification("alexcopado2005@gmail.com", request.getUpdateMessage());
+        return ResponseEntity.ok("Correos enviados: " + enviados + " de " + usuarios.size());
+    }
+
+
 }

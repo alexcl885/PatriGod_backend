@@ -9,10 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patrigod.patrigod.DTO.UsuarioActualizacionDTO;
 import com.patrigod.patrigod.modelos.TipoUsuario;
 import com.patrigod.patrigod.modelos.Usuario;
 import com.patrigod.patrigod.servicios.ServiUsuario;
@@ -21,13 +23,14 @@ import com.patrigod.patrigod.servicios.ServiUsuario;
 @RequestMapping("/api/usuario")
 public class UsuarioController {
 
-    private final PasswordEncoder passwordEncoder;  
+    private final PasswordEncoder passwordEncoder;
     private final ServiUsuario serviUsuario;
 
     UsuarioController(PasswordEncoder passwordEncoder, ServiUsuario serviUsuario) {
         this.passwordEncoder = passwordEncoder;
         this.serviUsuario = serviUsuario;
     }
+
     /**
      * 
      * @return el usuario logeado
@@ -38,6 +41,7 @@ public class UsuarioController {
         u.setPassword("");
         return u;
     }
+
     /**
      * 
      * @param id parametro para encontrar un usuario con un id
@@ -49,6 +53,7 @@ public class UsuarioController {
         return oUsuario.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     /**
      * 
      * @param u parametro usuario para añadir un usuario
@@ -67,6 +72,7 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     /**
      * 
      * @param u recoge un usuario
@@ -83,6 +89,19 @@ public class UsuarioController {
         u.setTipo(TipoUsuario.USUARIO); // Asignación por defecto
         u.setSuscrito(false);
         return ResponseEntity.ok(serviUsuario.save(u));
+    }
+
+    /**
+     * 
+     * @param id identificador del usuario a actualizar
+     * @param dto nuevos parametros a actualizar
+     * @return una persona actualizada por su email o username
+     */
+    @PutMapping("/{id}/actualizar-usuario")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioActualizacionDTO dto) {
+        return serviUsuario.actualizarUsernameOEmail(id, dto.getUsername(), dto.getEmail())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }

@@ -10,4 +10,8 @@ import com.patrigod.patrigod.modelos.Usuario;
 @Repository
 public interface RepoUsuario extends JpaRepository<Usuario, Long> {
     List<Usuario> findByUsername(String username);
+
+    boolean existsByUsernameAndIdNot(String username, Long id);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
 }

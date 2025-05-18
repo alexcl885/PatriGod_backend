@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.patrigod.patrigod.modelos.TipoUsuario;
 import com.patrigod.patrigod.modelos.Usuario;
 import com.patrigod.patrigod.repos.RepoUsuario;
 
@@ -98,6 +99,58 @@ public class ServiUsuario {
             return false;
         }
     }
+    /**
+     * 
+     * @return una lista de usuarios Tipo USUARIO
+     */
+    public List<Usuario> findTipoUsuario(){
+        return repoUsuario.findAll().stream()
+                                    .filter(user -> user.getTipo() == TipoUsuario.USUARIO)
+                                    .toList();
+    }
+
+    /**
+     * 
+     * @return una lista de usuarios Tipo USUARIO
+     */
+    public List<Usuario> findTipoAdministrador(){
+        return repoUsuario.findAll().stream()
+                                    .filter(user -> user.getTipo() == TipoUsuario.ADMINISTRADOR)
+                                    .toList();
+    }
+
+    /**
+ * Actualiza el username y/o email de un usuario
+ * 
+ * @param id ID del usuario a actualizar
+ * @param nuevoUsername Nuevo nombre de usuario (puede ser null si no se cambia)
+ * @param nuevoEmail Nuevo email (puede ser null si no se cambia)
+ * @return el usuario actualizado o vacío si no se encontró
+ */
+public Optional<Usuario> actualizarUsernameOEmail(Long id, String nuevoUsername, String nuevoEmail) {
+    return repoUsuario.findById(id).map(usuario -> {
+
+        if (nuevoUsername != null && !nuevoUsername.isBlank()) {
+            boolean usernameExiste = repoUsuario.existsByUsernameAndIdNot(nuevoUsername, id);
+            if (usernameExiste) {
+                throw new RuntimeException("El nombre de usuario ya está en uso.");
+            }
+            usuario.setUsername(nuevoUsername);
+        }
+
+        if (nuevoEmail != null && !nuevoEmail.isBlank()) {
+            boolean emailExiste = repoUsuario.existsByEmailAndIdNot(nuevoEmail, id);
+            if (emailExiste) {
+                throw new RuntimeException("El email ya está en uso.");
+            }
+            usuario.setEmail(nuevoEmail);
+        }
+
+        return repoUsuario.save(usuario);
+    });
+}
+
+
     
     
 

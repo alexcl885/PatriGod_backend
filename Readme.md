@@ -10,7 +10,12 @@ Este proyecto contiene el **backend** de la aplicación web **PatriGod**, respon
 2. [Implementacion de Docker](#creacion-del-proyecto)
 3. [Creacion de Carpetas](#creacion-de-carpetas)
 4. [Programando proyecto](#programando-proyecto)
-4. [Autor](#autor)
+    - [Base del proyecto](#base-del-proyecto)
+    - [Subclases clase Articulo](#subclases-monumento-evento-comida)
+    - [Ranking](#ranking)
+    - [Email](#email)
+    - [Spring Security + JWT](#programando-proyecto) 
+5. [Autor](#autor)
 
 
 ---
@@ -129,8 +134,9 @@ A partir de crear todas las carpetas, ya empieza lo bueno ya que empiezo a progr
 
 He pensado en realizarlo poco a poco entonces he pensado hacer entidad por entidad con todas sus cosas para que se muestren por lo menos todas 
 los datos de cada entidad y los pasos serían los siguientes:
+### Base del proyecto
 
-### ✅ Paso 1: Crear el modelo
+#### ✅ Paso 1: Crear el modelo
 
 📁 Carpeta: `/modelos`
 
@@ -138,7 +144,7 @@ Creo el modelo de mi entidad (por ejemplo, `Ciudad.java`), que representa una ta
 
 ---
 
-### ✅ Paso 2: Crear el repositorio
+#### ✅ Paso 2: Crear el repositorio
 
 📁 Carpeta: `/repos`
 
@@ -146,7 +152,7 @@ Creo el repositorio de la entidad con el nombre `RepoEntidad`, por ejemplo `Repo
 
 ---
 
-### ✅ Paso 3: Crear el servicio
+#### ✅ Paso 3: Crear el servicio
 
 📁 Carpeta: `/servicios`
 
@@ -154,7 +160,7 @@ Aquí creo el servicio de la entidad con el nombre `ServiEntidad`, por ejemplo `
 
 ---
 
-### ✅ Paso 4: Crear el controlador
+#### ✅ Paso 4: Crear el controlador
 
 📁 Carpeta: `/controladores`
 
@@ -162,17 +168,17 @@ Finalmente, creo el controlador con el nombre `EntidadController`, por ejemplo `
 
 ---
 
-## 🔁 Y así con todas las entidades...
+#### 🔁 Y así con todas las entidades...
 
 Repetiré este proceso con cada entidad de mi proyecto (mo del todo como Articulo y sus subclases ya que las he programado de otra manera que se ve abajo), asegurándome de que **cada una tenga su modelo, repositorio, servicio y controlador**.
 
 De esta manera, el backend estará bien estructurado, escalable y fácil de mantener.
 
-## Clase abstracta articulo y subclases: Monumento,Evento y comida.
+### Clase abstracta articulo y subclases: Monumento,Evento y comida.
 
 La entidad `Articulo` define los atributos comunes a todos los elementos calificables (monumentos, eventos y comidas). Cada subtipo hereda de Articulo y solo declara los campos específicos de su propia tabla, compartiendo la clave primaria id.
 
-### `Articulo` (Entidad Padre)
+#### `Articulo` (Entidad Padre)
 ```java
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -211,7 +217,7 @@ public abstract class Articulo {
 - **@Inheritance(JOINED)**: Crea una tabla principal `articulo` y tablas hijas que comparten la misma PK.
 - **@JsonTypeInfo / @JsonSubTypes**: Configura Jackson para incluir un campo `type` en JSON, indicando la subclase concreta.
 
-### Subclases (`Monumento`, `Evento`, `Comida`)
+#### Subclases (`Monumento`, `Evento`, `Comida`)
 Cada subclase **hereda** de `Articulo` y sólo declara sus campos específicos:
 
 ```java
@@ -249,17 +255,20 @@ public class Evento extends Articulo {
 - **@PrimaryKeyJoinColumn(name = "id")**: Indica que la PK de la entidad hija es exactamente la misma que la PK de `Articulo`.
 - **@JsonTypeName**: Nombre que se usa en el JSON para este subtipo.
 
----
 
-### 📦 Esquema de Base de Datos
+####  Esquema de Base de Datos
 
 - **Tabla `articulo`** (padre): contiene `id`, `ciudad_id`, `nombre`, `descripcion`.
 - **Tablas hijas (`monumento`, `evento`, `comida`)**: PK `id` como FK a `articulo.id`, más sus columnas propias (`imagen`, `fecha`, etc.).
 - **Herencia `JOINED`** en JPA mapea directamente esta estructura.
 
-## Ranking
 
-### Ranking por Ciudades
+---
+
+
+### Ranking
+
+#### Ranking por Ciudades
 
 En este punto vamos a tener que realizar DTO.
 
@@ -275,7 +284,7 @@ realizo una interfaz para que salga mas ligera mi aplicación.
 
 En esta tabla se ve algunas de las diferencias entre realizar una interfaz o una clase con sus atributos y todo.
 
-### 🆚 Diferencia entre un DTO de clase y un DTO de interfaz
+#### 🆚 Diferencia entre un DTO de clase y un DTO de interfaz
 
 | Característica                              | DTO clase (`@Data`, `class`)     | DTO interfaz (`interface`)       |
 |---------------------------------------------|----------------------------------|----------------------------------|
@@ -475,19 +484,19 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
     }
 ```
 ---
-# ✉️ Servicio de Email con Resend.com
+### Email
 
 Este proyecto integra un sistema de envío de correos electrónicos usando [Resend.com](https://resend.com), una plataforma moderna para gestionar emails transaccionales y notificaciones en aplicaciones web.
 
 ---
 
-## 📌 Objetivo
+#### ✉️ Objetivo
 
 El objetivo principal es **enviar correos a los usuarios** para mantenerlos informados sobre las **últimas novedades, actualizaciones y eventos importantes** de la aplicación.
 
 ---
 
-## 🛠️ Funcionalidades
+#### 🛠️ Funcionalidades
 
 - Envío automático de correo de bienvenida al registrarse.
 - Suscripción a notificaciones por correo.
@@ -496,7 +505,7 @@ El objetivo principal es **enviar correos a los usuarios** para mantenerlos info
 
 ---
 
-## 📧 ¿Por qué Resend.com?
+#### 📧 ¿Por qué Resend.com?
 
 Resend.com fue elegido por:
 
@@ -510,7 +519,7 @@ Para enviar emails a otros destinatarios será necesario verificar un dominio pr
 
 ---
 
-## ⚙️ Configuración en Spring Boot
+#### ⚙️ Configuración en Spring Boot
 
 En el proyecto se define un bean para la integración con Resend usando la clave API almacenada en `application.properties`:
 
@@ -535,12 +544,12 @@ public class ResendConfig {
     }
 }
 ```
-## Configuracion application.properties
+#### Configuracion application.properties
 ```properties
 resend.api.key=re_WUevzQu6_22MWhkPCTjYXtgLdFNBmTwcr
 ```
 
-### Envio email al registrar un usuario
+#### Envio email al registrar un usuario
 Cuando un usuario se registra además de realizar una peticion POST para poder registrar al usuario también lo que se hara sera enviar un correo para que vea el usuario que se ha aplicado bien su correo electronico:
 
 ```java
@@ -572,6 +581,274 @@ public boolean sendEmail(String to, String subject, String htmlContent) {
     }
 ```
 
+---
+
+### Spring Security + JWT
+
+He implementado **Spring Security** en mi backend y he añadido seguridad a mi aplicación mediante **JWT (JSON Web Tokens)**.
+
+---
+
+### 🔐 ¿Cómo lo he implementado?
+
+Para manejar la autenticación y validación del token JWT, he creado dos clases dentro del paquete `componentes`:
+
+- `JwtAuthenticationFilter.java`
+- `JwtUtil.java`
+
+---
+
+### 🧱 `JwtAuthenticationFilter.java`
+
+Este filtro se ejecuta **una vez por cada petición** (gracias a que extiende de `OncePerRequestFilter`) y se encarga de:
+
+1. Extraer el token JWT del encabezado `Authorization`.
+2. Validar el token.
+3. Autenticar al usuario si el token es válido.
+
+```java
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired 
+    ServiDetalleUsuario servicioDetalleUsuario;
+
+    @Override
+    protected void doFilterInternal(
+        @NonNull HttpServletRequest request, 
+        @NonNull HttpServletResponse response, 
+        @NonNull FilterChain chain) throws ServletException, IOException {
+            
+        final String authHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwtToken = null;
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            jwtToken = authHeader.substring(7);
+            try {
+                username = jwtUtil.extractUsername(jwtToken);
+            } catch (ExpiredJwtException e) {
+                System.out.println("Token expirado: " + e.getMessage());
+            }
+        }
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = servicioDetalleUsuario.loadUserByUsername(username);
+            if (jwtUtil.validateToken(jwtToken, userDetails)) {
+                var authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        }
+        chain.doFilter(request, response);
+    }
+}
+```
+### 🔧 `JwtUtil.java`
+Esta clase se encarga de generar y validar los tokens JWT, así como extraer datos de ellos como el nombre de usuario o el rol.
+
+```java
+@Component
+public class JwtUtil {
+
+    private static final String SECRET_KEY = "miClaveSuperSecretaQueNadieVaAAdivinarJamas";
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 horas
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", userDetails.getAuthorities().iterator().next().getAuthority());
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractClaim(token, Claims::getExpiration).before(new Date());
+    }
+}
+
+```
+---
+
+### ⚙️ Configuración de Seguridad
+
+Además, tengo una carpeta llamada `configuraciones` que contiene las siguientes clases:
+
+- `ConfiguracionSeguridad.java`
+- `WebConfig.java`
+
+---
+
+### 🔐 `ConfiguracionSeguridad.java`
+
+Esta clase define toda la configuración relacionada con **Spring Security**, incluyendo la autenticación, el uso del filtro JWT y la política de sesiones.
+
+#### ✅ Funcionalidades principales:
+
+- Se desactiva CSRF.
+- Se permite el acceso a todas las rutas (`/**`) *(esto es útil para pruebas, pero en producción deberías proteger rutas específicas)*.
+- Se configura la sesión como **stateless**.
+- Se integra el filtro `JwtAuthenticationFilter` antes del filtro estándar `UsernamePasswordAuthenticationFilter`.
+- Se define un `AuthenticationProvider` que usa un `UserDetailsService` personalizado (`ServiDetalleUsuario`).
+- Se usa `BCryptPasswordEncoder` para codificar contraseñas.
+
+```java
+@Configuration
+@EnableWebSecurity
+public class ConfiguracionSeguridad {
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/**").permitAll() // Se puede restringir a rutas específicas
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(authenticationProvider()) 
+            .cors(Customizer.withDefaults())
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new ServiDetalleUsuario();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+```
+### 🌐 `WebConfig.java` – Configuración CORS
+Este archivo configura los CORS para permitir que el frontend (por ejemplo, en Vite ejecutándose en http://localhost:5173) pueda comunicarse con el backend sin errores de política de origen cruzado.
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**") // Ruta del backend
+                .allowedOrigins("http://localhost:5173") // Frontend en Vite
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+```
+
+---
+
+### 👤 Registro de usuarios y usuario autenticado
+
+Para registrar un nuevo usuario y obtener el usuario actualmente autenticado, he creado un controlador llamado `UsuarioController.java`.
+
+---
+
+#### 📝 Registro de un nuevo usuario
+
+Ruta: `POST /register`
+
+Este endpoint permite registrar un nuevo usuario en la base de datos. Antes de guardarlo:
+
+- Se valida que la contraseña no sea nula y tenga más de 4 caracteres.
+- Se codifica la contraseña con `BCryptPasswordEncoder`.
+- Se inicializan campos como:
+  - `activo` (true)
+  - `fechaCreacion` (fecha actual)
+  - `tipo` (por defecto `USUARIO`)
+  - `suscrito` (false)
+
+```java
+@PostMapping("/register")
+public ResponseEntity<Usuario> register(@RequestBody Usuario u) {
+    if (u.getPassword() == null || u.getPassword().length() <= 4) {
+        return ResponseEntity.badRequest().body(null);
+    }
+    u.setPassword(passwordEncoder.encode(u.getPassword()));
+    u.setActivo(true);
+    u.setFechaCreacion(LocalDateTime.now());
+    u.setTipo(TipoUsuario.USUARIO); // Asignación por defecto
+    u.setSuscrito(false);
+    return ResponseEntity.ok(serviUsuario.save(u));
+}
+```
+### 🙋 Obtener el usuario autenticado
+Este endpoint devuelve el usuario actualmente autenticado mediante el token JWT.
+```java
+@GetMapping
+public Usuario getUser() {
+    Usuario u = serviUsuario.getLoggedUser();
+    u.setPassword(""); // Se limpia la contraseña por seguridad
+    return u;
+}
+
+```
+#### Método de servicio para obtener el usuario autenticado
+Dentro de la clase ServiUsuario, se implementa el método getLoggedUser() que obtiene el usuario en base al nombre de usuario que contiene el contexto de seguridad (SecurityContextHolder):
+```java
+public Usuario getLoggedUser(){
+    Authentication authentication =
+        SecurityContextHolder.getContext().getAuthentication();
+    return repoUsuario.findByUsername(authentication.getName()).get(0);
+}
+```
 ---
 
 
