@@ -849,7 +849,24 @@ public Usuario getLoggedUser(){
     return repoUsuario.findByUsername(authentication.getName()).get(0);
 }
 ```
+
 ---
+
+### Chat Bot IA con OLlama
+1º Instalar Ollama desde su pagina inicial
+Linux -> curl -fsSL https://ollama.com/install.sh | sh
+2º Correr un modelo -> mistral
+```bash
+ollama run mistral
+```
+3º Añadir dependencia maven sobre ollama
+https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-starter-model-ollama/1.0.0-RC1?utm_source=chatgpt.com
+
+4ºAñadir configuracion de application.properties
+
+
+---
+
 
 
 

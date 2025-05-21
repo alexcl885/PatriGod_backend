@@ -35,5 +35,9 @@ public class ServiEvento {
         return repoEvento.findById(id);
     }
 
+    public Evento saveEvento(Evento evento){
+        return repoEvento.save(evento);
+    }
+
 
 }

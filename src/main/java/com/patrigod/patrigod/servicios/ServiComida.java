@@ -35,4 +35,8 @@ public class ServiComida {
         return repoComida.findById(id);
     }
 
+    public Comida saveComida(Comida comida){
+        return repoComida.save(comida);
+    }
+
 }
