@@ -39,5 +39,9 @@ public class ServiEvento {
         return repoEvento.save(evento);
     }
 
+    public void deleteEventoById(Long id){
+        repoEvento.deleteById(id);
+    }
+
 
 }

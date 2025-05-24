@@ -1,5 +1,8 @@
 package com.patrigod.patrigod.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,15 +12,11 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @NoArgsConstructor
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "type"
-)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = Monumento.class, name = "monumento"),
-    @JsonSubTypes.Type(value = Comida.class,    name = "comida"),
-    @JsonSubTypes.Type(value = Evento.class,    name = "evento")
+        @JsonSubTypes.Type(value = Monumento.class, name = "monumento"),
+        @JsonSubTypes.Type(value = Comida.class, name = "comida"),
+        @JsonSubTypes.Type(value = Evento.class, name = "evento")
 })
 public abstract class Articulo {
 
@@ -27,8 +26,7 @@ public abstract class Articulo {
 
     // Mantenemos sólo una relación ciudad aquí:
     @ManyToOne
-    @JoinColumn(name = "ciudad_id", nullable = false,
-                foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
+    @JoinColumn(name = "ciudad_id", nullable = false, foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
     private Ciudad ciudad;
 
     @Column(nullable = false, length = 255)
@@ -36,4 +34,7 @@ public abstract class Articulo {
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
+
+    
+
 }

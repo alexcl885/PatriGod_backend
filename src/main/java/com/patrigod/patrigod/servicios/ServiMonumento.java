@@ -42,6 +42,10 @@ public class ServiMonumento {
         return repoMonumento.save(monumento);
     }
 
+    public void deleteMonumentoById(Long id){
+        repoMonumento.deleteById(id);
+    }
+
 
 
 }

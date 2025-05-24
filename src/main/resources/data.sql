@@ -107,19 +107,19 @@ INSERT INTO `monumento` (
   `horario_visitas`, `precio_entrada`, `declaracion_unesco`, `altura`,
   `materiales_principales`, `curiosidades`
 ) VALUES
-(1, 'mezquita_catedral.jpg', 'Islámico y Gótico', 'Siglo VIII - XVI', 'Calle Cardenal Herrero, Córdoba',
+(1, 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Mezquita_de_C%C3%B3rdoba_-_interior.jpg', 'Islámico y Gótico', 'Siglo VIII - XVI', 'Calle Cardenal Herrero, Córdoba',
  '10:00 - 19:00', '13€', '1984', 30.0, 'Piedra arenisca y mármol',
  'Fue mezquita durante el Califato de Córdoba y luego convertida en catedral católica.'),
 
-(6, 'puente_romano.jpg', 'Romano', 'Siglo I d.C.', 'Río Guadalquivir, Córdoba',
+(6, 'https://upload.wikimedia.org/wikipedia/commons/5/52/Puente_Romano_y_Torre_de_Calahorra_de_C%C3%B3rdoba.jpg', 'Romano', 'Siglo I d.C.', 'Río Guadalquivir, Córdoba',
  'Abierto todo el día', 'Gratis', '1984', 16.0, 'Piedra y mortero romano',
  'Fue parte de la Vía Augusta, una de las vías principales del Imperio Romano.'),
 
-(7, 'alhambra_granada.jpg', 'Nazarí y Renacentista', 'Siglo XIII - XV', 'Calle Real de la Alhambra, Granada',
+(7, 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Alhambra_Granada_Spain.jpg', 'Nazarí y Renacentista', 'Siglo XIII - XV', 'Calle Real de la Alhambra, Granada',
  '08:30 - 20:00', '14€', '1984', 50.0, 'Yeso, ladrillo, cerámica vidriada',
  'Fue residencia de los reyes nazaríes y una de las joyas arquitectónicas de Europa.'),
 
-(10, 'dalt_vila_ibiza.jpg', 'Renaixentista', 'Siglo XVI', 'Ibiza ciudad',
+(10, 'https://upload.wikimedia.org/wikipedia/commons/1/10/Ibiza_-_Dalt_Vila.jpg', 'Renaixentista', 'Siglo XVI', 'Ibiza ciudad',
  '10:00 - 18:00', 'Gratis', '1999', 20.0, 'Piedra caliza',
  'Constituye el recinto fortificado mejor conservado del Mediterráneo.'),
 
@@ -127,31 +127,31 @@ INSERT INTO `monumento` (
  '10:00 - 14:00 / 16:00 - 19:00', '5€', '2003', 35.0, 'Piedra de cantera local',
  'Diseñada por Diego de Siloé y Andrés de Vandelvira, es un referente del renacimiento andaluz.'),
 
-(13, 'universidad_cisneriana.jpg', 'Renacentista', 'Siglo XV', 'Calle Libreros, Alcalá de Henares',
+(13, 'https://upload.wikimedia.org/wikipedia/commons/4/42/Universidad_de_Alcal%C3%A1_-_Fachada.jpg', 'Renacentista', 'Siglo XV', 'Calle Libreros, Alcalá de Henares',
  '10:00 - 18:00', '4€', '1998', 28.0, 'Piedra caliza',
  'Fundada por el Cardenal Cisneros, fue una de las primeras universidades modernas.'),
 
-(14, 'muralla_lugo.jpg', 'Romano', 'Siglo III', 'Centro histórico, Lugo',
+(14, 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Lugo_-_Muralla_romana.jpg', 'Romano', 'Siglo III', 'Centro histórico, Lugo',
  'Libre acceso', 'Gratis', '2000', 10.0, 'Granito',
  'Es la única muralla romana completa que se conserva en el mundo.'),
 
-(15, 'anfiteatro_tarragona.jpg', 'Romano', 'Siglo II', 'Rambla Vella, Tarragona',
+(15, 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Tarragona_Amphitheatre.jpg', 'Romano', 'Siglo II', 'Rambla Vella, Tarragona',
  '09:00 - 20:00', '5€', '2000', 18.0, 'Piedra',
  'Podía albergar hasta 15.000 espectadores y fue escenario de luchas de gladiadores.'),
 
-(16, 'palmeral_elche.jpg', 'Árabe', 'Siglo X', 'Centro histórico, Elche',
+(16, 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Palmeral_de_Elche.jpg', 'Árabe', 'Siglo X', 'Centro histórico, Elche',
  'Libre acceso', 'Gratis', '2000', NULL, 'Palmeras, acequias',
  'Es el mayor palmeral de Europa, con más de 200.000 ejemplares.'),
 
-(19, 'casa_conchas_salamanca.jpg', 'Gótico tardío', 'Siglo XV', 'Calle Compañía, Salamanca',
+(19, 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Casa_de_las_Conchas-Salamanca.jpg', 'Gótico tardío', 'Siglo XV', 'Calle Compañía, Salamanca',
  '10:00 - 20:00', 'Gratis', '1988', 17.0, 'Piedra y conchas decorativas',
  'La fachada tiene más de 300 conchas de piedra, símbolo de la orden de Santiago.'),
 
-(22, 'alcazar_segovia.jpg', 'Gótico y Mudéjar', 'Siglo XII', 'Plaza Reina Victoria Eugenia, Segovia',
+(22, 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Alc%C3%A1zar_de_Segovia_%28España%29.jpg', 'Gótico y Mudéjar', 'Siglo XII', 'Plaza Reina Victoria Eugenia, Segovia',
  '10:00 - 18:00', '9€', '1985', 80.0, 'Piedra caliza',
  'Inspiró el castillo de Disney y fue residencia de reyes de Castilla.'),
 
-(24, 'catedral_cuenca.jpg', 'Gótico normando', 'Siglo XII', 'Plaza Mayor, Cuenca',
+(24, 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Catedral_de_Cuenca_-_fachada.jpg', 'Gótico normando', 'Siglo XII', 'Plaza Mayor, Cuenca',
  '10:00 - 18:30', '6€', '1996', 35.0, 'Piedra',
  'Fue una de las primeras catedrales góticas construidas en España.'),
 
@@ -159,7 +159,7 @@ INSERT INTO `monumento` (
  '10:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 20.0, 'Piedra local',
  'Hoy alberga la Casa de la Cultura y exposiciones temporales.'),
 
-(30, 'puerta_san_pedro_lugo.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
+(30, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
  'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
  'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.');
 
@@ -233,10 +233,23 @@ INSERT INTO `comentario` (`id`, `user_id`, `articulo_id`, `contenido`, `fecha`) 
 -- --------------------------------------------------
 -- Ejemplos de puntuaciones
 -- --------------------------------------------------
-INSERT INTO `puntuacion` (`id`, `user_id`, `articulo_id`, `puntuacion`) VALUES
-  (1, 1, 1, 4.8),
-  (2, 2, 2, 4.5),
-  (3, 3, 4, 4.2),
-  (4, 4, 5, 5.0),
-  (5, 1, 11, 2.0),
-  (6, 1, 27, 5.0);
+INSERT INTO `puntuacion` (`puntuacion`, `articulo_id`, `id`, `user_id`) VALUES
+(4.8,	1,	1,	1),
+(4.5,	2,	2,	2),
+(4.2,	4,	3,	3),
+(5,	5,	4,	4),
+(2,	11,	5,	1),
+(5,	27,	6,	1),
+(3.5,	16,	7,	6),
+(2,	1,	8,	6),
+(3,	14,	9,	7),
+(2,	30,	10,	7),
+(1,	31,	11,	7),
+(4,	15,	12,	7),
+(3.5,	26,	13,	5),
+(2.5,	10,	14,	5),
+(5,	11,	15,	5),
+(4,	27,	16,	5),
+(2,	21,	17,	2),
+(2,	9,	18,	2),
+(5,	25,	19,	2);

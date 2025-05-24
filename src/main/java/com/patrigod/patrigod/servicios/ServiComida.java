@@ -39,4 +39,8 @@ public class ServiComida {
         return repoComida.save(comida);
     }
 
+    public void deleteComidaById(Long id){
+        repoComida.deleteById(id);
+    }
+
 }

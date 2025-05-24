@@ -22,7 +22,6 @@ public class ServiPuntuacion {
      * @return todas las puntuaciones
      */
     public List<Puntuacion> findAll(){
-        System.err.println(repoPuntuacion.findAll());
         return repoPuntuacion.findAll();
     }
     /**
