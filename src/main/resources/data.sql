@@ -76,7 +76,7 @@ INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
   (9,  9,  'Conjunto Urbano Colonial',        'Ejemplo de trazado urbano no amurallado portugués.'),
   (10, 10, 'Dalt Vila',                        'Ciudadela amurallada en Ibiza con vistas al mar.'),
   (11, 11, 'Sacra Capilla del Salvador',      'Capilla renacentista en Úbeda, escenario de conciertos de coro.'),
-  (12, 12, 'Plaza del Pópulo',                'Corazón de Baeza con edificios renacentistas y soportales.'),
+  (12, 12, 'Virolos',                'Corazón de Baeza comestible.'),
   (13, 13, 'Universidad Cisneriana',         'Edificio renacentista en Alcalá de Henares, campus de Cervantes.'),
   (14, 14, 'Muralla Romana',                  'Muralla completa de Lugo rodea la ciudad histórica.'),
   (15, 15, 'Anfiteatro Romano',              'Ruinas de teatro anfiteatro junto al mar en Tarragona.'),
@@ -92,12 +92,16 @@ INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
   (25,  9,  'Iglesia de la Concepción',      'Templo católico en La Laguna con retablos barrocos.'),
   (26, 10, 'Castillo de Ibiza',               'Fortaleza medieval en la cima de Dalt Vila.'),
   (27, 11, 'Palacio Vásquez de Molina',   'Palacio renacentista en Úbeda.'),
-  (28, 12, 'Catedral de Santa María',     'Catedral renacentista en Baeza.'),
+  (28, 12, 'Perrunillas_baeza',     'Muy bueno.'),
   (29, 13, 'Calle Mayor',                    'Vial principal de Alcalá con casas nobiliarias.'),
   (30, 14, 'Puerta de San Pedro',            'Acceso principal a la muralla de Lugo.'),
   (31, 15, 'Forum de la Colonia',            'Plaza central romana en Tarragona.'),
   (32, 16, 'Huerto del Cura',                'Jardín botánico dentro del Palmeral de Elche.'),
-  (33, 11, 'Ochios',                'Muy buenos');
+  (33, 11, 'Ochios','Muy buenos'),
+  (34, 12, 'Evento Baeza','Evento Baeza'),
+  (35, 12, 'Monumento Baeza','Monumento Baeza'),
+  (36, 7, 'Comida Caceres','Comida Caceres');
+  
 
 -- --------------------------------------------------
 -- Subtabla: monumento
@@ -161,7 +165,11 @@ INSERT INTO `monumento` (
 
 (30, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
  'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
+ 'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.'),
+ (35, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
+ 'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
  'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.');
+
 
 
 -- --------------------------------------------------
@@ -202,7 +210,8 @@ INSERT INTO `evento` (
 
 (29, '2025-11-01', '19:30:00', 'Teatro Municipal', 'Obra de teatro inspirada en leyendas locales.', 'teatro_leyendas.jpg', 'Teatro', 'Compañía Dramática del Sur', 'https://teatrosur.org', '10€', 110),
 
-(31, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240);
+(31, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240),
+(34, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240);
 
 
 -- --------------------------------------------------
@@ -211,15 +220,16 @@ INSERT INTO `evento` (
 INSERT INTO `comida` 
 (`id`, `imagen`, `tipo`, `origen`, `ingredientes_principales`, `calorias_aprox`, `momento_consumo`, `apto_vegetarianos`, `acompañamientos_recomendados`, `curiosidades`) 
 VALUES
-(4,  'tapas_ibericas.jpg', 'Aperitivo', 'Ibérico', 'Jamón, queso, chorizo, aceitunas', 350, 'Todo el año', FALSE, 'Vino tinto, pan rústico', 'Las tapas surgieron como una manera de cubrir la bebida para evitar que entraran insectos.'),
-(9,  'migas_serranas.jpg', 'Plato principal', 'Castellano', 'Pan duro, ajo, pimientos, chorizo', 600, 'Invierno', FALSE, 'Uvas, huevo frito', 'Antiguamente era comida de pastores que aprovechaban el pan duro.'),
-(12, 'plaza_populo_baeza.jpg', 'Postre', 'Andalusí', 'Miel, almendras, harina', 450, 'Semana Santa', TRUE, 'Café o vino dulce', 'Inspirado en los dulces árabes tradicionales de la zona de Baeza.'),
-(15, 'queso_manchego.jpg', 'Aperitivo', 'Manchego', 'Leche de oveja manchega', 400, 'Todo el año', FALSE, 'Membrillo, pan de pueblo', 'Este queso tiene Denominación de Origen y siglos de historia.'),
-(20, 'rosquillas_medievales_avila.jpg', 'Postre', 'Medieval', 'Harina, azúcar, anís', 300, 'Fiestas Patronales', TRUE, 'Chocolate caliente', 'Receta típica de las fiestas de Santa Teresa en Ávila.'),
-(25, 'pimientos_padron_santiago.jpg', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
-(28, 'perrunillas_baeza.jpg', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
-(32, 'helado_palmera_elche.jpg', 'Postre', 'Moderno', 'Dátil, leche, azúcar', 220, 'Verano', TRUE, 'Galleta o barquillo', 'Un helado gourmet hecho con dátiles del famoso palmeral de Elche.'),
-(33, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
+(4,  'https://jamonessierramorena.com/wp-content/uploads/2018/05/tapas-ibericas-tradicionales.jpg', 'Aperitivo', 'Ibérico', 'Jamón, queso, chorizo, aceitunas', 350, 'Todo el año', FALSE, 'Vino tinto, pan rústico', 'Las tapas surgieron como una manera de cubrir la bebida para evitar que entraran insectos.'),
+(9,  'https://www.enbuenaedad.es/inicio/salud/alimentacion_saludable/migas-serranas', 'Plato principal', 'Castellano', 'Pan duro, ajo, pimientos, chorizo', 600, 'Invierno', FALSE, 'Uvas, huevo frito', 'Antiguamente era comida de pastores que aprovechaban el pan duro.'),
+(12, 'https://viajes.nationalgeographic.com.es/gastronomia/virolo-el-dulce-baezano-que-es-patrimonio-inmaterial-de-andalucia-_17700', 'Postre', 'Andalusí', 'Miel, almendras, harina', 450, 'Semana Santa', TRUE, 'Café o vino dulce', 'Inspirado en los dulces árabes tradicionales de la zona de Baeza.'),
+(15, 'https://www.ibericoclub.com/wp-content/uploads/2013/07/jamon-iberico-and-manchego-cheese-tapa.jpg', 'Aperitivo', 'Manchego', 'Leche de oveja manchega', 400, 'Todo el año', FALSE, 'Membrillo, pan de pueblo', 'Este queso tiene Denominación de Origen y siglos de historia.'),
+(20, 'https://www.istockphoto.com/es/foto/rosquillas-medievales-gm1324567890-408765123', 'Postre', 'Medieval', 'Harina, azúcar, anís', 300, 'Fiestas Patronales', TRUE, 'Chocolate caliente', 'Receta típica de las fiestas de Santa Teresa en Ávila.'),
+(25, 'https://www.istockphoto.com/es/foto/pimientos-de-padr%C3%B3n-gm1146512345-308765123', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
+(28, 'https://www.pinterest.com/pin/173388654391547843/', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
+(32, 'https://www.instagram.com/p/CnE3VRZLoh_/', 'Postre', 'Moderno', 'Dátil, leche, azúcar', 220, 'Verano', TRUE, 'Galleta o barquillo', 'Un helado gourmet hecho con dátiles del famoso palmeral de Elche.'),
+(33, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.'),
+(36, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
 
 
 -- --------------------------------------------------

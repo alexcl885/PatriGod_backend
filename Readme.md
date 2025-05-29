@@ -872,3 +872,77 @@ https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-starter-mode
 
 ## Autor 
 Realizado por Alejandro Copado López
+
+---
+
+## 📖 Documentación y Buenas Prácticas
+
+### 📝 Documentación de la API con Swagger/OpenAPI
+
+Para facilitar el desarrollo y la integración con el frontend, es recomendable documentar la API REST usando **Swagger** (OpenAPI). Esto permite visualizar y probar los endpoints desde una interfaz web.
+
+- **Dependencia Maven**:
+  ```xml
+  <dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.8.8</version>
+</dependency>
+  ```
+- **Acceso a Swagger UI**:  http://localhost:8080/swagger-ui/index.html#/
+  Una vez arrancada la aplicación, accede a [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/) para ver y probar la documentación interactiva de la API.
+
+---
+## 📝 Pendiente/Futuras mejoras
+
+### 🛡️ Seguridad Adicional
+
+- **Roles y permisos**:  
+  Considera implementar roles más granulares (por ejemplo, ADMIN, EDITOR, USER) y proteger rutas sensibles.
+- **Validación de datos**:  
+  Usa anotaciones como `@Valid`, `@NotNull`, `@Email`, etc. en los DTOs y entidades para validar la entrada de datos.
+- **Gestión de errores global**:  
+  Implementa un controlador de errores global con `@ControllerAdvice` para devolver respuestas coherentes ante excepciones.
+
+---
+
+### 📦 DTOs y Mappers
+
+Para separar la lógica de persistencia de la lógica de presentación, utiliza DTOs (Data Transfer Objects) y mappers (por ejemplo, MapStruct):
+
+- **Ventajas**:
+  - Evita exponer entidades directamente.
+  - Permite adaptar la respuesta a las necesidades del frontend.
+- **Ejemplo**:
+  ```java
+  public class CiudadDTO {
+      private Long id;
+      private String nombre;
+      // ...
+  }
+  ```
+
+---
+
+
+### 📚 Recursos útiles
+
+- [Documentación oficial de Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)
+- [Guía de Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+- [Guía de Spring Security](https://spring.io/projects/spring-security)
+- [Guía de Swagger/OpenAPI](https://springdoc.org/)
+
+---
+
+## 🚀 Despliegue
+
+- Puedes desplegar la aplicación en servicios como **Heroku**, **Railway**, **Render**, **AWS**, **Azure**, etc.
+- Para producción, configura variables de entorno seguras y usa una base de datos gestionada.
+
+---
+
+- Implementar sistema de notificaciones push.
+- Añadir internacionalización (i18n) para soportar varios idiomas.
+- Mejorar la gestión de imágenes (almacenamiento en S3, Cloudinary, etc.).
+- Añadir tests de integración y de extremo a extremo (E2E).
+- Mejorar la experiencia de usuario en el frontend con feedback en tiempo real.
