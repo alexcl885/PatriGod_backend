@@ -28,7 +28,7 @@ public class EmailController {
      * Enviar un correo de prueba con Resend.
      * Ejemplo: http://localhost:8080/api/email/send-email?to=ejemplo@gmail.com
      */
-    @GetMapping("/send-email")
+    @GetMapping("usuario/send-email")
     public ResponseEntity<String> sendNewPersonEmail(@RequestParam String to) {
         boolean enviado = serviEmail.sendEmail(to, "Prueba Resend",
                 "<h1>Hola desde Spring Boot</h1><p>Este es un email de prueba.</p>");
@@ -43,7 +43,7 @@ public class EmailController {
     /**
      * Envía un correo de bienvenida a un usuario recién registrado.
      */
-    @PostMapping("/registro/{email}")
+    @PostMapping("usuario/registro/{email}")
     public ResponseEntity<String> registrarUsuario(@PathVariable String email) {
         boolean enviado = serviEmail.sendWelcomeEmail(email);
 
@@ -58,7 +58,7 @@ public class EmailController {
      * @param request mensaje del admin al que mandara a todos los usuarios
      * @return los correos que ha podido enviar desde resend.com
      */
-    @PostMapping("/actualizacion")
+    @PostMapping("admin/actualizacion")
     public ResponseEntity<String> emailActualizacionPatriGod(@RequestBody UpdateMessageRequestDTO request) {
     
         List<Usuario> usuarios = serviUsuario.findTipoUsuario(); 

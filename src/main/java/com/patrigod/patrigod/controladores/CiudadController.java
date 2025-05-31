@@ -3,6 +3,7 @@ package com.patrigod.patrigod.controladores;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,6 @@ public class CiudadController {
     private final ServiComida serviComida;
     private final ServiEvento serviEvento;
 
-
     public CiudadController(ServiCiudad serviCiudad, ServiMonumento serviMonumento,
                             ServiComida serviComida, ServiEvento serviEvento) {
         this.serviCiudad = serviCiudad;
@@ -39,123 +39,77 @@ public class CiudadController {
         this.serviComida = serviComida;
         this.serviEvento = serviEvento;
     }
-    /**
-     * Metodo que devuelve todas las ciudades
-     * @return una lista de ciudades
-     */
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
-    public List<Ciudad> findAll() {
-        return serviCiudad.findAll();
+    public ResponseEntity<List<Ciudad>> findAll() {
+        List<Ciudad> ciudades = serviCiudad.findAll();
+        return ResponseEntity.ok(ciudades);
     }
-    /**
-     * 
-     * @param id identificador de la ciudad
-     * @return una ciudad
-     */
+
     @GetMapping("/{id}")
-    public Optional<Ciudad> findCiudad(@PathVariable @NonNull Long id) {
-        return serviCiudad.findOneCiudad(id);
+    public ResponseEntity<Optional<Ciudad>> findCiudad(@PathVariable @NonNull Long id) {
+        Optional<Ciudad> ciudad = serviCiudad.findOneCiudad(id);
+        return ResponseEntity.ok(ciudad);
     }
 
-    /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return una lista de monumentos de la ciudad elegida por id.
-     */
     @GetMapping("/{id}/monumentos")
-    public List<Monumento> findMonumentosByCiudad(@PathVariable @NonNull Long id) {
-        return serviCiudad.findMonumentosByCiudad(id);
+    public ResponseEntity<List<Monumento>> findMonumentosByCiudad(@PathVariable @NonNull Long id) {
+        List<Monumento> monumentos = serviCiudad.findMonumentosByCiudad(id);
+        return ResponseEntity.ok(monumentos);
     }
-    
 
-    /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return una lista de monumentos de la ciudad elegida por id.
-     */
     @GetMapping("/{id}/comidas")
-    public List<Comida> findComidasByCiudad(@PathVariable @NonNull Long id) {
-        return serviCiudad.findComidasByCiudad(id);
+    public ResponseEntity<List<Comida>> findComidasByCiudad(@PathVariable @NonNull Long id) {
+        List<Comida> comidas = serviCiudad.findComidasByCiudad(id);
+        return ResponseEntity.ok(comidas);
     }
-    
 
-    /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return una lista de monumentos de la ciudad elegida por id.
-     */
     @GetMapping("/{id}/eventos")
-    public List<Evento> findEventosByCiudad(@PathVariable @NonNull Long id) {
-        return serviCiudad.findEventosByCiudad(id);
+    public ResponseEntity<List<Evento>> findEventosByCiudad(@PathVariable @NonNull Long id) {
+        List<Evento> eventos = serviCiudad.findEventosByCiudad(id);
+        return ResponseEntity.ok(eventos);
     }
 
-     /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return un monumento de una ciudad
-     */
     @GetMapping("/{id}/monumentos/{idMonumento}")
-    public Optional<Monumento> findMonumentoByCiudad(@PathVariable @NonNull Long idMonumento){
-        return serviMonumento.findMonumento(idMonumento);
+    public ResponseEntity<Optional<Monumento>> findMonumentoByCiudad(@PathVariable @NonNull Long idMonumento){
+        Optional<Monumento> monumento = serviMonumento.findMonumento(idMonumento);
+        return ResponseEntity.ok(monumento);
     }
-    
-    /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return una comida de una ciudad
-     */
+
     @GetMapping("/{id}/comidas/{idComida}")
-    public Optional<Comida> findComidaByCiudad(@PathVariable @NonNull Long idComida){
-        return serviComida.findComida(idComida);
+    public ResponseEntity<Optional<Comida>> findComidaByCiudad(@PathVariable @NonNull Long idComida){
+        Optional<Comida> comida = serviComida.findComida(idComida);
+        return ResponseEntity.ok(comida);
     }
 
-
-    /**
-     * 
-     * @param id indentificar de la ciudad
-     * @return una comida de una ciudad
-     */
     @GetMapping("/{id}/eventos/{idEvento}")
-    public Optional<Evento> findEventoByCiudad(@PathVariable @NonNull Long idEvento){
-        return serviEvento.findEvento(idEvento);
+    public ResponseEntity<Optional<Evento>> findEventoByCiudad(@PathVariable @NonNull Long idEvento){
+        Optional<Evento> evento = serviEvento.findEvento(idEvento);
+        return ResponseEntity.ok(evento);
     }
-    /**
-     * 
-     * @return lista de ciudades rankeadas por la suma de sus articulos
-     */
+
     @GetMapping("/rank")
-    public List<Ciudad> ranking() {
-        return serviCiudad.obtenerRankingDeCiudades ();
-    }
-    /**
-     * 
-     * @return lista ciudades(DTO) segun la media de monumentos de cada ciudad
-     */
-    @GetMapping("/rankMonumento")
-    public List<RankingArticuloDTO> rankingMonumento() {
-        return serviCiudad.findRankingByMonumento();
-    }
-    /**
-     * 
-     * @return lista ciudades(DTO) segun la media de comidas de cada ciudad
-     */
-    @GetMapping("/rankComida")
-    public List<RankingArticuloDTO> rankingComida() {
-        return serviCiudad.findRankingByComida();
+    public ResponseEntity<List<Ciudad>> ranking() {
+        List<Ciudad> ranking = serviCiudad.obtenerRankingDeCiudades();
+        return ResponseEntity.ok(ranking);
     }
 
-    /**
-     * 
-     * @return lista ciudades(DTO) segun la media de eventos de cada ciudad
-     */
-    @GetMapping("/rankEvento")
-    public List<RankingArticuloDTO> rankingEvento() {
-        return serviCiudad.findRankignByEvento();
+    @GetMapping("/rank/monumento")
+    public ResponseEntity<List<RankingArticuloDTO>> rankingMonumento() {
+        List<RankingArticuloDTO> ranking = serviCiudad.findRankingByMonumento();
+        return ResponseEntity.ok(ranking);
     }
 
+    @GetMapping("/rank/comida")
+    public ResponseEntity<List<RankingArticuloDTO>> rankingComida() {
+        List<RankingArticuloDTO> ranking = serviCiudad.findRankingByComida();
+        return ResponseEntity.ok(ranking);
+    }
 
-    
-
-    
+    @GetMapping("/rank/evento")
+    public ResponseEntity<List<RankingArticuloDTO>> rankingEvento() {
+        List<RankingArticuloDTO> ranking = serviCiudad.findRankignByEvento();
+        return ResponseEntity.ok(ranking);
+    }
 }

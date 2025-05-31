@@ -39,13 +39,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwtToken = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwtToken = authHeader.substring(7);
-            try {
-                username = jwtUtil.extractUsername(jwtToken);
-            } catch (ExpiredJwtException e) {
-                System.out.println("Token expirado: " + e.getMessage());
-            }
-        }
+    jwtToken = authHeader.substring(7);
+    try {
+        username = jwtUtil.extractUsername(jwtToken);
+
+        // 🔍 Agrega este log para ver qué rol se extrae del token
+        System.out.println("Rol extraído del token: " + jwtUtil.extractRole(jwtToken));
+
+    } catch (ExpiredJwtException e) {
+        System.out.println("Token expirado: " + e.getMessage());
+    }
+}
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = servicioDetalleUsuario.loadUserByUsername(username);

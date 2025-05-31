@@ -3,13 +3,15 @@ package com.patrigod.patrigod.modelos;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 @JsonTypeName("comida")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Comida extends Articulo {
 
