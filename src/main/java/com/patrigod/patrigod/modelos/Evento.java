@@ -12,7 +12,7 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
 @JsonTypeName("evento")
 @Getter
 @Setter

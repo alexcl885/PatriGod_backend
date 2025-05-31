@@ -1,5 +1,7 @@
 package com.patrigod.patrigod.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class Puntuacion {
 
     @ManyToOne
     @JoinColumn(name = "articulo_id", nullable = false)
+    @JsonBackReference // Evita la serialización recursiva
     private Articulo articulo;
 
     @Column(nullable = false)

@@ -15,6 +15,7 @@ Este proyecto contiene el **backend** de la aplicación web **PatriGod**, respon
     - [Ranking](#ranking)
     - [Email](#email)
     - [Spring Security + JWT](#programando-proyecto) 
+    - [Swagger por OpenApi](#documentación-automática-con-swagger-y-springdoc-openapi)
 5. [Autor](#autor)
 
 
@@ -724,7 +725,7 @@ Esta clase define toda la configuración relacionada con **Spring Security**, in
 #### ✅ Funcionalidades principales:
 
 - Se desactiva CSRF.
-- Se permite el acceso a todas las rutas (`/**`) *(esto es útil para pruebas, pero en producción deberías proteger rutas específicas)*.
+- El acceso a las rutas esta protegido por el rol que se tenga.
 - Se configura la sesión como **stateless**.
 - Se integra el filtro `JwtAuthenticationFilter` antes del filtro estándar `UsernamePasswordAuthenticationFilter`.
 - Se define un `AuthenticationProvider` que usa un `UserDetailsService` personalizado (`ServiDetalleUsuario`).
@@ -742,7 +743,30 @@ public class ConfiguracionSeguridad {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll() // Se puede restringir a rutas específicas
+                .authorizeHttpRequests(auth -> auth
+                        // Admins y usuarios autenticados
+                        .requestMatchers(
+                                "/api/ollama/chat/**",
+                                "/api/puntuacion/**")
+                        .authenticated()
+
+                        // rutas públicas
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/auth/*/**",
+                                "/api/ciudad/**",
+                                "/api/usuario/**",
+                                "/api/email/**",
+                                "/swagger-ui/**",
+                                "v3/api-docs/**")
+                        .permitAll()
+                        // solo administradores
+                        .requestMatchers(
+                                "/api/comida/**",
+                                "/api/evento/**",
+                                "/api/monumento/**",
+                                "/api/admin/**")
+                        .hasRole("ADMINISTRADOR")
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider()) 
@@ -853,96 +877,122 @@ public Usuario getLoggedUser(){
 ---
 
 ### Chat Bot IA con OLlama
-1º Instalar Ollama desde su pagina inicial
-Linux -> curl -fsSL https://ollama.com/install.sh | sh
-2º Correr un modelo -> mistral
-```bash
-ollama run mistral
+
+El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma local para ejecutar modelos de lenguaje avanzados (LLM) como Llama 3, Mistral, etc. El objetivo es ofrecer a los usuarios una experiencia conversacional sobre las **Ciudades Patrimonio de la Humanidad en España**.
+
+#### 🧩 ¿Cómo funciona la integración?
+
+- **Backend Spring Boot** expone un endpoint REST `/api/ollama/chat` que recibe mensajes del usuario.
+- El controlador `ChatController` prepara la petición para Ollama, añadiendo un mensaje de sistema que limita las respuestas a temas relacionados con las ciudades patrimonio.
+- El backend envía la petición a Ollama (que debe estar corriendo localmente en `http://localhost:11434/api/chat`) y devuelve la respuesta generada por el modelo de IA al frontend.
+
+#### ⚙️ Configuración y dependencias
+
+1. **Instalación de Ollama**  
+   Descarga e instala Ollama desde [https://ollama.com/](https://ollama.com/).  
+   En Linux, puedes usar:
+   ```bash
+   curl -fsSL https://ollama.com/install.sh | sh
+   ```
+
+2. **Descarga y ejecuta un modelo**  
+   Por ejemplo, para usar Mistral:
+   ```bash
+   ollama run mistral
+   ```
+   O para Llama 3:
+   ```bash
+   ollama run llama3
+   ```
+
+3. **Configuración en Spring Boot**  
+   - El endpoint de Ollama debe estar accesible en `http://localhost:11434/api/chat`.
+   - En el backend, se utiliza un `RestTemplate` para enviar peticiones POST a Ollama.
+   - El controlador añade un mensaje de sistema para guiar el comportamiento del modelo.
+
+4. **Dependencias Maven**  
+   Añade la dependencia de Spring Web y Jackson para manejar las peticiones y el JSON.
+
+#### 📝 Ejemplo de uso del endpoint
+
+- **Ruta:** `POST /api/ollama/chat`
+- **Body:**
+  ```json
+  {
+    "prompt": "¿Qué monumentos famosos hay en Córdoba?",
+    "model": "llama3"
+  }
+  ```
+- **Respuesta:**  
+  El modelo responde solo sobre temas relacionados con las ciudades patrimonio, siguiendo el prompt de sistema.
+
+#### 🛡️ Seguridad y control
+
+- El sistema fuerza al modelo a responder únicamente sobre las ciudades patrimonio de la humanidad en España.
+- Si el usuario pregunta sobre otro tema, el bot responde indicando que solo puede hablar de ese ámbito.
+
+#### 📄 Código relevante (`ChatController.java`)
+
+```java
+@PostMapping("/chat")
+public ResponseEntity<String> chatWithOllama(@RequestBody Map<String, String> body) {
+    String prompt = body.get("prompt");
+    String model = body.getOrDefault("model", "llama3.2");
+    // ...validación y construcción del mensaje...
+    // Mensaje de sistema para limitar el contexto
+    String systemPrompt = "Eres un asistente experto en las Ciudades Patrimonio de la Humanidad en España. " +
+        "Solo puedes responder sobre temas relacionados con estas ciudades. Si la pregunta no tiene relación, " +
+        "indica amablemente que solo puedes responder sobre las ciudades patrimonio de la humanidad en España. " +
+        "Si necesitas ayuda, estoy aquí para ello.";
+    // ...envío de la petición a Ollama y retorno de la respuesta...
+}
 ```
-3º Añadir dependencia maven sobre ollama
-https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-starter-model-ollama/1.0.0-RC1?utm_source=chatgpt.com
 
-4ºAñadir configuracion de application.properties
+#### 🚀 Ventajas de la integración
 
-
----
-
-
-
-
-## Autor 
-Realizado por Alejandro Copado López
+- **Privacidad:** Todo el procesamiento de IA ocurre localmente, sin depender de servicios externos.
+- **Personalización:** El prompt de sistema permite adaptar el comportamiento del bot a las necesidades del proyecto.
+- **Facilidad de uso:** El backend abstrae la complejidad y expone un endpoint sencillo para el frontend.
 
 ---
 
-## 📖 Documentación y Buenas Prácticas
+###  Documentación automática con Swagger y SpringDoc OpenAPI
 
-### 📝 Documentación de la API con Swagger/OpenAPI
+Este proyecto utiliza **SpringDoc OpenAPI** para generar documentación interactiva de la API REST basada en el estándar **OpenAPI 3.0** (Swagger).
 
-Para facilitar el desarrollo y la integración con el frontend, es recomendable documentar la API REST usando **Swagger** (OpenAPI). Esto permite visualizar y probar los endpoints desde una interfaz web.
+---
 
-- **Dependencia Maven**:
-  ```xml
-  <dependency>
+#### 📦 Dependencia utilizada
+
+En el archivo `pom.xml` se ha añadido la siguiente dependencia:
+
+```xml
+<dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
     <version>2.8.8</version>
 </dependency>
-  ```
-- **Acceso a Swagger UI**:  http://localhost:8080/swagger-ui/index.html#/
-  Una vez arrancada la aplicación, accede a [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/) para ver y probar la documentación interactiva de la API.
+```
+Esta dependencia proporciona una interfaz web interactiva y documentación en formato JSON de todos los endpoints definidos en los controladores REST del proyecto.
 
----
-## 📝 Pendiente/Futuras mejoras
+#### 🚀 ¿Qué funcionalidades aporta?
 
-### 🛡️ Seguridad Adicional
-
-- **Roles y permisos**:  
-  Considera implementar roles más granulares (por ejemplo, ADMIN, EDITOR, USER) y proteger rutas sensibles.
-- **Validación de datos**:  
-  Usa anotaciones como `@Valid`, `@NotNull`, `@Email`, etc. en los DTOs y entidades para validar la entrada de datos.
-- **Gestión de errores global**:  
-  Implementa un controlador de errores global con `@ControllerAdvice` para devolver respuestas coherentes ante excepciones.
+- Generación automática del documento **OpenAPI 3.0** desde los controladores y modelos.
+- Interfaz **Swagger UI** en navegador para probar endpoints fácilmente.
+- Compatible con **Spring Boot 3+**.
+- Soporte para anotaciones como `@RestController`, `@GetMapping`, `@PostMapping`, etc.
+- Compatible con seguridad (**Spring Security + JWT**).
 
 ---
 
-### 📦 DTOs y Mappers
+#### 🌐 URLs importantes
 
-Para separar la lógica de persistencia de la lógica de presentación, utiliza DTOs (Data Transfer Objects) y mappers (por ejemplo, MapStruct):
+Una vez ejecutado el proyecto, puedes acceder a:
 
-- **Ventajas**:
-  - Evita exponer entidades directamente.
-  - Permite adaptar la respuesta a las necesidades del frontend.
-- **Ejemplo**:
-  ```java
-  public class CiudadDTO {
-      private Long id;
-      private String nombre;
-      // ...
-  }
-  ```
+- **Swagger UI (interfaz interactiva)**:  
+  [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+- **Documentación en formato JSON (OpenAPI)**:  
+  [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
 
 ---
-
-
-### 📚 Recursos útiles
-
-- [Documentación oficial de Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)
-- [Guía de Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-- [Guía de Spring Security](https://spring.io/projects/spring-security)
-- [Guía de Swagger/OpenAPI](https://springdoc.org/)
-
----
-
-## 🚀 Despliegue
-
-- Puedes desplegar la aplicación en servicios como **Heroku**, **Railway**, **Render**, **AWS**, **Azure**, etc.
-- Para producción, configura variables de entorno seguras y usa una base de datos gestionada.
-
----
-
-- Implementar sistema de notificaciones push.
-- Añadir internacionalización (i18n) para soportar varios idiomas.
-- Mejorar la gestión de imágenes (almacenamiento en S3, Cloudinary, etc.).
-- Añadir tests de integración y de extremo a extremo (E2E).
-- Mejorar la experiencia de usuario en el frontend con feedback en tiempo real.

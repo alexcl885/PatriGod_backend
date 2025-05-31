@@ -20,6 +20,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.patrigod.patrigod.componentes.JwtAuthenticationFilter;
 import com.patrigod.patrigod.servicios.ServiDetalleUsuario;
 
+/**
+ * Configuración principal de seguridad para la aplicación Spring Boot.
+ * 
+ * - Define las reglas de autorización para las rutas de la API.
+ * - Configura la autenticación basada en JWT (JSON Web Token).
+ * - Establece la política de sesión como stateless.
+ * - Define los beans necesarios para la autenticación y el cifrado de contraseñas.
+ * 
+ * Rutas protegidas:
+ *   - Solo administradores: /api/comida/**, /api/evento/**, /api/monumento/**, /api/admin/**
+ *   - Usuarios autenticados: /api/ollama/chat/**, /api/puntuacion/**
+ *   - Públicas: /api/auth/**, /api/ciudad/**, /api/usuario/**, /api/email/**
+ */
 @Configuration
 @EnableWebSecurity
 public class ConfiguracionSeguridad {
@@ -27,11 +40,17 @@ public class ConfiguracionSeguridad {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    /**
+     * Configura la cadena de filtros de seguridad y las reglas de autorización.
+     * - Desactiva CSRF.
+     * - Define qué rutas requieren autenticación, rol de administrador o son públicas.
+     * - Añade el filtro JWT antes del filtro de autenticación por usuario/contraseña.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Admins y usuarios
+                        // Admins y usuarios autenticados
                         .requestMatchers(
                                 "/api/ollama/chat/**",
                                 "/api/puntuacion/**")
@@ -43,16 +62,17 @@ public class ConfiguracionSeguridad {
                                 "/api/auth/*/**",
                                 "/api/ciudad/**",
                                 "/api/usuario/**",
-                                "/api/email/**")
+                                "/api/email/**",
+                                "/swagger-ui/**",
+                                "v3/api-docs/**")
                         .permitAll()
-                        // Solo admins
+                        // solo administradores
                         .requestMatchers(
                                 "/api/comida/**",
                                 "/api/evento/**",
                                 "/api/monumento/**",
                                 "/api/admin/**")
-                        .hasAuthority("ROLE_ADMINISTRADOR")
-
+                        .hasRole("ADMINISTRADOR")
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
@@ -62,17 +82,26 @@ public class ConfiguracionSeguridad {
         return http.build();
     }
 
+    /**
+     * Bean para el AuthenticationManager, necesario para la autenticación.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Bean que proporciona el servicio de carga de detalles de usuario.
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return new ServiDetalleUsuario();
     }
 
+    /**
+     * Bean que configura el proveedor de autenticación con el servicio de usuarios y el codificador de contraseñas.
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -81,6 +110,9 @@ public class ConfiguracionSeguridad {
         return provider;
     }
 
+    /**
+     * Bean para el codificador de contraseñas usando BCrypt.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

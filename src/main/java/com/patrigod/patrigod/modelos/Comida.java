@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "comida")
+@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
 @JsonTypeName("comida")
 @Getter
 @Setter

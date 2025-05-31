@@ -26,7 +26,6 @@ public abstract class Articulo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Mantenemos sólo una relación ciudad aquí:
     @ManyToOne
     @JoinColumn(name = "ciudad_id", nullable = false, foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
     private Ciudad ciudad;

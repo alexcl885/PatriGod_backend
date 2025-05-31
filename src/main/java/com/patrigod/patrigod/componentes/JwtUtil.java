@@ -1,4 +1,5 @@
 package com.patrigod.patrigod.componentes;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,21 +16,43 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "miClaveSuperSecretaQueNadieVaAAdivinarJamas";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 horas
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 12; // 12 horas
 
+    /**
+     * Extrae el nombre de usuario (subject) del token JWT.
+     * @param token el token JWT
+     * @return el nombre de usuario contenido en el token
+     */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    /**
+     * Extrae el rol del usuario del token JWT.
+     * @param token el token JWT
+     * @return el rol contenido en el token
+     */
     public String extractRole(String token) {
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
+    /**
+     * Extrae un claim específico del token JWT usando una función resolutora.
+     * @param token el token JWT
+     * @param claimsResolver función para obtener el claim deseado
+     * @param <T> tipo del claim
+     * @return el valor del claim extraído
+     */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    /**
+     * Extrae todos los claims del token JWT.
+     * @param token el token JWT
+     * @return los claims contenidos en el token
+     */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
@@ -38,14 +61,23 @@ public class JwtUtil {
                 .getBody();
     }
 
+    /**
+     * Genera un token JWT para el usuario proporcionado, incluyendo su rol.
+     * @param userDetails los detalles del usuario autenticado
+     * @return el token JWT generado
+     */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userDetails.getAuthorities().iterator().next().getAuthority());
-        System.out.println("GENERANDO TOKEN CON ROL: " + userDetails.getAuthorities().iterator().next().getAuthority());
-
         return createToken(claims, userDetails.getUsername());
     }
 
+    /**
+     * Crea un token JWT con los claims y el subject proporcionados.
+     * @param claims claims a incluir en el token
+     * @param subject el subject (normalmente el nombre de usuario)
+     * @return el token JWT generado
+     */
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -56,11 +88,22 @@ public class JwtUtil {
                 .compact();
     }
 
+    /**
+     * Valida si el token JWT es válido para el usuario proporcionado.
+     * @param token el token JWT
+     * @param userDetails los detalles del usuario autenticado
+     * @return true si el token es válido y no ha expirado, false en caso contrario
+     */
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    /**
+     * Comprueba si el token JWT ha expirado.
+     * @param token el token JWT
+     * @return true si el token ha expirado, false en caso contrario
+     */
     private boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
