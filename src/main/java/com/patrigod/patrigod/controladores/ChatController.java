@@ -8,6 +8,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Controlador REST para interactuar con el modelo de IA Ollama.
+ * Permite enviar prompts y recibir respuestas relacionadas con las Ciudades Patrimonio de la Humanidad en España.
+ */
 @RestController
 @RequestMapping("/api/ollama")
 public class ChatController {
@@ -16,11 +20,22 @@ public class ChatController {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
+    /**
+     * Constructor que inyecta el ObjectMapper y crea el RestTemplate.
+     * @param objectMapper el mapeador de JSON de Jackson
+     */
     public ChatController(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
         this.restTemplate = new RestTemplate();
     }
 
+    /**
+     * Endpoint para enviar un mensaje al modelo Ollama y obtener una respuesta.
+     * El mensaje de sistema fuerza al modelo a responder solo sobre ciudades patrimonio de la humanidad en España.
+     * 
+     * @param body Mapa con los campos "prompt" (obligatorio) y "model" (opcional)
+     * @return Respuesta generada por el modelo Ollama o mensaje de error
+     */
     @PostMapping("/chat")
     public ResponseEntity<String> chatWithOllama(@RequestBody Map<String, String> body) {
         String prompt = body.get("prompt");

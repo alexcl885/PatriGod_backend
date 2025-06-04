@@ -47,6 +47,8 @@ public interface RepoCiudad extends JpaRepository<Ciudad, Long> {
             "ORDER BY puntuacion_promedio DESC", nativeQuery = true)
     List<RankingCiudadDTO> findRankingCiudadesByPuntuacionPromedio();
 
+    
+
     /**
      * Obtiene un ranking de ciudades basado en la puntuación promedio de los
      * artículos

@@ -21,8 +21,8 @@ public class PuntuacionController {
     private ServiPuntuacion serviPuntuacion;
 
     @GetMapping
-    public List<Puntuacion> findAll() {
-        return serviPuntuacion.findAll();
+    public ResponseEntity<List<Puntuacion>> findAll() {
+        return new ResponseEntity<>(serviPuntuacion.findAll(),HttpStatus.OK);
     }
 
     @PostMapping

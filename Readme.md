@@ -85,7 +85,107 @@ SERVICE_PORT=8080
 - 📊 Interfaz visual (Adminer) para gestionar y consultar la base de datos fácilmente.
 
 ---
+## DIagrama UML de la base de datos
 
+```plantuml
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+class Ciudad {
+  -id : bigint
+  -nombre : varchar
+  -comunidad_autonoma : varchar
+  -provincia : varchar
+  -descripcion : text
+  -imagen_principal : varchar
+  -fecha_patrimonio : date
+  -latitud : decimal
+  -longitud : decimal
+  -puntuacion : double
+}
+
+abstract class Articulo {
+  -id : bigint
+  -nombre : varchar
+  -descripcion : text
+  -ciudad_id : bigint
+}
+
+class Comida {
+  -id : bigint
+  -apto_vegetarianos : boolean
+  -calorias_aprox : int
+  -origen : varchar
+  -tipo : varchar
+  -acompañamientos_recomendados : varchar
+  -curiosidades : text
+  -imagen : varchar
+  -ingredientes_principales : varchar
+  -momento_consumo : varchar
+}
+
+class Evento {
+  -id : bigint
+  -duracion : int
+  -fecha : date
+  -hora_evento : time
+  -informacion_evento : varchar
+  -imagen : varchar
+  -lugar : varchar
+  -organizador : varchar
+  -precio : varchar
+  -tipo_evento : varchar
+  -web_oficial : varchar
+}
+
+class Monumento {
+  -id : bigint
+  -altura : double
+  -curiosidades : varchar
+  -declaracion_unesco : varchar
+  -epoca_construccion : varchar
+  -estilo_arquitectonico : varchar
+  -horario_visitas : varchar
+  -imagen : varchar
+  -materiales_principales : varchar
+  -precio_entrada : varchar
+  -ubicacion : varchar
+}
+
+class Puntuacion {
+  -id : bigint
+  -puntuacion : float
+  -user_id : bigint
+  -articulo_id : bigint
+}
+
+class Usuario {
+  -id : bigint
+  -username : varchar
+  -email : varchar
+  -password : varchar
+  -tipo : enum
+  -activo : boolean
+  -suscrito : boolean
+  -fecha_creacion : datetime
+}
+
+' Relaciones
+Ciudad "1" -- "0..*" Articulo : contiene
+Articulo <|-- Comida
+Articulo <|-- Evento
+Articulo <|-- Monumento
+
+Articulo "1" -- "0..*" Puntuacion : tiene
+Usuario "1" -- "0..*" Puntuacion : da
+@enduml
+```
 ## Creacion de Carpetas
 
 Voy a programar este proyecto mediante una estructura por capas:
@@ -935,17 +1035,57 @@ El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma loc
 
 ```java
 @PostMapping("/chat")
-public ResponseEntity<String> chatWithOllama(@RequestBody Map<String, String> body) {
-    String prompt = body.get("prompt");
-    String model = body.getOrDefault("model", "llama3.2");
-    // ...validación y construcción del mensaje...
-    // Mensaje de sistema para limitar el contexto
-    String systemPrompt = "Eres un asistente experto en las Ciudades Patrimonio de la Humanidad en España. " +
-        "Solo puedes responder sobre temas relacionados con estas ciudades. Si la pregunta no tiene relación, " +
-        "indica amablemente que solo puedes responder sobre las ciudades patrimonio de la humanidad en España. " +
-        "Si necesitas ayuda, estoy aquí para ello.";
-    // ...envío de la petición a Ollama y retorno de la respuesta...
-}
+    public ResponseEntity<String> chatWithOllama(@RequestBody Map<String, String> body) {
+        String prompt = body.get("prompt");
+        String model = body.getOrDefault("model", "llama3.2");
+        if (prompt == null || prompt.isBlank()) {
+            return ResponseEntity.badRequest().body("Falta el prompt en la solicitud.");
+        }
+
+        // Mensaje de sistema para guiar al modelo
+        String systemPrompt = "Eres un asistente experto en las Ciudades Patrimonio de la Humanidad en España. " +
+                "Solo puedes responder sobre temas relacionados con estas ciudades. Si la pregunta no tiene relación, " +
+                "indica amablemente que solo puedes responder sobre las ciudades patrimonio de la humanidad en España. " +
+                "Si necesitas ayuda, estoy aquí para ello.";
+
+        try {
+            Map<String, Object> jsonBody = new HashMap<>();
+            jsonBody.put("model", model);
+            jsonBody.put("stream", false);
+
+            List<Map<String, String>> messages = new ArrayList<>();
+            // Mensaje de sistema
+            Map<String, String> systemMessage = new HashMap<>();
+            systemMessage.put("role", "system");
+            systemMessage.put("content", systemPrompt);
+            messages.add(systemMessage);
+            // Mensaje del usuario
+            Map<String, String> userMessage = new HashMap<>();
+            userMessage.put("role", "user");
+            userMessage.put("content", prompt);
+            messages.add(userMessage);
+            jsonBody.put("messages", messages);
+
+            String json = objectMapper.writeValueAsString(jsonBody);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+            ResponseEntity<String> response = restTemplate.postForEntity(OLLAMA_URL, request, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                return ResponseEntity.status(response.getStatusCode())
+                        .body("Error de Ollama: " + response.getBody());
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al llamar a Ollama: " + e.getMessage());
+        }
+    }
 ```
 
 #### 🚀 Ventajas de la integración

@@ -150,6 +150,49 @@ public Optional<Usuario> actualizarUsernameOEmail(Long id, String nuevoUsername,
     });
 }
 
+/**
+     * Actualiza los datos del usuario (excepto la contraseña).
+     *
+     * @param id ID del usuario a actualizar
+     * @param nuevoUsername Nuevo nombre de usuario (puede ser null o vacío para no cambiar)
+     * @param nuevoEmail Nuevo email (puede ser null o vacío para no cambiar)
+     * @param activo Nuevo estado de actividad (puede ser null para no cambiar)
+     * @param suscrito Nuevo estado de suscripción (puede ser null para no cambiar)
+     * @return el usuario actualizado o vacío si no se encontró
+     */
+    public Optional<Usuario> actualizarDatosUsuario(Long id, String nuevoUsername, String nuevoEmail) {
+        return repoUsuario.findById(id).map(usuario -> {
+            if (nuevoUsername != null && !nuevoUsername.isBlank() && !nuevoUsername.equals(usuario.getUsername())) {
+                boolean usernameExiste = repoUsuario.existsByUsernameAndIdNot(nuevoUsername, id);
+                if (usernameExiste) {
+                    throw new RuntimeException("El nombre de usuario ya está en uso.");
+                }
+                usuario.setUsername(nuevoUsername);
+            }
+            if (nuevoEmail != null && !nuevoEmail.isBlank() && !nuevoEmail.equals(usuario.getEmail())) {
+                boolean emailExiste = repoUsuario.existsByEmailAndIdNot(nuevoEmail, id);
+                if (emailExiste) {
+                    throw new RuntimeException("El email ya está en uso.");
+                }
+                usuario.setEmail(nuevoEmail);
+            }
+            return repoUsuario.save(usuario);
+        });
+    }
+
+    /**
+     * Cambia la contraseña del usuario.
+     * 
+     * @param id ID del usuario
+     * @param nuevaPassword Nueva contraseña ya codificada (BCrypt)
+     * @return el usuario actualizado o vacío si no se encontró
+     */
+    public Optional<Usuario> cambiarPassword(Long id, String nuevaPassword) {
+        return repoUsuario.findById(id).map(usuario -> {
+            usuario.setPassword(nuevaPassword);
+            return repoUsuario.save(usuario);
+        });
+    }
 
     
     

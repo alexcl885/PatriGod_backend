@@ -104,4 +104,43 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Actualiza los datos del usuario (excepto la contraseña).
+     * @param id ID del usuario a actualizar
+     * @param dto DTO con los nuevos datos (username, email, activo, suscrito)
+     * @return el usuario actualizado o 404 si no existe
+     */
+    @PostMapping("/{id}/actualizar-datos")
+    public ResponseEntity<Usuario> actualizarDatosUsuario(
+            @PathVariable Long id,
+            @RequestBody UsuarioActualizacionDTO dto) {
+        return serviUsuario.actualizarDatosUsuario(
+                    id,
+                    dto.getUsername(),
+                    dto.getEmail()
+                )
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Cambia la contraseña del usuario.
+     * @param id ID del usuario
+     * @param body JSON con el campo "nuevaPassword"
+     * @return el usuario actualizado o 404 si no existe
+     */
+    @PostMapping("/{id}/cambiar-password")
+    public ResponseEntity<Usuario> cambiarPassword(
+            @PathVariable Long id,
+            @RequestBody java.util.Map<String, String> body) {
+        String nuevaPassword = body.get("nuevaPassword");
+        if (nuevaPassword == null || nuevaPassword.length() <= 4) {
+            return ResponseEntity.badRequest().build();
+        }
+        String encodedPassword = passwordEncoder.encode(nuevaPassword);
+        return serviUsuario.cambiarPassword(id, encodedPassword)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
