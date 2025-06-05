@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.patrigod.patrigod.modelos.Monumento;
 import com.patrigod.patrigod.repos.RepoMonumento;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ServiMonumento {
     
@@ -42,8 +44,11 @@ public class ServiMonumento {
         return repoMonumento.save(monumento);
     }
 
+    @Transactional
     public void deleteMonumentoById(Long id){
-        repoMonumento.deleteById(id);
+        Monumento monumento = repoMonumento.findById(id)
+                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con id: " + id));
+        repoMonumento.delete(monumento);;
     }
 
 

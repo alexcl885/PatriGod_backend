@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.patrigod.patrigod.modelos.Comida;
 import com.patrigod.patrigod.repos.RepoComida;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ServiComida {
     
@@ -39,8 +41,11 @@ public class ServiComida {
         return repoComida.save(comida);
     }
 
+    @Transactional
     public void deleteComidaById(Long id){
-        repoComida.deleteById(id);
+        Comida comida = repoComida.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comida no encontrada con id: " + id));
+        repoComida.delete(comida);
     }
 
 }

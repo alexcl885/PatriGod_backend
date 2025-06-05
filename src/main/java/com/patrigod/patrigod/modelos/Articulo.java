@@ -1,5 +1,7 @@
 package com.patrigod.patrigod.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -36,6 +38,8 @@ public abstract class Articulo {
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    
+    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Puntuacion> puntuaciones = new ArrayList<>();
 
 }
