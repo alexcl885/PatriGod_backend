@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.patrigod.patrigod.componentes.JwtAuthenticationFilter;
-import com.patrigod.patrigod.servicios.ServiDetalleUsuario;
+import com.patrigod.patrigod.usuario.service.ServiDetalleUsuario;
 
 /**
  * Configuración principal de seguridad para la aplicación Spring Boot.

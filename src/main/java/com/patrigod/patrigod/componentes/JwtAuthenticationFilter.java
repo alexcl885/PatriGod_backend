@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.patrigod.patrigod.servicios.ServiDetalleUsuario;
+import com.patrigod.patrigod.usuario.service.ServiDetalleUsuario;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
