@@ -8,15 +8,18 @@ Este proyecto contiene el **backend** de la aplicación web **PatriGod**, respon
 
 1. [Creacion del proyecto](#creacion-del-proyecto)
 2. [Implementacion de Docker](#creacion-del-proyecto)
-3. [Creacion de Carpetas](#creacion-de-carpetas)
-4. [Programando proyecto](#programando-proyecto)
+4. [Seguridad con Variables de Entorno](#seguridad-con-variables-de-entorno)
+5. [Creacion de Carpetas](#creacion-de-carpetas)
+6. [Diagrama UML de la base de datos](#diagrama-uml-de-la-base-de-datos)
+7. [Rutas de la API REST](#rutas-de-la-api-rest)
+8. [Programando proyecto](#programando-proyecto)
     - [Base del proyecto](#base-del-proyecto)
     - [Subclases clase Articulo](#subclases-monumento-evento-comida)
     - [Ranking](#ranking)
     - [Email](#email)
-    - [Spring Security + JWT](#programando-proyecto) 
+    - [Spring Security + JWT](#spring-security--jwt) 
     - [Swagger por OpenApi](#documentación-automática-con-swagger-y-springdoc-openapi)
-5. [Autor](#autor)
+6. [Autor](#autor)
 
 
 ---
@@ -46,7 +49,7 @@ En este caso, se utilizaré **Adminer** como interfaz gráfica para gestionar la
 
 ---
 
-### 🔐 Seguridad con Variables de Entorno
+### Seguridad con Variables de Entorno
 
 Con el objetivo de mejorar la seguridad, se utilizará un archivo `.env` para almacenar variables sensibles, como:
 
@@ -85,7 +88,7 @@ SERVICE_PORT=8080
 - 📊 Interfaz visual (Adminer) para gestionar y consultar la base de datos fácilmente.
 
 ---
-## DIagrama UML de la base de datos
+## Diagrama UML de la base de datos
 
 ```plantuml
 @startuml
@@ -228,6 +231,145 @@ Voy a programar este proyecto mediante una estructura por capas:
 | `modelos`       | Representan las entidades de base de datos. Se usan con JPA/Hibernate.             |
 | `repos`         | Interfaz entre la app y la base de datos. Consultas automáticas con Spring Data.   |
 | `servicios`     | Contienen la lógica de negocio (qué hacer con los datos). 
+
+
+---
+
+## Rutas de la API REST
+
+A continuación se detallan todas las rutas (endpoints) expuestas por el backend, indicando el método HTTP, la URL, el propósito, los roles autorizados y ejemplos de uso.  
+Esta tabla sirve como referencia rápida para desarrolladores y para la integración con el frontend.
+
+---
+
+## 🏙️ Ciudad (`/api/ciudad`)
+
+| Método | Ruta                       | Descripción                                         | Rol autorizado         |
+|--------|----------------------------|-----------------------------------------------------|------------------------|
+| GET    | `/api/ciudad`              | Listar todas las ciudades                           | Público                |
+| GET    | `/api/ciudad/{id}`         | Obtener detalles de una ciudad por ID               | Público                |
+| POST   | `/api/ciudad`              | Crear nueva ciudad                                  | ADMINISTRADOR          |
+| PUT    | `/api/ciudad/{id}`         | Actualizar ciudad                                   | ADMINISTRADOR          |
+| DELETE | `/api/ciudad/{id}`         | Eliminar ciudad                                     | ADMINISTRADOR          |
+| GET    | `/api/ciudad/rankMonumento`| Ranking ciudades por media de monumentos            | Público                |
+| GET    | `/api/ciudad/rankComida`   | Ranking ciudades por media de comidas               | Público                |
+| GET    | `/api/ciudad/rankEvento`   | Ranking ciudades por media de eventos               | Público                |
+
+---
+
+## 🏛️ Monumento (`/api/monumento`)
+
+| Método | Ruta                         | Descripción                                 | Rol autorizado         |
+|--------|------------------------------|---------------------------------------------|------------------------|
+| GET    | `/api/monumento`             | Listar todos los monumentos                 | Público                |
+| GET    | `/api/monumento/{id}`        | Obtener detalles de un monumento            | Público                |
+| POST   | `/api/monumento`             | Crear nuevo monumento                       | ADMINISTRADOR          |
+| PUT    | `/api/monumento/{id}`        | Actualizar monumento                        | ADMINISTRADOR          |
+| DELETE | `/api/monumento/{id}`        | Eliminar monumento                          | ADMINISTRADOR          |
+
+---
+
+## 🍽️ Comida (`/api/comida`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| GET    | `/api/comida`             | Listar todas las comidas                    | Público                |
+| GET    | `/api/comida/{id}`        | Obtener detalles de una comida              | Público                |
+| POST   | `/api/comida`             | Crear nueva comida                          | ADMINISTRADOR          |
+| PUT    | `/api/comida/{id}`        | Actualizar comida                           | ADMINISTRADOR          |
+| DELETE | `/api/comida/{id}`        | Eliminar comida                             | ADMINISTRADOR          |
+
+---
+
+## 🎭 Evento (`/api/evento`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| GET    | `/api/evento`             | Listar todos los eventos                    | Público                |
+| GET    | `/api/evento/{id}`        | Obtener detalles de un evento               | Público                |
+| POST   | `/api/evento`             | Crear nuevo evento                          | ADMINISTRADOR          |
+| PUT    | `/api/evento/{id}`        | Actualizar evento                           | ADMINISTRADOR          |
+| DELETE | `/api/evento/{id}`        | Eliminar evento                             | ADMINISTRADOR          |
+
+---
+
+## ⭐ Puntuación (`/api/puntuacion`)
+
+| Método | Ruta                          | Descripción                                 | Rol autorizado         |
+|--------|-------------------------------|---------------------------------------------|------------------------|
+| GET    | `/api/puntuacion`             | Listar todas las puntuaciones               | Autenticado            |
+| POST   | `/api/puntuacion`             | Crear nueva puntuación                      | Autenticado            |
+| PUT    | `/api/puntuacion/{id}`        | Actualizar puntuación                       | Autenticado            |
+| DELETE | `/api/puntuacion/{id}`        | Eliminar puntuación                         | Autenticado            |
+
+---
+
+## 👤 Usuario (`/api/usuario`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| GET    | `/api/usuario`            | Obtener usuario autenticado                 | Autenticado            |
+| POST   | `/api/usuario/register`   | Registrar nuevo usuario                     | Público                |
+| GET    | `/api/usuario/{id}`       | Obtener usuario por ID                      | ADMINISTRADOR          |
+| PUT    | `/api/usuario/{id}`       | Actualizar usuario                          | ADMINISTRADOR          |
+| DELETE | `/api/usuario/{id}`       | Eliminar usuario                            | ADMINISTRADOR          |
+
+---
+
+## 🔐 Autenticación (`/api/auth`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| POST   | `/api/auth/login`         | Autenticación y obtención de JWT            | Público                |
+| POST   | `/api/auth/refresh`       | Refrescar token JWT                         | Público                |
+
+---
+
+## ✉️ Email (`/api/email`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| POST   | `/api/email/send`         | Enviar email (test o notificación)          | Público / Autenticado  |
+
+---
+
+## 🤖 Chat IA Ollama (`/api/ollama`)
+
+| Método | Ruta                      | Descripción                                 | Rol autorizado         |
+|--------|---------------------------|---------------------------------------------|------------------------|
+| POST   | `/api/ollama/chat`        | Chatbot IA sobre ciudades patrimonio         | Autenticado            |
+
+---
+
+## 🛡️ Seguridad y Roles
+
+- **Público:** Acceso sin autenticación (por ejemplo, registro, login, consulta de ciudades, rankings).
+- **Autenticado:** Requiere JWT válido (usuarios registrados).
+- **ADMINISTRADOR:** Requiere JWT con rol de administrador (gestión de entidades, usuarios, etc.).
+
+El backend utiliza JWT para la autenticación. El token debe enviarse en el header `Authorization: Bearer <token>` en las rutas protegidas.
+
+---
+
+## 📑 Ejemplo de petición autenticada
+
+```http
+GET /api/ciudad HTTP/1.1
+Host: localhost:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+```
+
+---
+
+## 📝 Notas adicionales
+
+- Todas las rutas devuelven respuestas en formato JSON.
+- Los endpoints de administración requieren rol `ADMINISTRADOR`.
+- Los endpoints de puntuación y chat requieren usuario autenticado.
+- El endpoint de chat IA solo responde sobre ciudades patrimonio de la humanidad en España.
+- Para probar la API de forma interactiva, accede a `/swagger-ui/index.html`.
+
+---
 
 ## Programando proyecto
 
@@ -1042,7 +1184,7 @@ El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma loc
             return ResponseEntity.badRequest().body("Falta el prompt en la solicitud.");
         }
 
-        // Mensaje de sistema para guiar al modelo
+        // Mensaje de sistema para guiar el modelo
         String systemPrompt = "Eres un asistente experto en las Ciudades Patrimonio de la Humanidad en España. " +
                 "Solo puedes responder sobre temas relacionados con estas ciudades. Si la pregunta no tiene relación, " +
                 "indica amablemente que solo puedes responder sobre las ciudades patrimonio de la humanidad en España. " +
@@ -1136,3 +1278,5 @@ Una vez ejecutado el proyecto, puedes acceder a:
   [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
 
 ---
+### Autor
+Alejandro Copado López

@@ -60,7 +60,7 @@ public class ComidaController {
      */
     @DeleteMapping("{id}")
     public ResponseEntity<ComidaOutputDto>  deleteComida(@PathVariable Long id){
-        Comida comida = serviComida.findComida(id);
+        Comida comida = serviComida.deleteComidaById(id);
         return new ResponseEntity<>(comidaMapper.toOutputDto(comida), HttpStatus.OK);
 
     }

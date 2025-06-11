@@ -68,10 +68,11 @@ public class ServiMonumento {
      * @throws RuntimeException si no se encuentra el monumento
      */
     @Transactional
-    public void deleteMonumentoById(Long id){
+    public Monumento deleteMonumentoById(Long id){
         MonumentoJpa monumento = repoMonumento.findById(id)
                 .orElseThrow(() -> new RuntimeException("Monumento no encontrado con id: " + id));
         repoMonumento.delete(monumento);
+        return monumentoMapper.toModel(monumento);
     }
 
 }

@@ -3,7 +3,6 @@ package com.patrigod.patrigod.comida.entity.dto.output;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.patrigod.patrigod.ciudad.entity.entity.CiudadJpa;
 import com.patrigod.patrigod.ciudad.entity.model.Ciudad;
 import com.patrigod.patrigod.puntuacion.entity.entity.Puntuacion;
 

@@ -3,7 +3,6 @@ package com.patrigod.patrigod.ciudad.entity.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter

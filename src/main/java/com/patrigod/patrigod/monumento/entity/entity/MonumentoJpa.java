@@ -1,5 +1,8 @@
 package com.patrigod.patrigod.monumento.entity.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.patrigod.patrigod.articulo.entity.entity.ArticuloJpa;
 
@@ -8,7 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@OnDelete(action = OnDeleteAction.CASCADE)
 @Table(name = "monumento")
 @SuperBuilder
 public class MonumentoJpa extends ArticuloJpa {

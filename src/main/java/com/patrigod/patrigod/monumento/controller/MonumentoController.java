@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patrigod.patrigod.articulo.repository.RepoArticulo;
 import com.patrigod.patrigod.monumento.entity.dto.input.MonumentoInputDto;
 import com.patrigod.patrigod.monumento.entity.dto.output.MonumentoOutputDto;
 import com.patrigod.patrigod.monumento.entity.model.Monumento;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MonumentoController {
 
     private final MonumentoMapper monumentoMapper;
+    private final RepoArticulo repoArticulo;
     
     private final ServiMonumento serviMonumento;
 
@@ -48,7 +50,8 @@ public class MonumentoController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<MonumentoOutputDto>  deleteEvento(@PathVariable Long id){
-        Monumento monumento = serviMonumento.findMonumento(id);
+        Monumento monumento = serviMonumento.deleteMonumentoById(id);
+        repoArticulo.deleteById(id);
         return new ResponseEntity<>(monumentoMapper.toOutputDto(monumento), HttpStatus.OK);
     }
     

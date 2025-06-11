@@ -19,7 +19,6 @@ import com.patrigod.patrigod.comida.entity.model.Comida;
 import com.patrigod.patrigod.comida.mapper.ComidaMapper;
 import com.patrigod.patrigod.comida.service.ServiComida;
 import com.patrigod.patrigod.evento.entity.dto.output.EventoOutputDto;
-import com.patrigod.patrigod.evento.entity.entidad.EventoJpa;
 import com.patrigod.patrigod.evento.entity.model.Evento;
 import com.patrigod.patrigod.evento.mapper.EventoMapper;
 import com.patrigod.patrigod.evento.service.ServiEvento;
@@ -105,9 +104,11 @@ public class CiudadController {
      * @return ResponseEntity con la lista de eventos
      */
     @GetMapping("/{id}/eventos")
-    public ResponseEntity<List<EventoJpa>> findEventosByCiudad(@PathVariable @NonNull Long id) {
-        List<EventoJpa> eventos = serviCiudad.findEventosByCiudad(id);
-        return ResponseEntity.ok(eventos);
+    public ResponseEntity<List<EventoOutputDto>> findEventosByCiudad(@PathVariable @NonNull Long id) {
+        List<Evento> eventos = serviCiudad.findEventosByCiudad(id);
+        return ResponseEntity.ok(eventos.stream()
+                .map(eventoMapper::toOutputDto)
+                .toList());
     }
 
     /**

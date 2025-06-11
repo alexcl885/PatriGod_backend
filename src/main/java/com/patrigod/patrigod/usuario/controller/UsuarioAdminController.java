@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.patrigod.patrigod.usuario.entity.dto.input.CambiarRolDto;
 import com.patrigod.patrigod.usuario.entity.entity.Usuario;
 import com.patrigod.patrigod.usuario.service.ServiUsuario;
 
@@ -49,7 +51,23 @@ public class UsuarioAdminController {
         return serviUsuario.findByName(username);
     }
 
-
-    
+    /**
+     * Cambia el rol (tipo) de un usuario.
+     * @param id ID del usuario a modificar
+     * @param body JSON con el campo "tipo" (por ejemplo: "ADMINISTRADOR" o "USUARIO")
+     * @return ResponseEntity con el usuario actualizado o 404 si no existe
+     */
+    @PutMapping("/{id}/rol")
+    public ResponseEntity<Usuario> cambiarRolUsuario(@PathVariable Long id, @RequestBody CambiarRolDto body) {
+        if (body == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        // Solo el admin superior puede cambiar el rol
+        if (!body.getUsername().equals("admin") ){
+            return ResponseEntity.badRequest().body(null);
+        }
+        Usuario usuario = serviUsuario.cambiarRol(id,body.getTipo() );
+        return new ResponseEntity<>(usuario, HttpStatus.OK);       
+    }
     
 }

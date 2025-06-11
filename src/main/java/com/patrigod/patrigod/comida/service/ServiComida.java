@@ -68,10 +68,11 @@ public class ServiComida {
      * @throws RuntimeException si no se encuentra la comida
      */
     @Transactional
-    public void deleteComidaById(Long id){
+    public Comida deleteComidaById(Long id){
         ComidaJpa comida = repoComida.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comida no encontrada con id: " + id));
         repoComida.delete(comida);
+        return comidaMapper.toModel(comida);
     }
 
 }

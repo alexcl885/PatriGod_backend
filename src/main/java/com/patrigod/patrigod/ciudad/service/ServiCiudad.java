@@ -16,6 +16,8 @@ import com.patrigod.patrigod.ciudad.repository.RepoCiudad;
 import com.patrigod.patrigod.comida.entity.entity.ComidaJpa;
 import com.patrigod.patrigod.comida.repository.RepoComida;
 import com.patrigod.patrigod.evento.entity.entidad.EventoJpa;
+import com.patrigod.patrigod.evento.entity.model.Evento;
+import com.patrigod.patrigod.evento.mapper.EventoMapper;
 import com.patrigod.patrigod.evento.repository.RepoEvento;
 import com.patrigod.patrigod.monumento.entity.entity.MonumentoJpa;
 import com.patrigod.patrigod.monumento.repository.RepoMonumento;
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class ServiCiudad {
 
     private final CiudadMapper ciudadMapper;
+    private final EventoMapper eventoMapper;
 
     private final RepoCiudad repoCiudad;
     private final RepoMonumento repoMonumento;
@@ -81,10 +84,13 @@ public class ServiCiudad {
      * @param idCiudad parametro de la ciudad
      * @return una lista de eventos de la ciudad indicada
      */
-    public List<EventoJpa> findEventosByCiudad(Long idCiudad) {
+    public List<Evento> findEventosByCiudad(Long idCiudad) {
         Optional<CiudadJpa> ciudadOptional = repoCiudad.findById(idCiudad);
         if (ciudadOptional.isPresent()) {
-            return repoEvento.findEventoByCiudad(ciudadOptional.get());
+            List<EventoJpa> listEventoJpa = repoEvento.findEventoByCiudad(ciudadOptional.get());
+            return listEventoJpa.stream()
+                    .map(eventoMapper::toModel)
+                    .collect(Collectors.toList());
         }
         return List.of(); 
     }

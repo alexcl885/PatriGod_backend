@@ -68,7 +68,7 @@ INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
   (1,  1,  'Mezquita-Catedral',               'Monumento emblemático de Córdoba, mezcla de arquitectura califal y renacentista.'),
   (2,  2,  'Casco Histórico',                 'Recorrido peatonal por las callejuelas medievales de Toledo.'),
   (3,  3,  'Universidad de Salamanca',       'Institución académica fundada en el siglo XIII con fachada plateresca.'),
-  (4,  4,  'Muralla Medieval',                'Fortificación que rodea Ávila y ofrece vistas panorámicas.'),
+  (4,  4,  'Judías del Barco de Ávila',                'Días fríos; es un plato muy nutritivo y saciante.'),
   (5,  5,  'Camino de Santiago',              'Ruta de peregrinación culmina en la Catedral de Santiago.'),
   (6,  6,  'Acueducto Romano',                'Estructura de piedra romana perfectamente conservada en Segovia.'),
   (7,  7,  'Plaza Mayor',                     'Centro histórico de Cáceres con arquitectura renacentista.'),
@@ -92,15 +92,25 @@ INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
   (25,  9,  'Iglesia de la Concepción',      'Templo católico en La Laguna con retablos barrocos.'),
   (26, 10, 'Castillo de Ibiza',               'Fortaleza medieval en la cima de Dalt Vila.'),
   (27, 11, 'Palacio Vásquez de Molina',   'Palacio renacentista en Úbeda.'),
-  (28, 12, 'Perrunillas_baeza',     'Muy bueno.'),
+  (28, 11, 'Andrajos',     'Muy bueno.'),
   (29, 13, 'Calle Mayor',                    'Vial principal de Alcalá con casas nobiliarias.'),
   (30, 14, 'Puerta de San Pedro',            'Acceso principal a la muralla de Lugo.'),
   (31, 15, 'Forum de la Colonia',            'Plaza central romana en Tarragona.'),
   (32, 16, 'Huerto del Cura',                'Jardín botánico dentro del Palmeral de Elche.'),
   (33, 11, 'Ochios','Muy buenos'),
   (34, 12, 'Evento Baeza','Evento Baeza'),
-  (35, 12, 'Monumento Baeza','Monumento Baeza'),
-  (36, 7, 'Comida Caceres','Comida Caceres');
+  (35, 12, 'Palacio de Jabalquinto','Ejemplo soberbio del gótico Isabelino con decoración de puntas de diamante, mocárabes y patio interior, actualmente sede de la UNIA'),
+  (36, 7, 'Migas extremeñas','Rebanadas de pan duro remojadas se fríen con ajo, pimentón, aceite y se acompañan con chorizo, panceta o sardinas. Son ideales para el tapeo o un desayuno contundente'),
+  (37, 11, 'Palacio de las Cadenas', 'Palacio renacentista que hoy alberga el Ayuntamiento de Úbeda, con una imponente fachada y patio central.'),
+  (38, 11, 'Palacio Vela de los Cobos', 'Palacio del siglo XVI diseñado por Vandelvira, destaca por su elegante arquitectura renacentista.'),
+  (39, 11, 'Hospital de Santiago', 'Antiguo hospital renacentista conocido como el "Escorial andaluz", actualmente centro cultural.'),
+  (40, 11, 'Torreón del Portillo del Santo Cristo', 'Restos defensivos medievales bien conservados, parte del recinto amurallado de Úbeda.'),
+  (41, 11, 'Casa de las Torres', 'Palacio fortaleza gótico-renacentista que hoy acoge la Escuela de Arte de Úbeda.'),
+  (42, 11, 'Iglesia de San Pablo', 'Iglesia gótica con elementos románicos y renacentistas, ubicada en la plaza del mismo nombre.'),
+  (43, 11, 'Sinagoga del Agua', 'Espacio recuperado que muestra restos de una antigua sinagoga con baños rituales y pozo.'),
+  (44, 11, 'Iglesia de San Lorenzo', 'Templo restaurado del siglo XIII, sede de actividades culturales y mirador con vistas a la Loma de Úbeda.'),
+  (45, 11, 'Puerta de Granada', 'Una de las antiguas puertas de entrada a la ciudad, con vistas espectaculares y valor histórico.');
+
   
 
 -- --------------------------------------------------
@@ -111,7 +121,7 @@ INSERT INTO `monumento` (
   `horario_visitas`, `precio_entrada`, `declaracion_unesco`, `altura`,
   `materiales_principales`, `curiosidades`
 ) VALUES
-(1, 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Mezquita_de_C%C3%B3rdoba_-_interior.jpg', 'Islámico y Gótico', 'Siglo VIII - XVI', 'Calle Cardenal Herrero, Córdoba',
+(1, 'https://cordobapie.es/wp-content/uploads/2023/06/mezquita-de-cordoba-interior_sywHIhz.jpeg', 'Islámico y Gótico', 'Siglo VIII - XVI', 'Calle Cardenal Herrero, Córdoba',
  '10:00 - 19:00', '13€', '1984', 30.0, 'Piedra arenisca y mármol',
  'Fue mezquita durante el Califato de Córdoba y luego convertida en catedral católica.'),
 
@@ -123,7 +133,7 @@ INSERT INTO `monumento` (
  '08:30 - 20:00', '14€', '1984', 50.0, 'Yeso, ladrillo, cerámica vidriada',
  'Fue residencia de los reyes nazaríes y una de las joyas arquitectónicas de Europa.'),
 
-(10, 'https://upload.wikimedia.org/wikipedia/commons/1/10/Ibiza_-_Dalt_Vila.jpg', 'Renaixentista', 'Siglo XVI', 'Ibiza ciudad',
+(10, 'https://dv7zfk0hwmxgu.cloudfront.net/sites/default/files/styles/auto_1500_width/public/generic-page-images/49245/slideshow-1573127752_4.jpg', 'Renaixentista', 'Siglo XVI', 'Ibiza ciudad',
  '10:00 - 18:00', 'Gratis', '1999', 20.0, 'Piedra caliza',
  'Constituye el recinto fortificado mejor conservado del Mediterráneo.'),
 
@@ -131,11 +141,11 @@ INSERT INTO `monumento` (
  '10:00 - 14:00 / 16:00 - 19:00', '5€', '2003', 35.0, 'Piedra de cantera local',
  'Diseñada por Diego de Siloé y Andrés de Vandelvira, es un referente del renacimiento andaluz.'),
 
-(13, 'https://upload.wikimedia.org/wikipedia/commons/4/42/Universidad_de_Alcal%C3%A1_-_Fachada.jpg', 'Renacentista', 'Siglo XV', 'Calle Libreros, Alcalá de Henares',
+(13, 'https://upload.wikimedia.org/wikipedia/commons/9/92/Universidad-Alcala-180819.jpg', 'Renacentista', 'Siglo XV', 'Calle Libreros, Alcalá de Henares',
  '10:00 - 18:00', '4€', '1998', 28.0, 'Piedra caliza',
  'Fundada por el Cardenal Cisneros, fue una de las primeras universidades modernas.'),
 
-(14, 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Lugo_-_Muralla_romana.jpg', 'Romano', 'Siglo III', 'Centro histórico, Lugo',
+(14, 'https://www.turium.es/wp-content/uploads/sites/4/2025/01/muralla-romana-mejor-conservada-1200x1063.jpg', 'Romano', 'Siglo III', 'Centro histórico, Lugo',
  'Libre acceso', 'Gratis', '2000', 10.0, 'Granito',
  'Es la única muralla romana completa que se conserva en el mundo.'),
 
@@ -143,19 +153,19 @@ INSERT INTO `monumento` (
  '09:00 - 20:00', '5€', '2000', 18.0, 'Piedra',
  'Podía albergar hasta 15.000 espectadores y fue escenario de luchas de gladiadores.'),
 
-(16, 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Palmeral_de_Elche.jpg', 'Árabe', 'Siglo X', 'Centro histórico, Elche',
+(16, 'https://www.visitelche.com/wp-content/uploads/2017/06/Parque-Municipal-18-scaled.jpg', 'Árabe', 'Siglo X', 'Centro histórico, Elche',
  'Libre acceso', 'Gratis', '2000', NULL, 'Palmeras, acequias',
  'Es el mayor palmeral de Europa, con más de 200.000 ejemplares.'),
 
-(19, 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Casa_de_las_Conchas-Salamanca.jpg', 'Gótico tardío', 'Siglo XV', 'Calle Compañía, Salamanca',
+(19, 'https://www.turismocastillayleon.com/cm/images?locale=es_ES&idMmedia=267212', 'Gótico tardío', 'Siglo XV', 'Calle Compañía, Salamanca',
  '10:00 - 20:00', 'Gratis', '1988', 17.0, 'Piedra y conchas decorativas',
  'La fachada tiene más de 300 conchas de piedra, símbolo de la orden de Santiago.'),
 
-(22, 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Alc%C3%A1zar_de_Segovia_%28España%29.jpg', 'Gótico y Mudéjar', 'Siglo XII', 'Plaza Reina Victoria Eugenia, Segovia',
+(22, 'https://www.turismocastillayleon.com/cm/images?locale=es_ES&idMmedia=267212', 'Gótico y Mudéjar', 'Siglo XII', 'Plaza Reina Victoria Eugenia, Segovia',
  '10:00 - 18:00', '9€', '1985', 80.0, 'Piedra caliza',
  'Inspiró el castillo de Disney y fue residencia de reyes de Castilla.'),
 
-(24, 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Catedral_de_Cuenca_-_fachada.jpg', 'Gótico normando', 'Siglo XII', 'Plaza Mayor, Cuenca',
+(24, 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Catedral_cuenca.jpg/1200px-Catedral_cuenca.jpg', 'Gótico normando', 'Siglo XII', 'Plaza Mayor, Cuenca',
  '10:00 - 18:30', '6€', '1996', 35.0, 'Piedra',
  'Fue una de las primeras catedrales góticas construidas en España.'),
 
@@ -166,9 +176,45 @@ INSERT INTO `monumento` (
 (30, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
  'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
  'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.'),
- (35, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
+ (35, 'https://www.ruralidays.com/viajar/wp-content/uploads/2016/11/palacio-de-jabalquinto-en-baeza.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
  'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
- 'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.');
+ 'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.'),
+ (37, 'https://multimedia.andalucia.org/fotos/image_168754.jpeg', 'Renacentista', 'Siglo XVI', 'Plaza Vázquez de Molina, Úbeda',
+ '09:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 40.0, 'Piedra arenisca',
+ 'Uno de los palacios más emblemáticos de Úbeda, con fachada simétrica, patio interior y sede del Ayuntamiento.'),
+
+(38, 'https://upload.wikimedia.org/wikipedia/commons/2/20/2002-10-26_11-15_Andalusien%2C_Lissabon_123_%C3%9Abeda.jpg', 'Renacentista', 'Siglo XVI', 'Calle Juan Montilla, 3, Úbeda',
+ 'Concertar visita', '6€', '2003', 30.0, 'Mampostería y piedra',
+ 'Obra de Vandelvira, destaca por su elegancia arquitectónica y valiosa biblioteca privada visitable.'),
+
+(39, 'https://cloud.inspain.org/imgwbp/sitios/1/1/8/ay3pje36bku5eh4bm7a43f7cgm_2000.webp', 'Renacentista', 'Siglo XVI', 'Avenida Cristo Rey, Úbeda',
+ '09:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 50.0, 'Sillería de piedra',
+ 'Antiguo hospital y obra cumbre de Vandelvira, hoy centro cultural con exposiciones y actividades.'),
+
+(40, 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Torreon_del_Portillo_del_Santo_Cristo.jpg/1280px-Torreon_del_Portillo_del_Santo_Cristo.jpg', 'Medieval', 'Siglo XIII', 'Calle Portillo del Santo Cristo, Úbeda',
+ 'Libre acceso', 'Gratis', '2003', 15.0, 'Piedra caliza',
+ 'Antiguo torreón defensivo del recinto amurallado de Úbeda, conservado como muestra de arquitectura militar.'),
+
+(41, 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Casa_de_las_Torres_%28Úbeda%29.jpg/1280px-Casa_de_las_Torres_%28Úbeda%29.jpg', 'Gótico-renacentista', 'Siglo XVI', 'Calle Yanguas y Messía, Úbeda',
+ '09:00 - 14:00', 'Gratis', '2003', 25.0, 'Sillería y mampostería',
+ 'Antigua casa nobiliaria que combina elementos defensivos y decorativos; hoy sede de la Escuela de Arte de Úbeda.'),
+
+(42, 'https://upload.wikimedia.org/wikipedia/commons/9/97/Church_of_San_Pablo%2C_Baeza.jpg', 'Gótico', 'Siglo XIV', 'Plaza Primero de Mayo, Úbeda',
+ '10:00 - 13:30 / 16:00 - 18:00', '3€', '2003', 35.0, 'Piedra caliza',
+ 'Templo con mezcla de estilos gótico, románico y renacentista, muy ligado a la historia local.'),
+
+(43, 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Sinagoga_del_Agua.jpg/1200px-Sinagoga_del_Agua.jpg', 'Medieval judío', 'Siglo XIV', 'Calle Roque Rojas, 2, Úbeda',
+ '10:30 - 14:00 / 17:00 - 20:00', '5€', '2003', 20.0, 'Piedra y madera',
+ 'Espacio recuperado con restos de una antigua sinagoga, baños rituales (mikvé), aljibe y pozo original.'),
+
+(44, 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Fachada_iglesia_de_San_Lorenzo_de_%C3%9Abeda.jpg/1200px-Fachada_iglesia_de_San_Lorenzo_de_%C3%9Abeda.jpg', 'Románico-gótico', 'Siglo XIII', 'Calle San Lorenzo, Úbeda',
+ 'Concertar visita', 'Gratis', '2003', 30.0, 'Piedra y ladrillo',
+ 'Iglesia restaurada convertida en centro cultural, con mirador hacia la Loma y exposiciones temporales.'),
+
+(45, 'https://www.visitaubedaybaeza.com/wp-content/uploads/2013/08/Puerta-de-Granada-IMG_01111.jpg', 'Medieval', 'Siglo XV', 'Acceso este de Úbeda (Puerta de Granada)',
+ 'Libre acceso', 'Gratis', '2003', 12.0, 'Mampostería',
+ 'Una de las antiguas puertas de entrada a la ciudad, con vistas panorámicas hacia el valle y Sierra Mágina.');
+
 
 
 
@@ -188,15 +234,11 @@ INSERT INTO `evento` (
   `precio`,
   `duracion`
 ) VALUES
-(2,  '2025-06-15', '19:00:00', 'Teatro Romano', 'Espectáculo nocturno con luces y música en un entorno histórico.', 'teatro_romano.jpg', 'Espectáculo', 'Asociación Cultural Roma', 'https://romashow.com', 'Gratis', 90),
+(2,  '2025-06-15', '19:00:00', 'Teatro Romano', 'Espectáculo nocturno con luces y música en un entorno histórico.', 'https://s1.elespanol.com/2025/01/04/actualidad/913918648_252104465_1706x960.png', 'Espectáculo', 'Asociación Cultural Roma', 'https://romashow.com', 'Gratis', 90),
 
 (3,  '2025-06-24', '22:00:00', 'Plaza Mayor', 'Fiesta de San Juan con hogueras, música y fuegos artificiales.', 'san_juan.jpg', 'Fiesta popular', 'Ayuntamiento de la ciudad', 'https://fiestasanjuán.org', 'Gratis', 120),
 
 (8,  '2025-07-10', '18:30:00', 'Auditorio Municipal', 'Festival de jazz con artistas internacionales.', 'jazz_festival.jpg', 'Concierto', 'JazzLocal', 'https://jazzlocalfest.com', '15€', 150),
-
-(11, '2025-03-24', '09:00:00', 'Centro de Convenciones', 'Feria gastronómica con degustaciones y talleres.', 'https://www.gvam.es/wp-content/uploads/2020/05/Palacio-de-Juan-V%C3%A1zquez-de-Molina-%C3%9Abeda-700x467.jpg', 'Feria', 'Sabores del Sur', 'https://saboresdelsur.org', '5€', 240),
-
-(14, '2025-10-12', '12:00:00', 'Museo de Historia', 'Inauguración de la exposición "Patrimonio Vivo".', 'expo_patrimonio.jpg', 'Exposición', 'Museo de Historia', 'https://museohistoria.es/exposicion', 'Gratis', 60),
 
 (17, '2025-05-01', '10:30:00', 'Parque Natural', 'Ruta guiada con actividades en la naturaleza.', 'ruta_parque.jpg', 'Excursión', 'EcoTurismo Sierra', 'https://ecoturismo.es/rutas', '8€', 180),
 
@@ -220,25 +262,18 @@ INSERT INTO `evento` (
 INSERT INTO `comida` 
 (`id`, `imagen`, `tipo`, `origen`, `ingredientes_principales`, `calorias_aprox`, `momento_consumo`, `apto_vegetarianos`, `acompañamientos_recomendados`, `curiosidades`) 
 VALUES
-(4,  'https://jamonessierramorena.com/wp-content/uploads/2018/05/tapas-ibericas-tradicionales.jpg', 'Aperitivo', 'Ibérico', 'Jamón, queso, chorizo, aceitunas', 350, 'Todo el año', FALSE, 'Vino tinto, pan rústico', 'Las tapas surgieron como una manera de cubrir la bebida para evitar que entraran insectos.'),
+(4,  'https://floruca.wordpress.com/wp-content/uploads/2012/02/29012012382.jpg', 'Aperitivo', 'Ibérico', 'Jamón, queso, chorizo, aceitunas', 350, 'Todo el año', FALSE, 'Vino tinto, pan rústico', 'Las tapas surgieron como una manera de cubrir la bebida para evitar que entraran insectos.'),
 (9,  'https://www.enbuenaedad.es/inicio/salud/alimentacion_saludable/migas-serranas', 'Plato principal', 'Castellano', 'Pan duro, ajo, pimientos, chorizo', 600, 'Invierno', FALSE, 'Uvas, huevo frito', 'Antiguamente era comida de pastores que aprovechaban el pan duro.'),
-(12, 'https://viajes.nationalgeographic.com.es/gastronomia/virolo-el-dulce-baezano-que-es-patrimonio-inmaterial-de-andalucia-_17700', 'Postre', 'Andalusí', 'Miel, almendras, harina', 450, 'Semana Santa', TRUE, 'Café o vino dulce', 'Inspirado en los dulces árabes tradicionales de la zona de Baeza.'),
-(15, 'https://www.ibericoclub.com/wp-content/uploads/2013/07/jamon-iberico-and-manchego-cheese-tapa.jpg', 'Aperitivo', 'Manchego', 'Leche de oveja manchega', 400, 'Todo el año', FALSE, 'Membrillo, pan de pueblo', 'Este queso tiene Denominación de Origen y siglos de historia.'),
+(12, 'https://content-viajes.nationalgeographic.com.es/medio/2022/01/17/virolos-cafeteria_9c5e75b8_997x663.jpg', 'Postre', 'Andalusí', 'Miel, almendras, harina', 450, 'Semana Santa', TRUE, 'Café o vino dulce', 'Inspirado en los dulces árabes tradicionales de la zona de Baeza.'),
+(15, 'https://www.ibericoclub.com/wp-content/uploads/2013/07/jamon-iberico-and-manchego-cheese-tapa.jpg', 'Aperitivo', 'Manchego', 'Guisadas con chorizo, morcilla, tocino y oreja de cerdo.', 400, 'Todo el año', FALSE, 'Membrillo, pan de pueblo', 'Legumbre con denominación de origen, grande y suave.'),
 (20, 'https://www.istockphoto.com/es/foto/rosquillas-medievales-gm1324567890-408765123', 'Postre', 'Medieval', 'Harina, azúcar, anís', 300, 'Fiestas Patronales', TRUE, 'Chocolate caliente', 'Receta típica de las fiestas de Santa Teresa en Ávila.'),
-(25, 'https://www.istockphoto.com/es/foto/pimientos-de-padr%C3%B3n-gm1146512345-308765123', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
-(28, 'https://www.pinterest.com/pin/173388654391547843/', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
+(25, 'https://imag.bonviveur.com/servir-los-pimientos-de-padron-fritos.jpg', 'Entrante', 'Gallego', 'Pimientos verdes, sal, aceite', 150, 'Verano', TRUE, 'Pan gallego, cerveza', '“Unos pican y otros no”, reza el dicho popular sobre este plato.'),
+(28, 'https://barquevedo.es/wp-content/uploads/Diseno-sin-titulo-93-1024x576.jpg', 'Postre', 'Castellano', 'Manteca, harina, azúcar, canela', 320, 'Navidad', TRUE, 'Café o licor de hierbas', 'Galletas típicas de muchas ciudades castellanas, muy presentes en Baeza.'),
 (32, 'https://www.instagram.com/p/CnE3VRZLoh_/', 'Postre', 'Moderno', 'Dátil, leche, azúcar', 220, 'Verano', TRUE, 'Galleta o barquillo', 'Un helado gourmet hecho con dátiles del famoso palmeral de Elche.'),
 (33, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.'),
-(36, 'https://upload.wikimedia.org/wikipedia/commons/3/31/OchiosConMorcilla.JPG', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
+(36, 'https://www.tuscasasrurales.com/blog/wp-content/uploads/2017/10/comida-tipica-de-caceres.jpg', 'Aperitivo', 'Andaluz', 'Aceite de oliva, pimentón, harina', 280, 'Todo el año', TRUE, 'Bacalao, atún, sardina', 'Los ochíos son un bollo típico de Úbeda, consumido tanto dulce como salado.');
 
 
--- --------------------------------------------------
--- Ejemplos de comentarios
--- --------------------------------------------------
-INSERT INTO `comentario` (`id`, `user_id`, `articulo_id`, `contenido`, `fecha`) VALUES
-  (1, 1, 1, '¡Impresionante por dentro y por fuera!',      '2025-04-28 10:15:00'),
-  (2, 2, 2, 'La procesión es muy emotiva, ¡muy recomendable!', '2025-04-29 12:30:00'),
-  (3, 3, 4, 'Las tapas estaban deliciosas y muy variadas.',    '2025-04-29 14:45:00');
 
 -- --------------------------------------------------
 -- Ejemplos de puntuaciones

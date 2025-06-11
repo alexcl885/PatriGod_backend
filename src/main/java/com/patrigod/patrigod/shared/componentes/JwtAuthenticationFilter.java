@@ -1,4 +1,4 @@
-package com.patrigod.patrigod.componentes;
+package com.patrigod.patrigod.shared.componentes;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

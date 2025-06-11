@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.patrigod.patrigod.usuario.enums.TipoUsuario;
+import com.patrigod.patrigod.shared.exception.type.EntityNotFound;
 import com.patrigod.patrigod.usuario.entity.entity.Usuario;
 import com.patrigod.patrigod.usuario.repository.RepoUsuario;
 
@@ -192,6 +193,19 @@ public Optional<Usuario> actualizarUsernameOEmail(Long id, String nuevoUsername,
             usuario.setPassword(nuevaPassword);
             return repoUsuario.save(usuario);
         });
+    }
+    /**
+     * Cambia el rol (tipo) de un usuario.
+     * 
+     * @param id ID del usuario
+     * @param nuevoTipo Nuevo tipo de usuario (rol) a asignar
+     * @return el usuario actualizado o vacío si no se encontró
+     */
+    public Usuario cambiarRol(Long id, TipoUsuario nuevoTipo) {
+        return repoUsuario.findById(id).map(usuario -> {
+            usuario.setTipo(nuevoTipo);
+            return repoUsuario.save(usuario);
+        }).orElseThrow(() -> new EntityNotFound("Usuario no encontrado"));
     }
 
     
