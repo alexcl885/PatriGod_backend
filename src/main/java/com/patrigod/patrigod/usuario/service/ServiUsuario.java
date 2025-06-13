@@ -93,6 +93,10 @@ public class ServiUsuario {
         Optional<Usuario> optionalUsuario = repoUsuario.findById(id);
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
+            //que no se pueda desactivar al admin supremo
+            if (usuario.getUsername().equals("admin")){
+                return false;
+            }
             usuario.setActivo(activo);
             repoUsuario.save(usuario);
             return true;

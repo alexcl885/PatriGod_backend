@@ -65,51 +65,53 @@ INSERT INTO `usuario` (`activo`, `fecha_creacion`, `id`, `username`, `email`, `p
 -- Tabla padre: articulo
 -- --------------------------------------------------
 INSERT INTO `articulo` (`id`, `ciudad_id`, `nombre`, `descripcion`) VALUES
-  (1,  1,  'Mezquita-Catedral',               'Monumento emblemático de Córdoba, mezcla de arquitectura califal y renacentista.'),
-  (2,  2,  'Casco Histórico',                 'Recorrido peatonal por las callejuelas medievales de Toledo.'),
-  (3,  3,  'Universidad de Salamanca',       'Institución académica fundada en el siglo XIII con fachada plateresca.'),
-  (4,  4,  'Judías del Barco de Ávila',                'Días fríos; es un plato muy nutritivo y saciante.'),
-  (5,  5,  'Camino de Santiago',              'Ruta de peregrinación culmina en la Catedral de Santiago.'),
-  (6,  6,  'Acueducto Romano',                'Estructura de piedra romana perfectamente conservada en Segovia.'),
-  (7,  7,  'Plaza Mayor',                     'Centro histórico de Cáceres con arquitectura renacentista.'),
-  (8,  8,  'Casas Colgadas',                 'Construcciones tradicionales colgando sobre la hoz del río Huécar.'),
-  (9,  9,  'Conjunto Urbano Colonial',        'Ejemplo de trazado urbano no amurallado portugués.'),
-  (10, 10, 'Dalt Vila',                        'Ciudadela amurallada en Ibiza con vistas al mar.'),
-  (11, 11, 'Sacra Capilla del Salvador',      'Capilla renacentista en Úbeda, escenario de conciertos de coro.'),
-  (12, 12, 'Virolos',                'Corazón de Baeza comestible.'),
-  (13, 13, 'Universidad Cisneriana',         'Edificio renacentista en Alcalá de Henares, campus de Cervantes.'),
-  (14, 14, 'Muralla Romana',                  'Muralla completa de Lugo rodea la ciudad histórica.'),
-  (15, 15, 'Anfiteatro Romano',              'Ruinas de teatro anfiteatro junto al mar en Tarragona.'),
-  (16, 16, 'Palmeral de Elche',               'Bosque de palmeras milenarias declarado Patrimonio.'),
-  (17,  1,  'Puente Romano',                  'Puente antiguo sobre el Guadalquivir en Córdoba.'),
-  (18,  2,  'Sinagoga del Tránsito',          'Ejemplo de arte mudéjar con decoraciones policromadas.'),
-  (19,  3,  'Casa de las Conchas',            'Fachada decorada con conchas en Salamanca.'),
-  (20,  4,  'Catedral de Ávila',           'Majestuosa catedral gótica adosada a la muralla.'),
-  (21,  5,  'Obradoiro',                      'Plaza frente a la catedral en Santiago de Compostela.'),
-  (22,  6,  'Alcázar de Segovia',            'Castillo de cuento de hadas dominando la ciudad.'),
-  (23,  7,  'Concatedral de Santa María',  'Iglesia renacentista en Cáceres.'),
-  (24,  8,  'Catedral de Cuenca',             'Catedral gótica situada junto a las casas colgadas.'),
-  (25,  9,  'Iglesia de la Concepción',      'Templo católico en La Laguna con retablos barrocos.'),
-  (26, 10, 'Castillo de Ibiza',               'Fortaleza medieval en la cima de Dalt Vila.'),
-  (27, 11, 'Palacio Vásquez de Molina',   'Palacio renacentista en Úbeda.'),
-  (28, 11, 'Andrajos',     'Muy bueno.'),
-  (29, 13, 'Calle Mayor',                    'Vial principal de Alcalá con casas nobiliarias.'),
-  (30, 14, 'Puerta de San Pedro',            'Acceso principal a la muralla de Lugo.'),
-  (31, 15, 'Forum de la Colonia',            'Plaza central romana en Tarragona.'),
-  (32, 16, 'Huerto del Cura',                'Jardín botánico dentro del Palmeral de Elche.'),
-  (33, 11, 'Ochios','Muy buenos'),
-  (34, 12, 'Evento Baeza','Evento Baeza'),
-  (35, 12, 'Palacio de Jabalquinto','Ejemplo soberbio del gótico Isabelino con decoración de puntas de diamante, mocárabes y patio interior, actualmente sede de la UNIA'),
-  (36, 7, 'Migas extremeñas','Rebanadas de pan duro remojadas se fríen con ajo, pimentón, aceite y se acompañan con chorizo, panceta o sardinas. Son ideales para el tapeo o un desayuno contundente'),
-  (37, 11, 'Palacio de las Cadenas', 'Palacio renacentista que hoy alberga el Ayuntamiento de Úbeda, con una imponente fachada y patio central.'),
-  (38, 11, 'Palacio Vela de los Cobos', 'Palacio del siglo XVI diseñado por Vandelvira, destaca por su elegante arquitectura renacentista.'),
-  (39, 11, 'Hospital de Santiago', 'Antiguo hospital renacentista conocido como el "Escorial andaluz", actualmente centro cultural.'),
-  (40, 11, 'Torreón del Portillo del Santo Cristo', 'Restos defensivos medievales bien conservados, parte del recinto amurallado de Úbeda.'),
-  (41, 11, 'Casa de las Torres', 'Palacio fortaleza gótico-renacentista que hoy acoge la Escuela de Arte de Úbeda.'),
-  (42, 11, 'Iglesia de San Pablo', 'Iglesia gótica con elementos románicos y renacentistas, ubicada en la plaza del mismo nombre.'),
-  (43, 11, 'Sinagoga del Agua', 'Espacio recuperado que muestra restos de una antigua sinagoga con baños rituales y pozo.'),
-  (44, 11, 'Iglesia de San Lorenzo', 'Templo restaurado del siglo XIII, sede de actividades culturales y mirador con vistas a la Loma de Úbeda.'),
-  (45, 11, 'Puerta de Granada', 'Una de las antiguas puertas de entrada a la ciudad, con vistas espectaculares y valor histórico.');
+(1, 1, 'Mezquita-Catedral', 'Majestuosa joya arquitectónica que fusiona el arte islámico califal con elementos cristianos, símbolo de la historia multicultural de Córdoba.'),
+(2, 2, 'Casco Histórico', 'Laberinto de callejuelas medievales, plazas escondidas y leyendas ancestrales que transportan al corazón de la Toledo imperial.'),
+(3, 3, 'Universidad de Salamanca', 'Cuna del saber desde el siglo XIII, con una imponente fachada plateresca y una historia que respira sabiduría en cada rincón.'),
+(4, 4, 'Judías del Barco de Ávila', 'Plato tradicional y reconfortante de la Sierra de Gredos, elaborado con legumbres autóctonas y sabores intensos para los días fríos.'),
+(5, 5, 'Camino de Santiago', 'Ruta espiritual y cultural milenaria que recorre paisajes variados hasta culminar en la majestuosa Catedral de Santiago.'),
+(6, 6, 'Acueducto Romano', 'Obra maestra de la ingeniería romana, con más de 160 arcos de granito que sobreviven imponentes al paso de los siglos en Segovia.'),
+(7, 7, 'Plaza Mayor', 'Espacio monumental rodeado de casas nobles, que constituye el alma histórica y social de Cáceres desde la Edad Media.'),
+(8, 8, 'Casas Colgadas', 'Emblemáticas viviendas suspendidas sobre la hoz del río Huécar, símbolo de la arquitectura audaz y pintoresca de Cuenca.'),
+(9, 9, 'Conjunto Urbano Colonial', 'Trazado urbano armonioso y abierto de La Laguna, fiel testimonio del urbanismo colonial canario y patrimonio vivo de la humanidad.'),
+(10, 10, 'Dalt Vila', 'Ciudadela amurallada en la cima de Ibiza, con calles empedradas, bastiones históricos y vistas panorámicas al Mediterráneo.'),
+(11, 11, 'Sacra Capilla del Salvador', 'Obra cumbre del Renacimiento andaluz, diseñada por Vandelvira, donde espiritualidad y arte se entrelazan en un marco solemne.'),
+(12, 12, 'Virolos', 'Dulce típico de Baeza con corazón de hojaldre y azúcar glas, irresistible delicia de la repostería tradicional local.'),
+(13, 13, 'Universidad Cisneriana', 'Universidad histórica fundada por el Cardenal Cisneros, emblema del humanismo renacentista y alma académica de Alcalá.'),
+(14, 14, 'Muralla Romana', 'Única muralla romana completamente conservada del mundo, rodea la ciudad de Lugo como una poderosa reliquia viva.'),
+(15, 15, 'Anfiteatro Romano', 'Ruinas frente al mar que evocan las antiguas luchas de gladiadores y el esplendor clásico de la Tarraco romana.'),
+(16, 16, 'Palmeral de Elche', 'Extensa masa de palmeras datileras con origen en época islámica, oasis urbano de valor paisajístico y cultural incomparable.'),
+(17, 1, 'Puente Romano', 'Histórico puente sobre el Guadalquivir, testigo del paso de civilizaciones desde la Córdoba romana hasta nuestros días.'),
+(18, 2, 'Sinagoga del Tránsito', 'Templo del siglo XIV con bellas yeserías mudéjares y un museo que relata la vida de la comunidad sefardí en Toledo.'),
+(19, 3, 'Casa de las Conchas', 'Palacio renacentista cuya singular fachada cubierta de conchas simboliza riqueza y distinción en pleno centro salmantino.'),
+(20, 4, 'Catedral de Ávila', 'Impresionante templo gótico adosado a la muralla, considerado la primera catedral fortaleza de España.'),
+(21, 5, 'Obradoiro', 'Majestuosa plaza que recibe a los peregrinos con la imponente fachada barroca de la Catedral de Santiago de Compostela.'),
+(22, 6, 'Alcázar de Segovia', 'Castillo de silueta inconfundible que parece sacado de un cuento, con vistas privilegiadas y rica historia medieval.'),
+(23, 7, 'Concatedral de Santa María', 'Templo renacentista de líneas sobrias y majestuosas que destaca en el entramado histórico de Cáceres.'),
+(24, 8, 'Catedral de Cuenca', 'Ejemplo destacado del gótico normando en España, con un interior luminoso y detalles escultóricos únicos.'),
+(25, 9, 'Iglesia de la Concepción', 'Templo barroco del siglo XVI que guarda retablos dorados, historia colonial y espiritualidad tinerfeña.'),
+(26, 10, 'Castillo de Ibiza', 'Fortaleza defensiva con muros imponentes que corona la ciudad antigua y ofrece vistas incomparables sobre la isla.'),
+(27, 11, 'Palacio Vásquez de Molina', 'Ejemplo magistral del Renacimiento español, con elegante fachada y armonía arquitectónica frente a la capilla del Salvador.'),
+(28, 11, 'Andrajos', 'Estofado típico de Úbeda hecho con masa, conejo o bacalao, de sabor casero, ideal para el frío jiennense.'),
+(29, 13, 'Calle Mayor', 'Arteria principal de Alcalá con casas porticadas, palacios y ambiente vivo que evoca siglos de historia universitaria.'),
+(30, 14, 'Puerta de San Pedro', 'Puerta monumental de la muralla de Lugo que conecta con el pasado romano en pleno centro urbano.'),
+(31, 15, 'Forum de la Colonia', 'Plaza central de la antigua Tarraco, corazón de la vida política y religiosa de la ciudad romana.'),
+(32, 16, 'Huerto del Cura', 'Jardín botánico dentro del Palmeral de Elche, con especies exóticas y la famosa Palmera Imperial.'),
+(33, 11, 'Ochíos', 'Bollos típicos de aceite con pimentón o azúcar, muy populares en la repostería tradicional de Úbeda.'),
+(34, 12, 'Noche de Ópera en la Catedral de Baeza', 'La majestuosidad de la Catedral de Baeza se convierte en el escenario perfecto para una noche de ópera con solistas internacionales. Las arias clásicas cobran nueva vida entre columnas renacentistas, bóvedas góticas y una iluminación diseñada para una experiencia inolvidable.'),
+(35, 12, 'Palacio de Jabalquinto', 'Magnífico ejemplo del gótico isabelino con profusa decoración, sede universitaria y joya de Baeza.'),
+(36, 7, 'Migas extremeñas', 'Plato humilde pero sabroso, a base de pan frito, ideal para compartir en desayunos rurales o tapeos contundentes.'),
+(37, 11, 'Palacio de las Cadenas', 'Elegante edificio renacentista que hoy acoge el Ayuntamiento de Úbeda, con detalles artísticos de gran valor.'),
+(38, 11, 'Palacio Vela de los Cobos', 'Residencia renacentista del siglo XVI, diseñada por Vandelvira, que resalta por su sobriedad y equilibrio.'),
+(39, 11, 'Hospital de Santiago', 'Gran complejo renacentista con funciones actuales culturales, apodado el "Escorial andaluz" por su majestuosidad.'),
+(40, 11, 'Torreón del Portillo del Santo Cristo', 'Torre defensiva medieval que aún se alza vigilante, formando parte del recinto amurallado de Úbeda.'),
+(41, 11, 'Casa de las Torres', 'Palacio-fortaleza gótico-renacentista con fachada heráldica y sede actual de la Escuela de Arte de Úbeda.'),
+(42, 11, 'Iglesia de San Pablo', 'Templo que mezcla estilos románico, gótico y renacentista, con destacada portada y un interior de gran sobriedad.'),
+(43, 11, 'Sinagoga del Agua', 'Recinto subterráneo recuperado que revela una antigua sinagoga con baños rituales, pozos y elementos místicos.'),
+(44, 11, 'Iglesia de San Lorenzo', 'Iglesia medieval restaurada, hoy espacio para eventos culturales y mirador con vistas a la campiña jiennense.'),
+(45, 11, 'Puerta de Granada', 'Entrada histórica a Úbeda con panorámicas abiertas a los campos de olivos y recuerdos de tiempos pasados.'),
+(46, 11, 'Concierto Sefardí en la Sinagoga del Agua', 'Vive una velada mágica en uno de los espacios más enigmáticos de Úbeda. Este concierto íntimo de música sefardí se celebra bajo tierra, entre pozos y baños rituales, y con la tenue luz de las velas como única iluminación. Una experiencia sonora y espiritual difícil de olvidar.'),
+(47, 11, 'Concierto Seises en El Salvador', 'Un concierto coral único en el corazón del Renacimiento andaluz. La Sacra Capilla del Salvador, con su imponente fachada plateresca y su interior lleno de historia, acoge una actuación al atardecer de un prestigioso coro europeo. Las voces resuenan entre columnas y bóvedas, creando una atmósfera espiritual irrepetible.');
 
   
 
@@ -173,7 +175,7 @@ INSERT INTO `monumento` (
  '10:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 20.0, 'Piedra local',
  'Hoy alberga la Casa de la Cultura y exposiciones temporales.'),
 
-(30, 'https://upload.wikimedia.org/wikipedia/commons/3/35/Muralla_de_Lugo_-_Puerta_de_San_Pedro.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
+(30, 'https://fotosubeda.wordpress.com/wp-content/uploads/2013/08/105.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
  'Libre acceso', 'Gratis', '2000', 9.0, 'Piedra y mortero romano',
  'Una de las puertas originales de acceso a la ciudad romana de Lucus Augusti.'),
  (35, 'https://www.ruralidays.com/viajar/wp-content/uploads/2016/11/palacio-de-jabalquinto-en-baeza.jpg', 'Romano', 'Siglo III', 'Muralla romana, Lugo',
@@ -191,11 +193,11 @@ INSERT INTO `monumento` (
  '09:00 - 14:00 / 17:00 - 20:00', 'Gratis', '2003', 50.0, 'Sillería de piedra',
  'Antiguo hospital y obra cumbre de Vandelvira, hoy centro cultural con exposiciones y actividades.'),
 
-(40, 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Torreon_del_Portillo_del_Santo_Cristo.jpg/1280px-Torreon_del_Portillo_del_Santo_Cristo.jpg', 'Medieval', 'Siglo XIII', 'Calle Portillo del Santo Cristo, Úbeda',
+(40, 'https://lh6.googleusercontent.com/proxy/tL1RyR93sZ5GjZ_TQvGxw_KR3avHehC4N8C95RTUK4tO2IY4yotjWd3GQ8yNE38-3x1ckyC2OVB6uzY-n3Lwi7sOZnh5m-ePgWGUSkXMgeJZbKlz_vwmOFHsXhOjeuY', 'Medieval', 'Siglo XIII', 'Calle Portillo del Santo Cristo, Úbeda',
  'Libre acceso', 'Gratis', '2003', 15.0, 'Piedra caliza',
  'Antiguo torreón defensivo del recinto amurallado de Úbeda, conservado como muestra de arquitectura militar.'),
 
-(41, 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Casa_de_las_Torres_%28Úbeda%29.jpg/1280px-Casa_de_las_Torres_%28Úbeda%29.jpg', 'Gótico-renacentista', 'Siglo XVI', 'Calle Yanguas y Messía, Úbeda',
+(41, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Casa_de_las_Torres_01.jpg/1200px-Casa_de_las_Torres_01.jpg', 'Gótico-renacentista', 'Siglo XVI', 'Calle Yanguas y Messía, Úbeda',
  '09:00 - 14:00', 'Gratis', '2003', 25.0, 'Sillería y mampostería',
  'Antigua casa nobiliaria que combina elementos defensivos y decorativos; hoy sede de la Escuela de Arte de Úbeda.'),
 
@@ -234,26 +236,35 @@ INSERT INTO `evento` (
   `precio`,
   `duracion`
 ) VALUES
-(2,  '2025-06-15', '19:00:00', 'Teatro Romano', 'Espectáculo nocturno con luces y música en un entorno histórico.', 'https://s1.elespanol.com/2025/01/04/actualidad/913918648_252104465_1706x960.png', 'Espectáculo', 'Asociación Cultural Roma', 'https://romashow.com', 'Gratis', 90),
+(2,  '2025-06-15', '19:00:00', 'Teatro Romano', 'Vive una experiencia única bajo las estrellas con un espectáculo de luz y sonido que revive la grandeza del Imperio Romano en su antiguo teatro.', 'https://s1.elespanol.com/2025/01/04/actualidad/913918648_252104465_1706x960.png', 'Espectáculo', 'Asociación Cultural Roma', 'https://romashow.com', 'Gratis', 90),
 
-(3,  '2025-06-24', '22:00:00', 'Plaza Mayor', 'Fiesta de San Juan con hogueras, música y fuegos artificiales.', 'san_juan.jpg', 'Fiesta popular', 'Ayuntamiento de la ciudad', 'https://fiestasanjuán.org', 'Gratis', 120),
+(3,  '2025-06-24', '22:00:00', 'Plaza Mayor', 'Celebra la mágica Noche de San Juan con rituales tradicionales, música en vivo, hogueras y un espectacular cierre de fuegos artificiales.', 'san_juan.jpg', 'Fiesta Popular', 'Ayuntamiento de la ciudad', 'https://fiestasanjuán.org', 'Gratis', 120),
 
-(8,  '2025-07-10', '18:30:00', 'Auditorio Municipal', 'Festival de jazz con artistas internacionales.', 'jazz_festival.jpg', 'Concierto', 'JazzLocal', 'https://jazzlocalfest.com', '15€', 150),
+(8,  '2025-07-10', '18:30:00', 'Auditorio Municipal', 'Disfruta de una noche vibrante de jazz con actuaciones de artistas reconocidos internacionalmente en un entorno acústico excepcional.', 'jazz_festival.jpg', 'Concierto', 'JazzLocal', 'https://jazzlocalfest.com', '15€', 150),
 
-(17, '2025-05-01', '10:30:00', 'Parque Natural', 'Ruta guiada con actividades en la naturaleza.', 'ruta_parque.jpg', 'Excursión', 'EcoTurismo Sierra', 'https://ecoturismo.es/rutas', '8€', 180),
+(17, '2025-05-01', '10:30:00', 'Parque Natural', 'Únete a una ruta guiada por senderos naturales con actividades al aire libre, interpretación del entorno y talleres de ecoturismo.', 'ruta_parque.jpg', 'Excursión', 'EcoTurismo Sierra', 'https://ecoturismo.es/rutas', '8€', 180),
 
-(18, '2025-09-21', '20:00:00', 'Castillo de la ciudad', 'Concierto de música medieval al atardecer.', 'concierto_castillo.jpg', 'Concierto', 'Música Viva', 'https://musicaviva.org', '10€', 100),
+(18, '2025-09-21', '20:00:00', 'Castillo de la ciudad', 'Sumérgete en un ambiente mágico con melodías medievales interpretadas al atardecer desde las murallas del castillo.', 'concierto_castillo.jpg', 'Concierto', 'Música Viva', 'https://musicaviva.org', '10€', 100),
 
-(21, '2025-04-25', '17:00:00', 'Salón de Actos', 'Encuentro literario con autores y editoriales.', 'encuentro_literario.jpg', 'Encuentro', 'Editoriales Unidas', 'https://encuentrolibros.com', 'Gratis', 90),
+(21, '2025-04-25', '17:00:00', 'Salón de Actos', 'Participa en un enriquecedor encuentro literario con presentaciones de libros, firmas de autores y debates sobre literatura actual.', 'encuentro_literario.jpg', 'Encuentro', 'Editoriales Unidas', 'https://encuentrolibros.com', 'Gratis', 90),
 
-(23, '2025-08-15', '11:00:00', 'Plaza de toros', 'Feria de artesanía con productos locales.', 'feria_artesania.jpg', 'Feria', 'Artesanos Unidos', 'https://feriaartesania.org', 'Entrada libre', 300),
+(23, '2025-08-15', '11:00:00', 'Plaza de toros', 'Explora una feria llena de color y tradición, con artesanía local, productos gastronómicos y talleres en vivo.', 'feria_artesania.jpg', 'Feria', 'Artesanos Unidos', 'https://feriaartesania.org', 'Entrada libre', 300),
 
-(26, '2025-12-05', '16:00:00', 'Centro Cultural', 'Taller de cocina tradicional navideña.', 'taller_navidad.jpg', 'Taller', 'Sabor a Tradición', 'https://saboresnavidad.es', '12€', 120),
+(26, '2025-12-05', '16:00:00', 'Centro Cultural', 'Aprende recetas tradicionales en un taller navideño práctico, ideal para todas las edades y amantes de la cocina.', 'taller_navidad.jpg', 'Taller', 'Sabor a Tradición', 'https://saboresnavidad.es', '12€', 120),
 
-(29, '2025-11-01', '19:30:00', 'Teatro Municipal', 'Obra de teatro inspirada en leyendas locales.', 'teatro_leyendas.jpg', 'Teatro', 'Compañía Dramática del Sur', 'https://teatrosur.org', '10€', 110),
+(29, '2025-11-01', '19:30:00', 'Teatro Municipal', 'Adéntrate en el folclore local con esta obra de teatro que revive leyendas ancestrales con un enfoque contemporáneo.', 'teatro_leyendas.jpg', 'Teatro', 'Compañía Dramática del Sur', 'https://teatrosur.org', '10€', 110),
 
-(31, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240),
-(34, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Jornadas de patrimonio con ponentes internacionales.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240);
+(31, '2025-09-10', '15:00:00', 'Sala de Conferencias', 'Asiste a estas prestigiosas jornadas sobre patrimonio histórico con expertos internacionales y mesas redondas temáticas.', 'jornadas_patrimonio.jpg', 'Conferencia', 'Fundación Patrimonio Vivo', 'https://fundacionpatrimonio.org', 'Gratis', 240),
+
+(34, '2025-09-10', '15:00:00', 'SCatedral de la Natividad de Nuestra Señora', 'El concierto estará acompañado de una cuidada iluminación escénica que realza la arquitectura monumental del edificio, creando una atmósfera envolvente donde la música y la historia se funden. Ideal para amantes de la música clásica, la cultura y la belleza del arte sacro.', 'https://www.horajaen.com/wp-content/uploads/2023/12/Coroy-Orquesta-de-la-UJA-e1703064241196.jpg', 'Conferencia', 'Fundación Música Renacentista de Baeza', 'musicarenacentistabaeza.org', '18$', 100),
+
+(46, '2025-09-10', '15:00:00', 'Sinagoga del agua', 'Asiste a estas prestigiosas jornadas sobre patrimonio histórico con expertos internacionales y mesas redondas temáticas.', 'https://bonoturistico.com/wp-content/uploads/2018/04/Sinagoga-20.jpg', 'Concierto', 'Fundación Patrimonio Vivo', 'https://culturavivaubeda.es', '12$', 212),
+
+(47, '2025-09-10', '15:00:00', 'Sacra Capilla del Salvador', 'Un concierto coral de los Seises, único en el corazón del Renacimiento andaluz. La Sacra Capilla del Salvador, con su imponente fachada plateresca y su interior lleno de historia, acoge una actuación al atardecer de un prestigioso coro europeo. Las voces resuenan entre columnas y bóvedas, creando una atmósfera espiritual irrepetible.', 'https://festivalubedaybaeza.com/wp-content/uploads/2022/09/capilla-seis.webp', 'Concierto', 'Fundación Patrimonio Vivo', 'https://renacimientoenubeda.org', '15$', 324);
+
+
+
+
 
 
 -- --------------------------------------------------
