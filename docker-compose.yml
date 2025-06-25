@@ -6,15 +6,24 @@ services:
     image: adminer
     restart: "no"
     ports:
-      - ${ADMINER_PORT}:8080
+      - "${ADMINER_PORT}:8080"
 
   db:
     image: mysql:latest
     restart: "no"
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     ports:
-      - ${MYSQL_PORT}:3306
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d
-      
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

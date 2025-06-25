@@ -54,7 +54,7 @@ public class ChatController {
     @PostMapping("/chat")
     public ResponseEntity<String> chatWithOllama(@RequestBody Map<String, String> body) {
         String prompt = body.get("prompt");
-        String model = body.getOrDefault("model", "llama3.2");
+        String model = body.getOrDefault("model", "llama3.2:3b");
         if (prompt == null || prompt.isBlank()) {
             return ResponseEntity.badRequest().body("Falta el prompt en la solicitud.");
         }
