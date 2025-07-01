@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.*;
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.comida.entity.entity.ComidaJpa;
 import com.patrigod.evento.entity.entidad.EventoJpa;
 import com.patrigod.monumento.entity.entity.MonumentoJpa;
@@ -39,7 +39,7 @@ public abstract class ArticuloJpa {
 
     @ManyToOne
     @JoinColumn(name = "ciudad_id", nullable = false, foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
-    private CiudadJpa ciudad;
+    private CityJpa ciudad;
 
     @Column(nullable = false, length = 255)
     private String nombre;

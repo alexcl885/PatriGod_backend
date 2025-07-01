@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
-import com.patrigod.ciudad.repository.RepoCiudad;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
+import com.patrigod.city.infraestructure.repository.jpa.CityRepositoryJpa;
 import com.patrigod.evento.entity.entidad.EventoJpa;
 import com.patrigod.evento.entity.model.Evento;
 import com.patrigod.evento.mapper.EventoMapper;
@@ -20,7 +20,7 @@ public class ServiEvento {
 
     private final EventoMapper eventoMapper;
 
-    private final RepoCiudad repoCiudad;
+    private final CityRepositoryJpa cityRepositoryJpa;
     private final RepoEvento repoEvento;
 
     
@@ -53,10 +53,10 @@ public class ServiEvento {
      * @return evento guardado en modelo de dominio
      */
     public Evento saveEvento(Long idCiudad,Evento evento) {
-        CiudadJpa ciudadJpa = repoCiudad.findById(idCiudad)
+        CityJpa cityJpa = cityRepositoryJpa.findById(idCiudad)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada con id: " + idCiudad));
         EventoJpa eventoJpa = eventoMapper.toEntity(evento);
-        eventoJpa.setCiudad(ciudadJpa);
+        eventoJpa.setCiudad(cityJpa);
         return eventoMapper.toModel(repoEvento.save(eventoJpa));
     }
 

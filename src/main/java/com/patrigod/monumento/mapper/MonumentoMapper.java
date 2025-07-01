@@ -14,7 +14,7 @@ public interface MonumentoMapper {
     Monumento toModel(MonumentoJpa monumentoJpa);
     MonumentoJpa toEntity(Monumento monumento);
     MonumentoOutputDto toOutputDto(Monumento monumento);
-    @Mapping(target = "ciudad", ignore = true) // Ignorar el campo 'type' en la conversión
+    @Mapping(target = "city", ignore = true) // Ignorar el campo 'type' en la conversión
     Monumento toInputDto(MonumentoInputDto monumentoInputDto);
     
 }

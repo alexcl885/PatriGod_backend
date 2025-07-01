@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
-import com.patrigod.ciudad.repository.RepoCiudad;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
+import com.patrigod.city.infraestructure.repository.jpa.CityRepositoryJpa;
 import com.patrigod.comida.entity.entity.ComidaJpa;
 import com.patrigod.comida.entity.model.Comida;
 import com.patrigod.comida.mapper.ComidaMapper;
@@ -25,7 +25,7 @@ public class ServiComida {
     private final ComidaMapper comidaMapper;
     
     private final RepoComida repoComida;
-    private final RepoCiudad repoCiudad;
+    private final CityRepositoryJpa cityRepositoryJpa;
 
     /**
      * Obtiene todas las comidas de la base de datos.
@@ -55,7 +55,7 @@ public class ServiComida {
      * @return comida guardada en modelo de dominio
      */
     public Comida saveComida(Long idCiudad,Comida comida){
-        CiudadJpa ciudad = repoCiudad.findById(idCiudad)
+        CityJpa ciudad = cityRepositoryJpa.findById(idCiudad)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada con id: " ));
         ComidaJpa comidaJpa = comidaMapper.toEntity(comida);
         comidaJpa.setCiudad(ciudad);

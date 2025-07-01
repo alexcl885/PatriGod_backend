@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
-import com.patrigod.ciudad.repository.RepoCiudad;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
+import com.patrigod.city.infraestructure.repository.jpa.CityRepositoryJpa;
 import com.patrigod.monumento.entity.entity.MonumentoJpa;
 import com.patrigod.monumento.entity.model.Monumento;
 import com.patrigod.monumento.mapper.MonumentoMapper;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ServiMonumento {
 
     private final MonumentoMapper monumentoMapper;
-    private final RepoCiudad repoCiudad;
+    private final CityRepositoryJpa cityRepositoryJpa;
     private final RepoMonumento repoMonumento;
 
     /**
@@ -54,10 +54,10 @@ public class ServiMonumento {
      * @return monumento guardado en modelo de dominio
      */
     public Monumento saveMonumento(Long idCiudad,Monumento monumento){
-        CiudadJpa ciudadJpa = repoCiudad.findById(idCiudad)
+        CityJpa cityJpa = cityRepositoryJpa.findById(idCiudad)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada con id: " + idCiudad));        
         MonumentoJpa monumentoJpa = monumentoMapper.toEntity(monumento);
-        monumentoJpa.setCiudad(ciudadJpa);
+        monumentoJpa.setCiudad(cityJpa);
         MonumentoJpa monumentoCreado = repoMonumento.save(monumentoJpa);
         return monumentoMapper.toModel(monumentoCreado);
     }

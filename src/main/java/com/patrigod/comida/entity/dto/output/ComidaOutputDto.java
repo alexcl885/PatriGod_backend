@@ -3,7 +3,7 @@ package com.patrigod.comida.entity.dto.output;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.patrigod.ciudad.entity.model.Ciudad;
+import com.patrigod.city.domain.entity.City;
 import com.patrigod.puntuacion.entity.entity.Puntuacion;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class ComidaOutputDto {
 
     private Long id;
 
-    private Ciudad ciudad;
+    private City city;
 
     private String nombre;
 

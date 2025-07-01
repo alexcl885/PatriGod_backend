@@ -242,18 +242,18 @@ Esta tabla sirve como referencia rápida para desarrolladores y para la integrac
 
 ---
 
-## 🏙️ Ciudad (`/api/ciudad`)
+## 🏙️ Ciudad (`/api/city`)
 
 | Método | Ruta                       | Descripción                                         | Rol autorizado         |
 |--------|----------------------------|-----------------------------------------------------|------------------------|
-| GET    | `/api/ciudad`              | Listar todas las ciudades                           | Público                |
-| GET    | `/api/ciudad/{id}`         | Obtener detalles de una ciudad por ID               | Público                |
-| POST   | `/api/ciudad`              | Crear nueva ciudad                                  | ADMINISTRADOR          |
-| PUT    | `/api/ciudad/{id}`         | Actualizar ciudad                                   | ADMINISTRADOR          |
-| DELETE | `/api/ciudad/{id}`         | Eliminar ciudad                                     | ADMINISTRADOR          |
-| GET    | `/api/ciudad/rankMonumento`| Ranking ciudades por media de monumentos            | Público                |
-| GET    | `/api/ciudad/rankComida`   | Ranking ciudades por media de comidas               | Público                |
-| GET    | `/api/ciudad/rankEvento`   | Ranking ciudades por media de eventos               | Público                |
+| GET    | `/api/city`              | Listar todas las ciudades                           | Público                |
+| GET    | `/api/city/{id}`         | Obtener detalles de una city por ID               | Público                |
+| POST   | `/api/city`              | Crear nueva city                                  | ADMINISTRADOR          |
+| PUT    | `/api/city/{id}`         | Actualizar city                                   | ADMINISTRADOR          |
+| DELETE | `/api/city/{id}`         | Eliminar city                                     | ADMINISTRADOR          |
+| GET    | `/api/city/rankMonumento`| Ranking ciudades por media de monumentos            | Público                |
+| GET    | `/api/city/rankComida`   | Ranking ciudades por media de comidas               | Público                |
+| GET    | `/api/city/rankEvento`   | Ranking ciudades por media de eventos               | Público                |
 
 ---
 
@@ -354,7 +354,7 @@ El backend utiliza JWT para la autenticación. El token debe enviarse en el head
 ## 📑 Ejemplo de petición autenticada
 
 ```http
-GET /api/ciudad HTTP/1.1
+GET /api/city HTTP/1.1
 Host: localhost:8080
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
 ```
@@ -446,7 +446,7 @@ public abstract class Articulo {
     @ManyToOne
     @JoinColumn(name = "ciudad_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_articulo_ciudad"))
-    private Ciudad ciudad;
+    private Ciudad city;
 
     @Column(nullable = false, length = 255)
     private String nombre;
@@ -549,19 +549,19 @@ public interface RankingCiudadDTO {
 
 #### Repo: RepoCiudad: `findRankingCiudadesByPuntuacionPromedio`
 
-Este método realiza una consulta SQL compleja que obtiene el **ranking de las ciudades Patrimonio de la Humanidad** basado en su **puntuación promedio**. Se utiliza la función `ROW_NUMBER()` para asignar una posición a cada ciudad según su puntuación promedio, de mayor a menor.
+Este método realiza una consulta SQL compleja que obtiene el **ranking de las ciudades Patrimonio de la Humanidad** basado en su **puntuación promedio**. Se utiliza la función `ROW_NUMBER()` para asignar una posición a cada city según su puntuación promedio, de mayor a menor.
 
 ##### Descripción de la Consulta
 
 La consulta se divide en dos partes:
 
-1. **Subconsulta Principal**: Realiza la agregación de la puntuación promedio de las ciudades, tomando en cuenta los artículos asociados a cada ciudad y su respectiva puntuación. En esta subconsulta se hace el siguiente procesamiento:
-   - Se obtiene el ID de la ciudad (`ciudad_id`) y su nombre (`ciudad_nombre`).
-   - Se calcula la puntuación promedio (`puntuacion_promedio`) de los artículos asociados a cada ciudad.
-   - Se utilizan varias uniones (JOIN) entre las tablas `ciudad`, `articulo`, `puntuacion`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
-   - Se agrupan los resultados por el ID y nombre de la ciudad.
+1. **Subconsulta Principal**: Realiza la agregación de la puntuación promedio de las ciudades, tomando en cuenta los artículos asociados a cada city y su respectiva puntuación. En esta subconsulta se hace el siguiente procesamiento:
+   - Se obtiene el ID de la city (`ciudad_id`) y su nombre (`ciudad_nombre`).
+   - Se calcula la puntuación promedio (`puntuacion_promedio`) de los artículos asociados a cada city.
+   - Se utilizan varias uniones (JOIN) entre las tablas `city`, `articulo`, `puntuacion`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
+   - Se agrupan los resultados por el ID y nombre de la city.
 
-2. **Aplicación de `ROW_NUMBER()`**: Utiliza la función de ventana `ROW_NUMBER()` para asignar una posición a cada ciudad según su puntuación promedio, ordenando los resultados de manera descendente (de mayor a menor puntuación).
+2. **Aplicación de `ROW_NUMBER()`**: Utiliza la función de ventana `ROW_NUMBER()` para asignar una posición a cada city según su puntuación promedio, ordenando los resultados de manera descendente (de mayor a menor puntuación).
 
 ```sql
 SELECT ROW_NUMBER() OVER (ORDER BY puntuacion_promedio DESC) AS posicion, 
@@ -570,7 +570,7 @@ FROM (
     SELECT c.id AS ciudad_id, 
            c.nombre AS ciudad_nombre, 
            AVG(p.puntuacion) AS puntuacion_promedio 
-    FROM ciudad c
+    FROM city c
     JOIN articulo a ON a.ciudad_id = c.id
     JOIN puntuacion p ON p.articulo_id = a.id
     LEFT JOIN comida co ON co.id = a.id
@@ -595,7 +595,7 @@ Este método realiza un ranking de las **ciudades Patrimonio de la Humanidad**, 
 
 4. **Consulta de Ciudades por ID**: Con los IDs obtenidos, se consultan todas las ciudades correspondientes en la base de datos.
 
-5. **Asociación de Puntuación**: Se asocia la puntuación promedio de cada ciudad (proveniente del DTO) al objeto `Ciudad` y se agrega a la lista final `ciudadesCompletas`.
+5. **Asociación de Puntuación**: Se asocia la puntuación promedio de cada city (proveniente del DTO) al objeto `Ciudad` y se agrega a la lista final `ciudadesCompletas`.
 
 6. **Devolver Lista**: Finalmente, se devuelve la lista de **ciudades**, ahora con su puntuación promedio.
 
@@ -610,12 +610,12 @@ public List<Ciudad> obtenerRankingDeCiudades() {
     List<Ciudad> ciudades = repoCiudad.findAllById(ciudadIds); 
     for (RankingCiudadDTO dto : ranking) {
         Optional<Ciudad> ciudadOpt = ciudades.stream()
-                                             .filter(ciudad -> ciudad.getId().equals(dto.getCiudad_id()))
+                                             .filter(city -> city.getId().equals(dto.getCiudad_id()))
                                              .findFirst();
         if (ciudadOpt.isPresent()) {
-            Ciudad ciudad = ciudadOpt.get();
-            ciudad.setPuntuacion(dto.getPuntuacion_promedio()); 
-            ciudadesCompletas.add(ciudad); 
+            Ciudad city = ciudadOpt.get();
+            city.setPuntuacion(dto.getPuntuacion_promedio()); 
+            ciudadesCompletas.add(city); 
         }
     }
     return ciudadesCompletas; 
@@ -637,14 +637,14 @@ El objetivo es mostrar de forma ordenada las ciudades con mejor valoración en c
 
 ### 📁  Repositorio `RepoCiudad`
 
-Se han definido tres consultas nativas (`@Query`) utilizando SQL con la función `ROW_NUMBER()` para obtener la posición de cada ciudad en el ranking.
+Se han definido tres consultas nativas (`@Query`) utilizando SQL con la función `ROW_NUMBER()` para obtener la posición de cada city en el ranking.
 
 #### 🏛️ Ranking por Monumentos
 
 ```java
 @Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
-    "FROM ciudad c " +
+    "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN monumento m ON a.id = m.id " +
     "JOIN puntuacion p ON a.id = p.articulo_id " +
@@ -657,7 +657,7 @@ List<RankingArticuloDTO> findRankingByMonumento();
 ```java
 @Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
-    "FROM ciudad c " +
+    "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN comida co ON a.id = co.id " +
     "JOIN puntuacion p ON a.id = p.articulo_id " +
@@ -670,7 +670,7 @@ List<RankingArticuloDTO> findRankingByComida();
 ```java
 @Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
-    "FROM ciudad c " +
+    "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN evento e ON a.id = e.id " +
     "JOIN puntuacion p ON a.id = p.articulo_id " +
@@ -702,7 +702,7 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
 ```java
 /**
  * 
- * @return lista ciudades(DTO) segun la media de monumentos de cada ciudad
+ * @return lista ciudades(DTO) segun la media de monumentos de cada city
  */
     @GetMapping("/rankMonumento")
     public List<RankingArticuloDTO> rankingMonumento() {
@@ -710,7 +710,7 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
     }
 /**
  * 
- * @return lista ciudades(DTO) segun la media de comidas de cada ciudad
+ * @return lista ciudades(DTO) segun la media de comidas de cada city
  */
     @GetMapping("/rankComida")
     public List<RankingArticuloDTO> rankingComida() {
@@ -719,7 +719,7 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
 
 /**
  * 
- * @return lista ciudades(DTO) segun la media de eventos de cada ciudad
+ * @return lista ciudades(DTO) segun la media de eventos de cada city
  */
     @GetMapping("/rankEvento")
     public List<RankingArticuloDTO> rankingEvento() {
@@ -996,7 +996,7 @@ public class ConfiguracionSeguridad {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/auth/*/**",
-                                "/api/ciudad/**",
+                                "/api/city/**",
                                 "/api/usuario/**",
                                 "/api/email/**",
                                 "/swagger-ui/**",

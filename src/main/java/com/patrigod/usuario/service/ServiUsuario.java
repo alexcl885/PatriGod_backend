@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.patrigod.usuario.enums.TipoUsuario;
-import com.patrigod.shared.exception.type.EntityNotFound;
+import com.patrigod.shared.exception.type.EntityNotFoundException;
 import com.patrigod.usuario.entity.entity.Usuario;
 import com.patrigod.usuario.repository.RepoUsuario;
 
@@ -209,7 +209,7 @@ public Optional<Usuario> actualizarUsernameOEmail(Long id, String nuevoUsername,
         return repoUsuario.findById(id).map(usuario -> {
             usuario.setTipo(nuevoTipo);
             return repoUsuario.save(usuario);
-        }).orElseThrow(() -> new EntityNotFound("Usuario no encontrado"));
+        }).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
     }
 
     

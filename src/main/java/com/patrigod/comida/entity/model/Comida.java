@@ -3,7 +3,7 @@ package com.patrigod.comida.entity.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.puntuacion.entity.entity.Puntuacion;
 
 import lombok.*;
@@ -16,7 +16,7 @@ import lombok.*;
 public class Comida {
     private Long id;
 
-    private CiudadJpa ciudad;
+    private CityJpa ciudad;
 
     private String nombre;
 

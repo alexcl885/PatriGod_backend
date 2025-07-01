@@ -15,8 +15,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CustomError {
+
     private String message;
+
     private int statusCode;
+
     private LocalDateTime timestamp;
 
     

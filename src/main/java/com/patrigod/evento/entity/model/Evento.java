@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.patrigod.ciudad.entity.entity.CiudadJpa;
+import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.puntuacion.entity.entity.Puntuacion;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.Setter;
 public class Evento {
     private Long id;
 
-    private CiudadJpa ciudad;
+    private CityJpa ciudad;
 
     private String nombre;
 
