@@ -13,7 +13,7 @@ import com.resend.Resend;
  * - Expone un bean de tipo Resend para ser inyectado y utilizado en los servicios de email.
  */
 @Configuration
-public class ResendConfig {
+public class ResendConfiguration {
     @Value("${resend.api.key}")
     private String resendApiKey;
 

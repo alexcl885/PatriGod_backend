@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * pueda hacer peticiones al backend en /api/**, incluyendo credenciales y todos los métodos HTTP.
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfiguration implements WebMvcConfigurer {
     /**
      * Configura las reglas de CORS para las rutas de la API.
      * Permite solicitudes desde el origen especificado, con cualquier cabecera y métodos comunes.

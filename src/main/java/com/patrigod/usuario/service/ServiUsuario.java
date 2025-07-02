@@ -161,8 +161,6 @@ public Optional<Usuario> actualizarUsernameOEmail(Long id, String nuevoUsername,
      * @param id ID del usuario a actualizar
      * @param nuevoUsername Nuevo nombre de usuario (puede ser null o vacío para no cambiar)
      * @param nuevoEmail Nuevo email (puede ser null o vacío para no cambiar)
-     * @param activo Nuevo estado de actividad (puede ser null para no cambiar)
-     * @param suscrito Nuevo estado de suscripción (puede ser null para no cambiar)
      * @return el usuario actualizado o vacío si no se encontró
      */
     public Optional<Usuario> actualizarDatosUsuario(Long id, String nuevoUsername, String nuevoEmail) {

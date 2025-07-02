@@ -35,7 +35,7 @@ import com.patrigod.usuario.service.ServiDetalleUsuario;
  */
 @Configuration
 @EnableWebSecurity
-public class ConfiguracionSeguridad {
+public class SecurityConfiguration {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
