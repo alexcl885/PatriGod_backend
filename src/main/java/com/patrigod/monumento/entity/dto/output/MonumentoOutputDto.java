@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
-import com.patrigod.puntuacion.entity.entity.Puntuacion;
+import com.patrigod.rating.infraestructure.repository.jpa.entity.RatingJpa;
 
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class MonumentoOutputDto {
 
     private String nombre;
 
-    private List<Puntuacion> puntuaciones = new ArrayList<>();
+    private List<RatingJpa> puntuaciones = new ArrayList<>();
     private String imagen;
 
     private String estiloArquitectonico;     

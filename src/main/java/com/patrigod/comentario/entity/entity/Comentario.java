@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.patrigod.articulo.entity.entity.ArticuloJpa;
+import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 import com.patrigod.usuario.entity.entity.Usuario;
 
 @Entity
@@ -34,7 +34,7 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "articulo_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_comentario_articulo"))
-    private ArticuloJpa articulo;
+    private ArticleJpa articulo;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String contenido;

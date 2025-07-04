@@ -1,7 +1,7 @@
 package com.patrigod.comida.entity.entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.patrigod.articulo.entity.entity.ArticuloJpa;
+import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,14 +10,16 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "comida")
-@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
-@JsonTypeName("comida")
+
 @Getter
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-public class ComidaJpa extends ArticuloJpa {
+
+@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
+@JsonTypeName("food")
+@Table(name = "food")
+public class ComidaJpa extends ArticleJpa {
 
     @Column(length = 255)
     private String imagen;

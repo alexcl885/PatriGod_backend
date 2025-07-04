@@ -4,7 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.patrigod.articulo.entity.entity.ArticuloJpa;
+import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,16 +17,18 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
-@JsonTypeName("monumento")
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@OnDelete(action = OnDeleteAction.CASCADE)
-@Table(name = "monumento")
 @SuperBuilder
-public class MonumentoJpa extends ArticuloJpa {
+
+@OnDelete(action = OnDeleteAction.CASCADE)
+@PrimaryKeyJoinColumn(name = "id")
+@JsonTypeName("monument")
+@Table(name = "monument")
+public class MonumentoJpa extends ArticleJpa {
 
     @Column(length = 255)
     private String imagen;

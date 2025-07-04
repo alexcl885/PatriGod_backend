@@ -110,7 +110,7 @@ class Ciudad {
   -fecha_patrimonio : date
   -latitud : decimal
   -longitud : decimal
-  -puntuacion : double
+  -ratingJpa : double
 }
 
 abstract class Articulo {
@@ -163,7 +163,7 @@ class Monumento {
 
 class Puntuacion {
   -id : bigint
-  -puntuacion : float
+  -ratingJpa : float
   -user_id : bigint
   -articulo_id : bigint
 }
@@ -293,14 +293,14 @@ Esta tabla sirve como referencia rápida para desarrolladores y para la integrac
 
 ---
 
-## ⭐ Puntuación (`/api/puntuacion`)
+## ⭐ Puntuación (`/api/ratingJpa`)
 
 | Método | Ruta                          | Descripción                                 | Rol autorizado         |
 |--------|-------------------------------|---------------------------------------------|------------------------|
-| GET    | `/api/puntuacion`             | Listar todas las puntuaciones               | Autenticado            |
-| POST   | `/api/puntuacion`             | Crear nueva puntuación                      | Autenticado            |
-| PUT    | `/api/puntuacion/{id}`        | Actualizar puntuación                       | Autenticado            |
-| DELETE | `/api/puntuacion/{id}`        | Eliminar puntuación                         | Autenticado            |
+| GET    | `/api/ratingJpa`             | Listar todas las puntuaciones               | Autenticado            |
+| POST   | `/api/ratingJpa`             | Crear nueva puntuación                      | Autenticado            |
+| PUT    | `/api/ratingJpa/{id}`        | Actualizar puntuación                       | Autenticado            |
+| DELETE | `/api/ratingJpa/{id}`        | Eliminar puntuación                         | Autenticado            |
 
 ---
 
@@ -558,7 +558,7 @@ La consulta se divide en dos partes:
 1. **Subconsulta Principal**: Realiza la agregación de la puntuación promedio de las ciudades, tomando en cuenta los artículos asociados a cada city y su respectiva puntuación. En esta subconsulta se hace el siguiente procesamiento:
    - Se obtiene el ID de la city (`ciudad_id`) y su nombre (`ciudad_nombre`).
    - Se calcula la puntuación promedio (`puntuacion_promedio`) de los artículos asociados a cada city.
-   - Se utilizan varias uniones (JOIN) entre las tablas `city`, `articulo`, `puntuacion`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
+   - Se utilizan varias uniones (JOIN) entre las tablas `city`, `articulo`, `ratingJpa`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
    - Se agrupan los resultados por el ID y nombre de la city.
 
 2. **Aplicación de `ROW_NUMBER()`**: Utiliza la función de ventana `ROW_NUMBER()` para asignar una posición a cada city según su puntuación promedio, ordenando los resultados de manera descendente (de mayor a menor puntuación).
@@ -569,10 +569,10 @@ SELECT ROW_NUMBER() OVER (ORDER BY puntuacion_promedio DESC) AS posicion,
 FROM (
     SELECT c.id AS ciudad_id, 
            c.nombre AS ciudad_nombre, 
-           AVG(p.puntuacion) AS puntuacion_promedio 
+           AVG(p.ratingJpa) AS puntuacion_promedio 
     FROM city c
     JOIN articulo a ON a.ciudad_id = c.id
-    JOIN puntuacion p ON p.articulo_id = a.id
+    JOIN ratingJpa p ON p.articulo_id = a.id
     LEFT JOIN comida co ON co.id = a.id
     LEFT JOIN evento e ON e.id = a.id
     LEFT JOIN monumento m ON m.id = a.id
@@ -642,12 +642,12 @@ Se han definido tres consultas nativas (`@Query`) utilizando SQL con la función
 #### 🏛️ Ranking por Monumentos
 
 ```java
-@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
-    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.ratingJpa, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN monumento m ON a.id = m.id " +
-    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
     nativeQuery = true)
@@ -655,12 +655,12 @@ List<RankingArticuloDTO> findRankingByMonumento();
 ```
 #### 🏛️ Ranking por Comidas
 ```java
-@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
-    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.ratingJpa, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN comida co ON a.id = co.id " +
-    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
     nativeQuery = true)
@@ -668,12 +668,12 @@ List<RankingArticuloDTO> findRankingByComida();
 ```
 #### 🎭 Ranking por Eventos
 ```java
-@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.puntuacion, 0)) DESC) AS posicion, " +
-    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.puntuacion, 0)) AS puntuacion_media " +
+@Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(p.ratingJpa, 0)) DESC) AS posicion, " +
+    "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
     "JOIN evento e ON a.id = e.id " +
-    "JOIN puntuacion p ON a.id = p.articulo_id " +
+    "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
     nativeQuery = true)
@@ -989,7 +989,7 @@ public class ConfiguracionSeguridad {
                         // Admins y usuarios autenticados
                         .requestMatchers(
                                 "/api/ollama/chat/**",
-                                "/api/puntuacion/**")
+                                "/api/ratingJpa/**")
                         .authenticated()
 
                         // rutas públicas

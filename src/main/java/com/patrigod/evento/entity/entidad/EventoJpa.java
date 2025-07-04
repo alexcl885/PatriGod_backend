@@ -11,18 +11,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.patrigod.articulo.entity.entity.ArticuloJpa;
+import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
-@JsonTypeName("evento")
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "evento")
 @SuperBuilder
-public class EventoJpa extends ArticuloJpa {
+
+@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
+@JsonTypeName("event")
+@Table(name = "event")
+public class EventoJpa extends ArticleJpa {
 
     private LocalDate fecha;
 
