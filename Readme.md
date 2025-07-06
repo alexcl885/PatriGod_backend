@@ -14,7 +14,7 @@ Este proyecto contiene el **backend** de la aplicación web **PatriGod**, respon
 7. [Rutas de la API REST](#rutas-de-la-api-rest)
 8. [Programando proyecto](#programando-proyecto)
     - [Base del proyecto](#base-del-proyecto)
-    - [Subclases clase Articulo](#subclases-monumento-evento-comida)
+    - [Subclases clase Articulo](#subclases-monument-event-food)
     - [Ranking](#ranking)
     - [Email](#email)
     - [Spring Security + JWT](#spring-security--jwt) 
@@ -253,43 +253,43 @@ Esta tabla sirve como referencia rápida para desarrolladores y para la integrac
 | DELETE | `/api/city/{id}`         | Eliminar city                                     | ADMINISTRADOR          |
 | GET    | `/api/city/rankMonumento`| Ranking ciudades por media de monumentos            | Público                |
 | GET    | `/api/city/rankComida`   | Ranking ciudades por media de comidas               | Público                |
-| GET    | `/api/city/rankEvento`   | Ranking ciudades por media de eventos               | Público                |
+| GET    | `/api/city/rankEvento`   | Ranking ciudades por media de events               | Público                |
 
 ---
 
-## 🏛️ Monumento (`/api/monumento`)
+## 🏛️ Monumento (`/api/monument`)
 
 | Método | Ruta                         | Descripción                                 | Rol autorizado         |
 |--------|------------------------------|---------------------------------------------|------------------------|
-| GET    | `/api/monumento`             | Listar todos los monumentos                 | Público                |
-| GET    | `/api/monumento/{id}`        | Obtener detalles de un monumento            | Público                |
-| POST   | `/api/monumento`             | Crear nuevo monumento                       | ADMINISTRADOR          |
-| PUT    | `/api/monumento/{id}`        | Actualizar monumento                        | ADMINISTRADOR          |
-| DELETE | `/api/monumento/{id}`        | Eliminar monumento                          | ADMINISTRADOR          |
+| GET    | `/api/monument`             | Listar todos los monumentos                 | Público                |
+| GET    | `/api/monument/{id}`        | Obtener detalles de un monument            | Público                |
+| POST   | `/api/monument`             | Crear nuevo monument                       | ADMINISTRADOR          |
+| PUT    | `/api/monument/{id}`        | Actualizar monument                        | ADMINISTRADOR          |
+| DELETE | `/api/monument/{id}`        | Eliminar monument                          | ADMINISTRADOR          |
 
 ---
 
-## 🍽️ Comida (`/api/comida`)
+## 🍽️ Comida (`/api/food`)
 
 | Método | Ruta                      | Descripción                                 | Rol autorizado         |
 |--------|---------------------------|---------------------------------------------|------------------------|
-| GET    | `/api/comida`             | Listar todas las comidas                    | Público                |
-| GET    | `/api/comida/{id}`        | Obtener detalles de una comida              | Público                |
-| POST   | `/api/comida`             | Crear nueva comida                          | ADMINISTRADOR          |
-| PUT    | `/api/comida/{id}`        | Actualizar comida                           | ADMINISTRADOR          |
-| DELETE | `/api/comida/{id}`        | Eliminar comida                             | ADMINISTRADOR          |
+| GET    | `/api/food`             | Listar todas las comidas                    | Público                |
+| GET    | `/api/food/{id}`        | Obtener detalles de una food              | Público                |
+| POST   | `/api/food`             | Crear nueva food                          | ADMINISTRADOR          |
+| PUT    | `/api/food/{id}`        | Actualizar food                           | ADMINISTRADOR          |
+| DELETE | `/api/food/{id}`        | Eliminar food                             | ADMINISTRADOR          |
 
 ---
 
-## 🎭 Evento (`/api/evento`)
+## 🎭 Evento (`/api/event`)
 
 | Método | Ruta                      | Descripción                                 | Rol autorizado         |
 |--------|---------------------------|---------------------------------------------|------------------------|
-| GET    | `/api/evento`             | Listar todos los eventos                    | Público                |
-| GET    | `/api/evento/{id}`        | Obtener detalles de un evento               | Público                |
-| POST   | `/api/evento`             | Crear nuevo evento                          | ADMINISTRADOR          |
-| PUT    | `/api/evento/{id}`        | Actualizar evento                           | ADMINISTRADOR          |
-| DELETE | `/api/evento/{id}`        | Eliminar evento                             | ADMINISTRADOR          |
+| GET    | `/api/event`             | Listar todos los events                    | Público                |
+| GET    | `/api/event/{id}`        | Obtener detalles de un event               | Público                |
+| POST   | `/api/event`             | Crear nuevo event                          | ADMINISTRADOR          |
+| PUT    | `/api/event/{id}`        | Actualizar event                           | ADMINISTRADOR          |
+| DELETE | `/api/event/{id}`        | Eliminar event                             | ADMINISTRADOR          |
 
 ---
 
@@ -417,9 +417,9 @@ Repetiré este proceso con cada entidad de mi proyecto (mo del todo como Articul
 
 De esta manera, el backend estará bien estructurado, escalable y fácil de mantener.
 
-### Clase abstracta articulo y subclases: Monumento,Evento y comida.
+### Clase abstracta articulo y subclases: Monumento,Evento y food.
 
-La entidad `Articulo` define los atributos comunes a todos los elementos calificables (monumentos, eventos y comidas). Cada subtipo hereda de Articulo y solo declara los campos específicos de su propia tabla, compartiendo la clave primaria id.
+La entidad `Articulo` define los atributos comunes a todos los elementos calificables (monumentos, events y comidas). Cada subtipo hereda de Articulo y solo declara los campos específicos de su propia tabla, compartiendo la clave primaria id.
 
 #### `Articulo` (Entidad Padre)
 ```java
@@ -433,9 +433,9 @@ La entidad `Articulo` define los atributos comunes a todos los elementos calific
     property = "type"
 )
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = Monumento.class, name = "monumento"),
-    @JsonSubTypes.Type(value = Comida.class,    name = "comida"),
-    @JsonSubTypes.Type(value = Evento.class,    name = "evento")
+    @JsonSubTypes.Type(value = Monumento.class, name = "monument"),
+    @JsonSubTypes.Type(value = Comida.class,    name = "food"),
+    @JsonSubTypes.Type(value = Evento.class,    name = "event")
 })
 public abstract class Articulo {
 
@@ -466,7 +466,7 @@ Cada subclase **hereda** de `Articulo` y sólo declara sus campos específicos:
 ```java
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-@JsonTypeName("monumento")
+@JsonTypeName("monument")
 @Data @NoArgsConstructor
 public class Monumento extends Articulo {
     @Column(length = 255)
@@ -477,7 +477,7 @@ public class Monumento extends Articulo {
 ```java
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-@JsonTypeName("comida")
+@JsonTypeName("food")
 @Data @NoArgsConstructor
 public class Comida extends Articulo {
     @Column(length = 255)
@@ -488,7 +488,7 @@ public class Comida extends Articulo {
 ```java
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-@JsonTypeName("evento")
+@JsonTypeName("event")
 @Data @NoArgsConstructor
 public class Evento extends Articulo {
     private LocalDate fecha;
@@ -502,7 +502,7 @@ public class Evento extends Articulo {
 ####  Esquema de Base de Datos
 
 - **Tabla `articulo`** (padre): contiene `id`, `ciudad_id`, `nombre`, `descripcion`.
-- **Tablas hijas (`monumento`, `evento`, `comida`)**: PK `id` como FK a `articulo.id`, más sus columnas propias (`imagen`, `fecha`, etc.).
+- **Tablas hijas (`monument`, `event`, `food`)**: PK `id` como FK a `articulo.id`, más sus columnas propias (`imagen`, `fecha`, etc.).
 - **Herencia `JOINED`** en JPA mapea directamente esta estructura.
 
 
@@ -558,7 +558,7 @@ La consulta se divide en dos partes:
 1. **Subconsulta Principal**: Realiza la agregación de la puntuación promedio de las ciudades, tomando en cuenta los artículos asociados a cada city y su respectiva puntuación. En esta subconsulta se hace el siguiente procesamiento:
    - Se obtiene el ID de la city (`ciudad_id`) y su nombre (`ciudad_nombre`).
    - Se calcula la puntuación promedio (`puntuacion_promedio`) de los artículos asociados a cada city.
-   - Se utilizan varias uniones (JOIN) entre las tablas `city`, `articulo`, `ratingJpa`, `comida`, `evento` y `monumento` para asociar las puntuaciones de cada categoría (comida, evento, monumento).
+   - Se utilizan varias uniones (JOIN) entre las tablas `city`, `articulo`, `ratingJpa`, `food`, `event` y `monument` para asociar las puntuaciones de cada categoría (food, event, monument).
    - Se agrupan los resultados por el ID y nombre de la city.
 
 2. **Aplicación de `ROW_NUMBER()`**: Utiliza la función de ventana `ROW_NUMBER()` para asignar una posición a cada city según su puntuación promedio, ordenando los resultados de manera descendente (de mayor a menor puntuación).
@@ -573,9 +573,9 @@ FROM (
     FROM city c
     JOIN articulo a ON a.ciudad_id = c.id
     JOIN ratingJpa p ON p.articulo_id = a.id
-    LEFT JOIN comida co ON co.id = a.id
-    LEFT JOIN evento e ON e.id = a.id
-    LEFT JOIN monumento m ON m.id = a.id
+    LEFT JOIN food co ON co.id = a.id
+    LEFT JOIN event e ON e.id = a.id
+    LEFT JOIN monument m ON m.id = a.id
     GROUP BY c.id, c.nombre
 ) AS ranking
 ORDER BY puntuacion_promedio DESC
@@ -646,7 +646,7 @@ Se han definido tres consultas nativas (`@Query`) utilizando SQL con la función
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
-    "JOIN monumento m ON a.id = m.id " +
+    "JOIN monument m ON a.id = m.id " +
     "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
@@ -659,7 +659,7 @@ List<RankingArticuloDTO> findRankingByMonumento();
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
-    "JOIN comida co ON a.id = co.id " +
+    "JOIN food co ON a.id = co.id " +
     "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
@@ -672,7 +672,7 @@ List<RankingArticuloDTO> findRankingByComida();
     "c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(COALESCE(p.ratingJpa, 0)) AS puntuacion_media " +
     "FROM city c " +
     "JOIN articulo a ON c.id = a.ciudad_id " +
-    "JOIN evento e ON a.id = e.id " +
+    "JOIN event e ON a.id = e.id " +
     "JOIN ratingJpa p ON a.id = p.articulo_id " +
     "GROUP BY c.id " +
     "ORDER BY puntuacion_media DESC",
@@ -719,7 +719,7 @@ En el controlador, se exponen estas funcionalidades como endpoints GET, lo que p
 
 /**
  * 
- * @return lista ciudades(DTO) segun la media de eventos de cada city
+ * @return lista ciudades(DTO) segun la media de events de cada city
  */
     @GetMapping("/rankEvento")
     public List<RankingArticuloDTO> rankingEvento() {
@@ -735,7 +735,7 @@ Este proyecto integra un sistema de envío de correos electrónicos usando [Rese
 
 #### ✉️ Objetivo
 
-El objetivo principal es **enviar correos a los usuarios** para mantenerlos informados sobre las **últimas novedades, actualizaciones y eventos importantes** de la aplicación.
+El objetivo principal es **enviar correos a los usuarios** para mantenerlos informados sobre las **últimas novedades, actualizaciones y events importantes** de la aplicación.
 
 ---
 
@@ -1004,9 +1004,9 @@ public class ConfiguracionSeguridad {
                         .permitAll()
                         // solo administradores
                         .requestMatchers(
-                                "/api/comida/**",
-                                "/api/evento/**",
-                                "/api/monumento/**",
+                                "/api/food/**",
+                                "/api/event/**",
+                                "/api/monument/**",
                                 "/api/admin/**")
                         .hasRole("ADMINISTRADOR")
             )

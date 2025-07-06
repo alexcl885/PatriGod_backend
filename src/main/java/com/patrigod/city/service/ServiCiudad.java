@@ -13,14 +13,14 @@ import com.patrigod.city.infraestructure.controller.dto.output.RankingCityDto;
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.city.application.mapper.CityMapper;
 import com.patrigod.city.infraestructure.repository.jpa.CityRepositoryJpa;
-import com.patrigod.comida.entity.entity.ComidaJpa;
-import com.patrigod.comida.repository.RepoComida;
-import com.patrigod.evento.entity.entidad.EventoJpa;
-import com.patrigod.evento.entity.model.Evento;
-import com.patrigod.evento.mapper.EventoMapper;
-import com.patrigod.evento.repository.RepoEvento;
-import com.patrigod.monumento.entity.entity.MonumentoJpa;
-import com.patrigod.monumento.repository.RepoMonumento;
+import com.patrigod.food.infrastructure.repository.jpa.entity.FoodJpa;
+import com.patrigod.food.infrastructure.repository.jpa.FoodRepositoryJpa;
+import com.patrigod.event.infraestructure.repository.jpa.entity.EventJpa;
+import com.patrigod.event.domain.entity.Event;
+import com.patrigod.event.application.mapper.EventMapper;
+import com.patrigod.event.infraestructure.repository.jpa.EventRepositoryJpa;
+import com.patrigod.monument.infrastructure.repository.jpa.entity.MonumentJpa;
+import com.patrigod.monument.infrastructure.repository.jpa.MonumentRepositoryJpa;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,12 +29,12 @@ import lombok.RequiredArgsConstructor;
 public class ServiCiudad {
 
     private final CityMapper cityMapper;
-    private final EventoMapper eventoMapper;
+    private final EventMapper eventMapper;
 
     private final CityRepositoryJpa cityRepositoryJpa;
-    private final RepoMonumento repoMonumento;
-    private final RepoComida repoComida;
-    private final RepoEvento repoEvento;
+    private final MonumentRepositoryJpa monumentRepositoryJpa;
+    private final FoodRepositoryJpa foodRepositoryJpa;
+    private final EventRepositoryJpa eventRepositoryJpa;
 
 
     /**
@@ -51,10 +51,10 @@ public class ServiCiudad {
      * @param idCiudad parametro de la ciudad
      * @return una lista de monumentos de la ciudad indicada
      */
-    public List<MonumentoJpa> findMonumentosByCiudad(Long idCiudad) {
+    public List<MonumentJpa> findMonumentosByCiudad(Long idCiudad) {
         Optional<CityJpa> ciudadOptional = cityRepositoryJpa.findById(idCiudad);
         if (ciudadOptional.isPresent()) {
-            return repoMonumento.findMonumentoByCiudad(ciudadOptional.get());
+            return monumentRepositoryJpa.findMonumentByCity(ciudadOptional.get());
         }
         return List.of(); 
     }
@@ -64,10 +64,10 @@ public class ServiCiudad {
      * @param idCiudad parametro de la ciudad
      * @return una lista de comidas de la ciudad indicada
      */
-    public List<ComidaJpa> findComidasByCiudad(Long idCiudad) {
+    public List<FoodJpa> findComidasByCiudad(Long idCiudad) {
         Optional<CityJpa> ciudadOptional = cityRepositoryJpa.findById(idCiudad);
         if (ciudadOptional.isPresent()) {
-            return repoComida.findComidaByCiudad(ciudadOptional.get());
+            return foodRepositoryJpa.findFoodByCity(ciudadOptional.get());
         }
         return List.of(); 
     }
@@ -77,12 +77,12 @@ public class ServiCiudad {
      * @param idCiudad parametro de la ciudad
      * @return una lista de eventos de la ciudad indicada
      */
-    public List<Evento> findEventosByCiudad(Long idCiudad) {
+    public List<Event> findEventosByCiudad(Long idCiudad) {
         Optional<CityJpa> ciudadOptional = cityRepositoryJpa.findById(idCiudad);
         if (ciudadOptional.isPresent()) {
-            List<EventoJpa> listEventoJpa = repoEvento.findEventoByCiudad(ciudadOptional.get());
-            return listEventoJpa.stream()
-                    .map(eventoMapper::toModel)
+            List<EventJpa> listEventJpa = eventRepositoryJpa.findEventByCity(ciudadOptional.get());
+            return listEventJpa.stream()
+                    .map(eventMapper::toModel)
                     .collect(Collectors.toList());
         }
         return List.of(); 
@@ -109,7 +109,7 @@ public class ServiCiudad {
      */
 
     public List<CityJpa> obtenerRankingDeCiudades() {
-        List<RankingCityDto> ranking = cityRepositoryJpa.findRankingCiudadesByPuntuacionPromedio();
+        List<RankingCityDto> ranking = cityRepositoryJpa.findCityRankingByAverageRating();
         List<CityJpa> ciudadesCompletas = new ArrayList<>();
         List<Long> ciudadIds = ranking.stream()
                                       .map(RankingCityDto::getCityId)

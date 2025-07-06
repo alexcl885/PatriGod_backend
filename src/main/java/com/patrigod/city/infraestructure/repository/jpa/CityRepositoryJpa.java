@@ -22,7 +22,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      * - Solo se consideran artículos que tienen puntuaciones asociadas.
      * - Se calcula la puntuación promedio de los artículos de cada ciudad,
      * excluyendo los artículos
-     * que son de tipo comida, evento o monumento (mediante `LEFT JOIN`).
+     * que son de tipo food, event o monument (mediante `LEFT JOIN`).
      * - La puntuación promedio se calcula utilizando `AVG(p.ratingJpa)` y se
      * maneja con `COALESCE` para
      * tratar valores nulos de puntuación como 0.
@@ -32,7 +32,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      *         nombre
      *         y la puntuación promedio de los artículos asociados a cada ciudad,
      *         excluyendo los artículos
-     *         de tipo comida, evento o monumento.
+     *         de tipo food, event o monument.
      */
 
     @Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY puntuacion_promedio DESC) AS posicion, " +
@@ -41,12 +41,12 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
             "FROM ciudad c " +
             "JOIN articulo a ON a.ciudad_id = c.id " +
             "JOIN ratingJpa p ON p.articulo_id = a.id " +
-            "LEFT JOIN comida co ON co.id = a.id " +
-            "LEFT JOIN evento e ON e.id = a.id " +
-            "LEFT JOIN monumento m ON m.id = a.id " +
+            "LEFT JOIN food co ON co.id = a.id " +
+            "LEFT JOIN event e ON e.id = a.id " +
+            "LEFT JOIN monument m ON m.id = a.id " +
             "GROUP BY c.id, c.nombre) AS ranking " +
             "ORDER BY puntuacion_promedio DESC", nativeQuery = true)
-    List<RankingCityDto> findRankingCiudadesByPuntuacionPromedio();
+    List<RankingCityDto> findCityRankingByAverageRating();
 
     
 
@@ -56,7 +56,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      * clasificados como monumentos, ordenadas de mayor a menor puntuación.
      * 
      * - Solo se consideran los artículos que son monumentos (mediante JOIN con la
-     * tabla `monumento`).
+     * tabla `monument`).
      * - Se incluyen los monumentos que tienen al menos una puntuación asociada.
      * - Se usa `COALESCE(p.ratingJpa, 0)` para tratar los valores nulos de las
      * puntuaciones como 0 al calcular la media.
@@ -74,7 +74,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
            AVG(COALESCE(s.ratingJpa, 0)) AS average_score
     FROM city c
     JOIN articulo a ON c.id = a.city_id
-    JOIN monumento m ON a.id = m.id
+    JOIN monument m ON a.id = m.id
     JOIN ratingJpa s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC
@@ -87,7 +87,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      * clasificados como comidas, ordenadas de mayor a menor puntuación.
      *
      * - Solo se consideran los artículos que son comidas (mediante JOIN con la
-     * tabla `comida`).
+     * tabla `food`).
      * - Se incluyen los artículos que tienen al menos una puntuación asociada.
      * - Se usa `COALESCE(p.ratingJpa, 0)` para tratar los valores nulos de las
      * puntuaciones como 0 al calcular la media.
@@ -106,7 +106,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
            AVG(COALESCE(s.ratingJpa, 0)) AS average_score
     FROM city c
     JOIN articulo a ON c.id = a.city_id
-    JOIN comida f ON a.id = f.id
+    JOIN food f ON a.id = f.id
     JOIN ratingJpa s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC
@@ -119,7 +119,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      * clasificados como eventos, ordenadas de mayor a menor puntuación.
      *
      * - Solo se consideran los artículos que son eventos (mediante JOIN con la
-     * tabla `evento`).
+     * tabla `event`).
      * - Solo se consideran los eventos que tienen al menos una puntuación asociada.
      * - Se usa `COALESCE(p.ratingJpa, 0)` para tratar posibles valores nulos como
      * 0 en el cálculo de la media.
@@ -137,7 +137,7 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
            AVG(COALESCE(s.ratingJpa, 0)) AS average_score
     FROM city c
     JOIN articulo a ON c.id = a.city_id
-    JOIN evento e ON a.id = e.id
+    JOIN event e ON a.id = e.id
     JOIN ratingJpa s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC

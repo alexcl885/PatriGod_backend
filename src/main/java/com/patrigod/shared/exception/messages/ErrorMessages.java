@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErrorMessages {
 
-    public static final String CITY_NOT_FOUND = "City not found with this id: ";
+    public static final String CITY_NOT_FOUND_BY_ID_EXCEPTION = "City not found with this id: ";
+
+    public static final String MONUMENT_NOT_FOUND_BY_ID_EXCEPTION = "Monument not found with this id: ";
 
     public static final String SEND_EMAIL_ERROR = "Email not sent correctly!";
 

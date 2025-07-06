@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.patrigod.city.application.*;
 import com.patrigod.city.domain.entity.City;
+import com.patrigod.event.domain.entity.Event;
+import com.patrigod.event.infraestructure.controller.dto.output.EventOutputDto;
+import com.patrigod.food.domain.entity.Food;
+import com.patrigod.monument.application.GetAllMonumentUseCase;
+import com.patrigod.monument.application.GetMonumentByIdUseCase;
+import com.patrigod.monument.domain.entity.Monument;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -15,24 +21,19 @@ import com.patrigod.city.infraestructure.controller.dto.output.RankingArticleDto
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.city.application.mapper.CityMapper;
 import com.patrigod.city.service.ServiCiudad;
-import com.patrigod.comida.entity.dto.output.ComidaOutputDto;
-import com.patrigod.comida.entity.entity.ComidaJpa;
-import com.patrigod.comida.entity.model.Comida;
-import com.patrigod.comida.mapper.ComidaMapper;
-import com.patrigod.comida.service.ServiComida;
-import com.patrigod.evento.entity.dto.output.EventoOutputDto;
-import com.patrigod.evento.entity.model.Evento;
-import com.patrigod.evento.mapper.EventoMapper;
-import com.patrigod.evento.service.ServiEvento;
-import com.patrigod.monumento.entity.dto.output.MonumentoOutputDto;
-import com.patrigod.monumento.entity.entity.MonumentoJpa;
-import com.patrigod.monumento.entity.model.Monumento;
-import com.patrigod.monumento.mapper.MonumentoMapper;
-import com.patrigod.monumento.service.ServiMonumento;
+import com.patrigod.food.infrastructure.controller.dto.output.FoodOutputDto;
+import com.patrigod.food.infrastructure.repository.jpa.entity.FoodJpa;
+import com.patrigod.food.application.mapper.FoodMapper;
+import com.patrigod.food.service.ServiComida;
+import com.patrigod.event.application.mapper.EventMapper;
+import com.patrigod.event.service.ServiEvento;
+import com.patrigod.monument.infrastructure.controller.dto.output.MonumentoOutputDto;
+import com.patrigod.monument.infrastructure.repository.jpa.entity.MonumentJpa;
+import com.patrigod.monument.application.mapper.MonumentMapper;
+import com.patrigod.monument.service.ServiMonumento;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -43,9 +44,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CityController {
 
     //mappers
-    private final MonumentoMapper monumentoMapper;
-    private final EventoMapper eventoMapper;
-    private final ComidaMapper comidaMapper;
+    private final MonumentMapper monumentMapper;
+    private final EventMapper eventMapper;
+    private final FoodMapper foodMapper;
     private final CityMapper cityMapper;
 
     //services
@@ -60,6 +61,9 @@ public class CityController {
     private final GetRankingEventOfCityUseCase getRankingEventOfCityUseCase;
     private final GetRankingMonumentOfCityUseCase getRankingMonumentOfCityUseCase;
     private final GetRankingFoodOfCityUseCase getRankingFoodOfCityUseCase;
+
+    private final GetMonumentByIdUseCase getMonumentByIdUseCase;
+    private final GetAllMonumentUseCase getAllMonumentUseCase;
 
     
 
@@ -92,8 +96,8 @@ public class CityController {
      * @return ResponseEntity con la lista de monumentos
      */
     @GetMapping("/{id}/monumentos")
-    public ResponseEntity<List<MonumentoJpa>> findMonumentosByCiudad(@PathVariable @NonNull Long id) {
-        List<MonumentoJpa> monumentos = serviCiudad.findMonumentosByCiudad(id);
+    public ResponseEntity<List<MonumentJpa>> findMonumentsOfCity(@PathVariable @NonNull Long id) {
+        List<MonumentJpa> monumentos = serviCiudad.findMonumentosByCiudad(id);
         return ResponseEntity.ok(monumentos);
     }
 
@@ -103,8 +107,8 @@ public class CityController {
      * @return ResponseEntity con la lista de comidas
      */
     @GetMapping("/{id}/comidas")
-    public ResponseEntity<List<ComidaJpa>> findComidasByCiudad(@PathVariable @NonNull Long id) {
-        List<ComidaJpa> comidas = serviCiudad.findComidasByCiudad(id);
+    public ResponseEntity<List<FoodJpa>> findFoodsByCity(@PathVariable @NonNull Long id) {
+        List<FoodJpa> comidas = serviCiudad.findComidasByCiudad(id);
         return ResponseEntity.ok(comidas);
     }
 
@@ -114,44 +118,44 @@ public class CityController {
      * @return ResponseEntity con la lista de eventos
      */
     @GetMapping("/{id}/eventos")
-    public ResponseEntity<List<EventoOutputDto>> findEventosByCiudad(@PathVariable @NonNull Long id) {
-        List<Evento> eventos = serviCiudad.findEventosByCiudad(id);
-        return ResponseEntity.ok(eventos.stream()
-                .map(eventoMapper::toOutputDto)
+    public ResponseEntity<List<EventOutputDto>> findEventsOfCity(@PathVariable @NonNull Long id) {
+        List<Event> events = serviCiudad.findEventosByCiudad(id);
+        return ResponseEntity.ok(events.stream()
+                .map(eventMapper::toOutputDto)
                 .toList());
     }
 
     /**
      * Busca un monumento concreto por su ID.
-     * @param idMonumento ID del monumento
+     * @param idMonument ID del monumento
      * @return ResponseEntity con el monumento encontrado (opcional)
      */
-    @GetMapping("/{id}/monumentos/{idMonumento}")
-    public ResponseEntity<MonumentoOutputDto> findMonumentoByCiudad(@PathVariable @NonNull Long idMonumento){
-        Monumento monumento = serviMonumento.findMonumento(idMonumento);
-        return ResponseEntity.ok(monumentoMapper.toOutputDto(monumento));
+    @GetMapping("/{id}/monuments/{idMonument}")
+    public ResponseEntity<MonumentoOutputDto> findMonumentOfCityById(@PathVariable @NonNull Long idMonument){
+        Monument monument = getMonumentByIdUseCase.getMonumentById(idMonument);
+        return ResponseEntity.ok(monumentMapper.toMonumentOutputDto(monument));
     }
 
     /**
      * Busca una comida concreta por su ID.
-     * @param idComida ID de la comida
+     * @param idFood ID de la comida
      * @return ResponseEntity con la comida encontrada (opcional)
      */
-    @GetMapping("/{id}/comidas/{idComida}")
-    public ResponseEntity<ComidaOutputDto> findComidaByCiudad(@PathVariable @NonNull Long idComida){
-        Comida comida = serviComida.findComida(idComida);
-        return ResponseEntity.ok(comidaMapper.toOutputDto(comida));
+    @GetMapping("/{id}/foods/{idFood}")
+    public ResponseEntity<FoodOutputDto> findFoodOfCityById(@PathVariable @NonNull Long idFood){
+        Food food = serviComida.findComida(idFood);
+        return ResponseEntity.ok(foodMapper.toOutputDto(food));
     }
 
     /**
      * Busca un evento concreto por su ID.
-     * @param idEvento ID del evento
+     * @param idEvent ID del evento
      * @return ResponseEntity con el evento encontrado (opcional)
      */
-    @GetMapping("/{id}/eventos/{idEvento}")
-    public ResponseEntity<EventoOutputDto> findEventoByCiudad(@PathVariable @NonNull Long idEvento){
-        Evento evento = serviEvento.findEvento(idEvento);
-        return ResponseEntity.ok(eventoMapper.toOutputDto(evento));
+    @GetMapping("/{id}/eventos/{idEvent}")
+    public ResponseEntity<EventOutputDto> findEventoByCiudad(@PathVariable @NonNull Long idEvent){
+        Event event = serviEvento.findEvento(idEvent);
+        return ResponseEntity.ok(eventMapper.toOutputDto(event));
     }
 
     /**

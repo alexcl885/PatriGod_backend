@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
-import com.patrigod.rating.infraestructure.controller.dto.output.RatingOutputDto;
+import com.patrigod.rating.infrastructure.controller.dto.output.RatingOutputDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@SuperBuilder
 public class ArticleOutputDto {
     private Long id;
 

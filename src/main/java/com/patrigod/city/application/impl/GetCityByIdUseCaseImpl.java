@@ -17,6 +17,6 @@ public class GetCityByIdUseCaseImpl implements GetCityByIdUseCase {
     @Override
     public City getCityById(Long id) {
         return getCityByIdRepository.getCityById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.CITY_NOT_FOUND + id));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.CITY_NOT_FOUND_BY_ID_EXCEPTION + id));
     }
 }

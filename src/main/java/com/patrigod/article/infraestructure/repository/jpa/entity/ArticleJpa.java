@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
-import com.patrigod.comida.entity.entity.ComidaJpa;
-import com.patrigod.evento.entity.entidad.EventoJpa;
-import com.patrigod.monumento.entity.entity.MonumentoJpa;
-import com.patrigod.rating.infraestructure.repository.jpa.entity.RatingJpa;
+import com.patrigod.food.infrastructure.repository.jpa.entity.FoodJpa;
+import com.patrigod.event.infraestructure.repository.jpa.entity.EventJpa;
+import com.patrigod.monument.infrastructure.repository.jpa.entity.MonumentJpa;
+import com.patrigod.rating.infrastructure.repository.jpa.entity.RatingJpa;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
 
 @Entity
 
@@ -18,15 +19,15 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @SuperBuilder
+
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = MonumentoJpa.class, name = "monument"),
-        @JsonSubTypes.Type(value = ComidaJpa.class, name = "food"),
-        @JsonSubTypes.Type(value = EventoJpa.class, name = "event")
+        @JsonSubTypes.Type(value = MonumentJpa.class, name = "monument"),
+        @JsonSubTypes.Type(value = FoodJpa.class, name = "food"),
+        @JsonSubTypes.Type(value = EventJpa.class, name = "event")
 })
 
 @Table(name = "article")
