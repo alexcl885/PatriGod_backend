@@ -1,8 +1,6 @@
 package com.patrigod.shared.exception.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +20,6 @@ public class CustomError {
 
     private LocalDateTime timestamp;
 
-    
     public CustomError(String message, int statusCode) {
         this.message = message;
         this.statusCode = statusCode;

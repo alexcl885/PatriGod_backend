@@ -1,7 +1,7 @@
 package com.patrigod.rating.domain.entity;
 
 import com.patrigod.article.domain.entity.Article;
-import com.patrigod.usuario.entity.entity.Usuario;
+import com.patrigod.user.infrastructure.repository.jpa.entity.UserJpa;
 import lombok.*;
 
 @Getter
@@ -13,7 +13,7 @@ public class Rating {
 
     private Long id;
 
-    private Usuario user;
+    private UserJpa user;
 
     private Article article;
 

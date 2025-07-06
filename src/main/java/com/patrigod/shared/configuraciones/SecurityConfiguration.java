@@ -10,29 +10,30 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.patrigod.shared.componentes.JwtAuthenticationFilter;
-import com.patrigod.usuario.service.ServiDetalleUsuario;
+import com.patrigod.user.application.impl.ServiceDetailUser;
 
 /**
- * Configuración principal de seguridad para la aplicación Spring Boot.
- * 
- * - Define las reglas de autorización para las rutas de la API.
- * - Configura la autenticación basada en JWT (JSON Web Token).
- * - Establece la política de sesión como stateless.
- * - Define los beans necesarios para la autenticación y el cifrado de contraseñas.
- * 
- * Rutas protegidas:
- *   - Solo administradores: /api/comida/**, /api/evento/**, /api/monumento/**, /api/admin/**
- *   - Usuarios autenticados: /api/ollama/chat/**, /api/puntuacion/**
- *   - Públicas: /api/auth/**, /api/ciudad/**, /api/usuario/**, /api/email/**
+ * Main security configuration for the Spring Boot application.
+ *
+ * - Defines authorization rules for the API routes.
+ * - Configures JWT (JSON Web Token) based authentication.
+ * - Sets the session policy to stateless.
+ * - Defines the necessary beans for authentication and password encryption.
+ *
+ * Protected routes:
+ *   - Admin only: /api/comida/**, /api/evento/**, /api/monumento/**, /api/admin/**
+ *   - Authenticated users: /api/ollama/chat/**, /api/puntuacion/**
+ *   - Public: /api/auth/**, /api/ciudad/**, /api/usuario/**, /api/email/**
  */
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -41,22 +42,22 @@ public class SecurityConfiguration {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     /**
-     * Configura la cadena de filtros de seguridad y las reglas de autorización.
-     * - Desactiva CSRF.
-     * - Define qué rutas requieren autenticación, rol de administrador o son públicas.
-     * - Añade el filtro JWT antes del filtro de autenticación por usuario/contraseña.
+     * Configures the security filter chain and authorization rules.
+     * - Disables CSRF.
+     * - Defines which routes require authentication, admin role, or are public.
+     * - Adds the JWT filter before the username/password authentication filter.
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Admins y usuarios autenticados
+                        // Admins and user authenticated
                         .requestMatchers(
                                 "/api/ollama/chat/**",
                                 "/api/puntuacion/**")
                         .authenticated()
 
-                        // rutas públicas
+                        // router public
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/auth/*/**",
@@ -66,7 +67,7 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "v3/api-docs/**")
                         .permitAll()
-                        // solo administradores
+                        // only admin
                         .requestMatchers(
                                 "/api/comida/**",
                                 "/api/evento/**",
@@ -83,7 +84,7 @@ public class SecurityConfiguration {
     }
 
     /**
-     * Bean para el AuthenticationManager, necesario para la autenticación.
+     * Bean for the AuthenticationManager, required for authentication.
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
@@ -92,15 +93,15 @@ public class SecurityConfiguration {
     }
 
     /**
-     * Bean que proporciona el servicio de carga de detalles de usuario.
+     * Bean that provides the user details service.
      */
     @Bean
     public UserDetailsService userDetailsService() {
-        return new ServiDetalleUsuario();
+        return new ServiceDetailUser();
     }
 
     /**
-     * Bean que configura el proveedor de autenticación con el servicio de usuarios y el codificador de contraseñas.
+     * Bean that configures the authentication provider with the user service and password encoder.
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -111,7 +112,7 @@ public class SecurityConfiguration {
     }
 
     /**
-     * Bean para el codificador de contraseñas usando BCrypt.
+     * Bean for the password encoder using BCrypt.
      */
     @Bean
     public PasswordEncoder passwordEncoder() {

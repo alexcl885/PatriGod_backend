@@ -1,5 +1,6 @@
 package com.patrigod.comentario.entity.entity;
 
+import com.patrigod.user.infrastructure.repository.jpa.entity.UserJpa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
-import com.patrigod.usuario.entity.entity.Usuario;
 
 @Entity
 @Getter
@@ -29,7 +29,7 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
-    private Usuario usuario;
+    private UserJpa userJpa;
 
     @ManyToOne
     @JoinColumn(name = "articulo_id", nullable = false,

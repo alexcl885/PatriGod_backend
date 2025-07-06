@@ -5,16 +5,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Configuración global de CORS para la aplicación Spring Boot.
- * 
- * Permite que el frontend (por ejemplo, en Vite en http://localhost:5173)
- * pueda hacer peticiones al backend en /api/**, incluyendo credenciales y todos los métodos HTTP.
+ * Global CORS configuration for the Spring Boot application.
+ * Allows the frontend
+ * to make requests to the backend at /api/**, including credentials and all HTTP methods.
  */
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
     /**
-     * Configura las reglas de CORS para las rutas de la API.
-     * Permite solicitudes desde el origen especificado, con cualquier cabecera y métodos comunes.
+     * Configures the CORS rules for the API routes.
+     * Allows requests from the specified origin, with any headers and common methods.
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {

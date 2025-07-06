@@ -25,5 +25,4 @@ public interface RatingMapper {
     @Mapping(target = "article", ignore = true)
     Rating ratingInputToRating(RatingInputDto ratingInputDto);
 
-
 }

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class ChatConfiguration {
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
@@ -17,6 +18,7 @@ public class ChatConfiguration {
         mapper.registerModule(new Jdk8Module());
         return mapper;
     }
+
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();

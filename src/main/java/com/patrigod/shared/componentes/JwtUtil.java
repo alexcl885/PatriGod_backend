@@ -16,32 +16,32 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "miClaveSuperSecretaQueNadieVaAAdivinarJamas";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 12; // 12 horas
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
     /**
-     * Extrae el nombre de usuario (subject) del token JWT.
-     * @param token el token JWT
-     * @return el nombre de usuario contenido en el token
+     * Extracts the username (subject) from the JWT token.
+     * @param token the JWT token
+     * @return the username contained in the token
      */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     /**
-     * Extrae el rol del usuario del token JWT.
-     * @param token el token JWT
-     * @return el rol contenido en el token
+     * Extracts the user's role from the JWT token.
+     * @param token the JWT token
+     * @return the role contained in the token
      */
     public String extractRole(String token) {
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
     /**
-     * Extrae un claim específico del token JWT usando una función resolutora.
-     * @param token el token JWT
-     * @param claimsResolver función para obtener el claim deseado
-     * @param <T> tipo del claim
-     * @return el valor del claim extraído
+     * Extracts a specific claim from the JWT token using a resolver function.
+     * @param token the JWT token
+     * @param claimsResolver function to retrieve the desired claim
+     * @param <T> the type of the claim
+     * @return the extracted claim value
      */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -49,9 +49,9 @@ public class JwtUtil {
     }
 
     /**
-     * Extrae todos los claims del token JWT.
-     * @param token el token JWT
-     * @return los claims contenidos en el token
+     * Extracts all claims from the JWT token.
+     * @param token the JWT token
+     * @return the claims contained in the token
      */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
@@ -62,9 +62,9 @@ public class JwtUtil {
     }
 
     /**
-     * Genera un token JWT para el usuario proporcionado, incluyendo su rol.
-     * @param userDetails los detalles del usuario autenticado
-     * @return el token JWT generado
+     * Generates a JWT token for the provided user, including their role.
+     * @param userDetails the authenticated user's details
+     * @return the generated JWT token
      */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -73,10 +73,10 @@ public class JwtUtil {
     }
 
     /**
-     * Crea un token JWT con los claims y el subject proporcionados.
-     * @param claims claims a incluir en el token
-     * @param subject el subject (normalmente el nombre de usuario)
-     * @return el token JWT generado
+     * Creates a JWT token with the provided claims and subject.
+     * @param claims claims to include in the token
+     * @param subject the subject (usually the username)
+     * @return the generated JWT token
      */
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
@@ -89,10 +89,10 @@ public class JwtUtil {
     }
 
     /**
-     * Valida si el token JWT es válido para el usuario proporcionado.
-     * @param token el token JWT
-     * @param userDetails los detalles del usuario autenticado
-     * @return true si el token es válido y no ha expirado, false en caso contrario
+     * Validates whether the JWT token is valid for the provided user.
+     * @param token the JWT token
+     * @param userDetails the authenticated user's details
+     * @return true if the token is valid and not expired, false otherwise
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
@@ -100,9 +100,9 @@ public class JwtUtil {
     }
 
     /**
-     * Comprueba si el token JWT ha expirado.
-     * @param token el token JWT
-     * @return true si el token ha expirado, false en caso contrario
+     * Checks if the JWT token has expired.
+     * @param token the JWT token
+     * @return true if the token has expired, false otherwise
      */
     private boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());

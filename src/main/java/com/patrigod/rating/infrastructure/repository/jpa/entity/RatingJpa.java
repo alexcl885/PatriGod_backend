@@ -2,7 +2,7 @@ package com.patrigod.rating.infrastructure.repository.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
-import com.patrigod.usuario.entity.entity.Usuario;
+import com.patrigod.user.infrastructure.repository.jpa.entity.UserJpa;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,7 +24,7 @@ public class RatingJpa {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Usuario user;
+    private UserJpa user;
 
     @ManyToOne
     @JoinColumn(name = "article_id", nullable = false)

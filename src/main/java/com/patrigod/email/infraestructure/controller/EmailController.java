@@ -6,8 +6,8 @@ import com.patrigod.email.application.SendWelcomeEmailUseCase;
 import com.patrigod.email.infraestructure.controller.dto.input.UpdateMessageRequestDto;
 import com.patrigod.shared.exception.messages.ErrorMessages;
 import com.patrigod.shared.exception.messages.InformationMessages;
-import com.patrigod.usuario.entity.entity.Usuario;
-import com.patrigod.usuario.service.ServiUsuario;
+import com.patrigod.user.application.GetUserTypeUseCase;
+import com.patrigod.user.domain.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,8 @@ public class EmailController {
     private final SendWelcomeEmailUseCase sendWelcomeEmailUseCase;
     private final SendUpdateEmailUseCase sendUpdateNotification;
 
-    private final ServiUsuario serviUsuario;
+    private final GetUserTypeUseCase getUserTypeUseCase;
+
 
     /**
      * Enviar un correo de prueba con Resend.
@@ -59,7 +60,7 @@ public class EmailController {
      */
     @PostMapping("admin/actualizacion")
     public ResponseEntity<String> emailActualizacionPatriGod(@RequestBody UpdateMessageRequestDto request) {
-        List<Usuario> users = serviUsuario.findTipoUsuario();
+        List<User> users = getUserTypeUseCase.getUserType();
         /*  
             Esto seria para un plan mejor con resend.com
             para que pueda enviar correos a to-do el mundo

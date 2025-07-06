@@ -1,7 +1,7 @@
 package com.patrigod.rating.infrastructure.controller.dto.output;
 
 import com.patrigod.article.infraestructure.controller.dto.output.ArticleOutputDto;
-import com.patrigod.usuario.entity.entity.Usuario;
+import com.patrigod.user.infrastructure.repository.jpa.entity.UserJpa;
 import lombok.*;
 
 @Getter
@@ -13,7 +13,7 @@ public class RatingOutputDto {
 
     private Long id;
 
-    private Usuario user;
+    private UserJpa user;
 
     private ArticleOutputDto article;
 

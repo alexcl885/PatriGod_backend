@@ -304,15 +304,15 @@ Esta tabla sirve como referencia rápida para desarrolladores y para la integrac
 
 ---
 
-## 👤 Usuario (`/api/usuario`)
+## 👤 Usuario (`/api/userJpa`)
 
 | Método | Ruta                      | Descripción                                 | Rol autorizado         |
 |--------|---------------------------|---------------------------------------------|------------------------|
-| GET    | `/api/usuario`            | Obtener usuario autenticado                 | Autenticado            |
-| POST   | `/api/usuario/register`   | Registrar nuevo usuario                     | Público                |
-| GET    | `/api/usuario/{id}`       | Obtener usuario por ID                      | ADMINISTRADOR          |
-| PUT    | `/api/usuario/{id}`       | Actualizar usuario                          | ADMINISTRADOR          |
-| DELETE | `/api/usuario/{id}`       | Eliminar usuario                            | ADMINISTRADOR          |
+| GET    | `/api/userJpa`            | Obtener userJpa autenticado                 | Autenticado            |
+| POST   | `/api/userJpa/register`   | Registrar nuevo userJpa                     | Público                |
+| GET    | `/api/userJpa/{id}`       | Obtener userJpa por ID                      | ADMINISTRADOR          |
+| PUT    | `/api/userJpa/{id}`       | Actualizar userJpa                          | ADMINISTRADOR          |
+| DELETE | `/api/userJpa/{id}`       | Eliminar userJpa                            | ADMINISTRADOR          |
 
 ---
 
@@ -365,7 +365,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 - Todas las rutas devuelven respuestas en formato JSON.
 - Los endpoints de administración requieren rol `ADMINISTRADOR`.
-- Los endpoints de puntuación y chat requieren usuario autenticado.
+- Los endpoints de puntuación y chat requieren userJpa autenticado.
 - El endpoint de chat IA solo responde sobre ciudades patrimonio de la humanidad en España.
 - Para probar la API de forma interactiva, accede a `/swagger-ui/index.html`.
 
@@ -792,8 +792,8 @@ public class ResendConfig {
 resend.api.key=re_WUevzQu6_22MWhkPCTjYXtgLdFNBmTwcr
 ```
 
-#### Envio email al registrar un usuario
-Cuando un usuario se registra además de realizar una peticion POST para poder registrar al usuario también lo que se hara sera enviar un correo para que vea el usuario que se ha aplicado bien su correo electronico:
+#### Envio email al registrar un userJpa
+Cuando un userJpa se registra además de realizar una peticion POST para poder registrar al userJpa también lo que se hara sera enviar un correo para que vea el userJpa que se ha aplicado bien su correo electronico:
 
 ```java
 public boolean sendEmail(String to, String subject, String htmlContent) {
@@ -847,7 +847,7 @@ Este filtro se ejecuta **una vez por cada petición** (gracias a que extiende de
 
 1. Extraer el token JWT del encabezado `Authorization`.
 2. Validar el token.
-3. Autenticar al usuario si el token es válido.
+3. Autenticar al userJpa si el token es válido.
 
 ```java
 @Component
@@ -892,7 +892,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 }
 ```
 ### 🔧 `JwtUtil.java`
-Esta clase se encarga de generar y validar los tokens JWT, así como extraer datos de ellos como el nombre de usuario o el rol.
+Esta clase se encarga de generar y validar los tokens JWT, así como extraer datos de ellos como el nombre de userJpa o el rol.
 
 ```java
 @Component
@@ -997,7 +997,7 @@ public class ConfiguracionSeguridad {
                                 "/api/auth/**",
                                 "/api/auth/*/**",
                                 "/api/city/**",
-                                "/api/usuario/**",
+                                "/api/userJpa/**",
                                 "/api/email/**",
                                 "/swagger-ui/**",
                                 "v3/api-docs/**")
@@ -1061,17 +1061,17 @@ public class WebConfig implements WebMvcConfigurer {
 
 ---
 
-### 👤 Registro de usuarios y usuario autenticado
+### 👤 Registro de usuarios y userJpa autenticado
 
-Para registrar un nuevo usuario y obtener el usuario actualmente autenticado, he creado un controlador llamado `UsuarioController.java`.
+Para registrar un nuevo userJpa y obtener el userJpa actualmente autenticado, he creado un controlador llamado `UsuarioController.java`.
 
 ---
 
-#### 📝 Registro de un nuevo usuario
+#### 📝 Registro de un nuevo userJpa
 
 Ruta: `POST /register`
 
-Este endpoint permite registrar un nuevo usuario en la base de datos. Antes de guardarlo:
+Este endpoint permite registrar un nuevo userJpa en la base de datos. Antes de guardarlo:
 
 - Se valida que la contraseña no sea nula y tenga más de 4 caracteres.
 - Se codifica la contraseña con `BCryptPasswordEncoder`.
@@ -1092,27 +1092,27 @@ public ResponseEntity<Usuario> register(@RequestBody Usuario u) {
     u.setFechaCreacion(LocalDateTime.now());
     u.setTipo(TipoUsuario.USUARIO); // Asignación por defecto
     u.setSuscrito(false);
-    return ResponseEntity.ok(serviUsuario.save(u));
+    return ResponseEntity.ok(serviUser.save(u));
 }
 ```
-### 🙋 Obtener el usuario autenticado
-Este endpoint devuelve el usuario actualmente autenticado mediante el token JWT.
+### 🙋 Obtener el userJpa autenticado
+Este endpoint devuelve el userJpa actualmente autenticado mediante el token JWT.
 ```java
 @GetMapping
 public Usuario getUser() {
-    Usuario u = serviUsuario.getLoggedUser();
+    Usuario u = serviUser.getLoggedUser();
     u.setPassword(""); // Se limpia la contraseña por seguridad
     return u;
 }
 
 ```
-#### Método de servicio para obtener el usuario autenticado
-Dentro de la clase ServiUsuario, se implementa el método getLoggedUser() que obtiene el usuario en base al nombre de usuario que contiene el contexto de seguridad (SecurityContextHolder):
+#### Método de servicio para obtener el userJpa autenticado
+Dentro de la clase ServiUsuario, se implementa el método getLoggedUser() que obtiene el userJpa en base al nombre de userJpa que contiene el contexto de seguridad (SecurityContextHolder):
 ```java
 public Usuario getLoggedUser(){
     Authentication authentication =
         SecurityContextHolder.getContext().getAuthentication();
-    return repoUsuario.findByUsername(authentication.getName()).get(0);
+    return userRepositoryJpa.findByUsername(authentication.getName()).get(0);
 }
 ```
 
@@ -1124,7 +1124,7 @@ El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma loc
 
 #### 🧩 ¿Cómo funciona la integración?
 
-- **Backend Spring Boot** expone un endpoint REST `/api/ollama/chat` que recibe mensajes del usuario.
+- **Backend Spring Boot** expone un endpoint REST `/api/ollama/chat` que recibe mensajes del userJpa.
 - El controlador `ChatController` prepara la petición para Ollama, añadiendo un mensaje de sistema que limita las respuestas a temas relacionados con las ciudades patrimonio.
 - El backend envía la petición a Ollama (que debe estar corriendo localmente en `http://localhost:11434/api/chat`) y devuelve la respuesta generada por el modelo de IA al frontend.
 
@@ -1171,7 +1171,7 @@ El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma loc
 #### 🛡️ Seguridad y control
 
 - El sistema fuerza al modelo a responder únicamente sobre las ciudades patrimonio de la humanidad en España.
-- Si el usuario pregunta sobre otro tema, el bot responde indicando que solo puede hablar de ese ámbito.
+- Si el userJpa pregunta sobre otro tema, el bot responde indicando que solo puede hablar de ese ámbito.
 
 #### 📄 Código relevante (`ChatController.java`)
 
@@ -1201,7 +1201,7 @@ El proyecto integra un chatbot inteligente usando **Ollama**, una plataforma loc
             systemMessage.put("role", "system");
             systemMessage.put("content", systemPrompt);
             messages.add(systemMessage);
-            // Mensaje del usuario
+            // Mensaje del userJpa
             Map<String, String> userMessage = new HashMap<>();
             userMessage.put("role", "user");
             userMessage.put("content", prompt);

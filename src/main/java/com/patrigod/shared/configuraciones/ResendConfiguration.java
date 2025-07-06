@@ -7,19 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import com.resend.Resend;
 
 /**
- * Configuración de Spring para el cliente de Resend (servicio de envío de emails).
- * 
- * - Lee la clave API de Resend desde las propiedades de la aplicación.
- * - Expone un bean de tipo Resend para ser inyectado y utilizado en los servicios de email.
+ * Spring configuration for the Resend client (email sending service).
+ * - Reads the Resend API key from the application properties.
+ * - Exposes a Resend bean to be injected and used in email services.
  */
 @Configuration
 public class ResendConfiguration {
+
     @Value("${resend.api.key}")
     private String resendApiKey;
 
     /**
-     * Crea y expone un bean de tipo Resend configurado con la clave API.
-     * @return instancia de Resend lista para usar
+     * Creates and exposes a Resend bean configured with the API key.
+     * @return a ready-to-use Resend instance
      */
     @Bean
     public Resend resendClient() {
