@@ -1,7 +1,10 @@
 package com.patrigod.event.infraestructure.controller;
 
 import java.util.List;
-
+import com.patrigod.event.application.CreateEventUseCase;
+import com.patrigod.event.application.DeleteEventByIdUseCase;
+import com.patrigod.event.application.GetAllEventUseCase;
+import com.patrigod.event.application.GetEventByIdUseCase;
 import com.patrigod.event.infraestructure.controller.dto.input.EventInputDto;
 import com.patrigod.event.infraestructure.controller.dto.output.EventOutputDto;
 import org.springframework.http.HttpStatus;
@@ -11,61 +14,58 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.patrigod.event.domain.entity.Event;
 import com.patrigod.event.application.mapper.EventMapper;
-import com.patrigod.event.service.ServiEvento;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
-@RequestMapping("/api/evento")
 @RequiredArgsConstructor
+@RequestMapping("/api/event")
 public class EventController {
 
     private final EventMapper eventMapper;
-    
-    private final ServiEvento serviEvento;
 
+    private final CreateEventUseCase createEventUseCase;
+    private final DeleteEventByIdUseCase deleteEventByIdUseCase;
+    private final GetAllEventUseCase getAllEventUseCase;
+    private final GetEventByIdUseCase getEventByIdUseCase;
 
     /**
-     * Obtiene la lista de todos los eventos.
-     * @return ResponseEntity con la lista de eventos en formato DTO de salida.
+     * Retrieves the list of all events.
+     * @return ResponseEntity containing the list of events in output DTO format.
      */
     @GetMapping
     public ResponseEntity<List<EventOutputDto>> findAllEvent() {
-        return new ResponseEntity<>( serviEvento.findAll().stream()
+        List<EventOutputDto> events = getAllEventUseCase.getAllEvent().stream()
                 .map(eventMapper::toOutputDto)
-                .toList(), HttpStatus.OK);
+                .toList();
+        return new ResponseEntity<>(events , HttpStatus.OK);
     }
 
     /**
-     * Guarda un nuevo evento en la base de datos.
-     * @param evento Objeto InputDto recibido en el cuerpo de la petición.
-     * @return ResponseEntity con el evento creado en formato DTO de salida.
+     * Saves a new event to the database.
+     * @param eventInputDto InputDto object received in the request body.
+     * @return ResponseEntity containing the created event in output DTO format.
      */
     @PostMapping
-    public ResponseEntity<EventOutputDto> createEvent(@RequestBody EventInputDto evento) {
-        Event eventObject = eventMapper.toInputDto(evento);
-        Event eventCreated = serviEvento.saveEvento(evento.getCityId(), eventObject);
+    public ResponseEntity<EventOutputDto> createEvent(@RequestBody EventInputDto eventInputDto) {
+        Event eventObject = eventMapper.toInputDto(eventInputDto);
+        Event eventCreated = createEventUseCase.createEvent(eventObject);
         return new ResponseEntity<>(eventMapper.toOutputDto(eventCreated), HttpStatus.CREATED);
         
     }
- 
+
     /**
-     * Elimina un evento por su ID.
-     * @param id ID del evento a eliminar.
-     * @return ResponseEntity con el evento eliminado en formato DTO de salida.
+     * Deletes an event by its ID.
+     * @param id ID of the event to delete.
+     * @return ResponseEntity with HTTP status 204 (No Content) if the request is successful.
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<EventOutputDto> deleteEvent(@PathVariable Long id){
-        Event event = serviEvento.findEvento(id);
-        serviEvento.deleteEventoById(id);
-        return new ResponseEntity<> (eventMapper.toOutputDto(event), HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteEvent(@PathVariable Long id){
+        deleteEventByIdUseCase.deleteEventById(id);
+        return new ResponseEntity<> (HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT);
     }
     
 

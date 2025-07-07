@@ -2,6 +2,10 @@ package com.patrigod.food.infrastructure.controller;
 
 import java.util.List;
 
+import com.patrigod.food.application.CreateFoodUseCase;
+import com.patrigod.food.application.DeleteFoodByIdUseCase;
+import com.patrigod.food.application.GetAllFoodUseCase;
+import com.patrigod.food.application.GetFoodByIdUseCase;
 import com.patrigod.food.domain.entity.Food;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patrigod.food.infrastructure.controller.dto.input.FoodInputDto;
 import com.patrigod.food.infrastructure.controller.dto.output.FoodOutputDto;
 import com.patrigod.food.application.mapper.FoodMapper;
-import com.patrigod.food.service.ServiComida;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,40 +31,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class FoodController {
 
     private final FoodMapper foodMapper;
-    
-    private final ServiComida serviComida;
+
+    private final CreateFoodUseCase createFoodUseCase;
+    private final GetFoodByIdUseCase getFoodByIdUseCase;
+    private final GetAllFoodUseCase getAllFoodUseCase;
+    private final DeleteFoodByIdUseCase deleteFoodByIdUseCase;
 
     /**
-     * Obtiene la lista de todas las comidas.
-     * @return lista de comidas en formato DTO de salida
+     * Retrieves the list of all food items.
+     * @return a list of food items in output DTO format
      */
     @GetMapping
-    public List<FoodOutputDto> findAll() {
-        return serviComida.findAll().stream()
-                .map(foodMapper::toOutputDto)
+    public ResponseEntity<List<FoodOutputDto>> findAllFood() {
+        List<FoodOutputDto> foods =  getAllFoodUseCase.getAllFood().stream()
+                .map(foodMapper::toFoodOutputDto)
                 .toList();
+        return new ResponseEntity<>(foods, HttpStatus.OK);
     }
 
     /**
-     * Guarda una nueva comida en la base de datos.
-     * @param comida DTO de entrada con los datos de la comida
-     * @return la comida guardada en formato DTO de salida
+     * Saves a new FoodInputDto to the database.
+     * @param foodInputDto input DTO containing the food data
+     * @return the saved food in output DTO format
      */
     @PostMapping
-    public FoodOutputDto saveComida(@RequestBody FoodInputDto comida) {
-        Food foodObject = foodMapper.toInputDto(comida);
-        return foodMapper.toOutputDto(serviComida.saveComida(comida.getCityId(), foodObject));
+    public FoodOutputDto createFood(@RequestBody FoodInputDto foodInputDto) {
+        Food food = foodMapper.foodInputDtoToFood(foodInputDto);
+        Food createdFood = createFoodUseCase.createFood(food);
+        return foodMapper.toFoodOutputDto(createdFood);
     }
 
     /**
-     * Elimina una comida por su identificador.
-     * @param id identificador de la comida a eliminar
-     * @return ResponseEntity con la comida eliminada en formato DTO de salida
+     * Deletes a food item by its identifier.
+     * @param id the identifier of the food item to delete
+     * @return ResponseEntity with the deleted food item in output DTO format
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<FoodOutputDto>  deleteComida(@PathVariable Long id){
-        Food food = serviComida.deleteComidaById(id);
-        return new ResponseEntity<>(foodMapper.toOutputDto(food), HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteFood(@PathVariable Long id){
+        deleteFoodByIdUseCase.deleteFoodById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT);
 
     }
 

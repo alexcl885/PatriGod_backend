@@ -10,12 +10,12 @@ import com.patrigod.food.infrastructure.repository.jpa.entity.FoodJpa;
 @Mapper(componentModel = "spring")
 public interface FoodMapper {
 
-    Food toModel(FoodJpa foodJpa);
+    Food toFood(FoodJpa foodJpa);
 
-    FoodJpa toEntity(Food food);
+    FoodJpa toFoodJpa(Food food);
 
-    FoodOutputDto toOutputDto(Food food);
+    FoodOutputDto toFoodOutputDto(Food food);
 
-    Food toInputDto(FoodInputDto foodInputDto);
+    Food foodInputDtoToFood(FoodInputDto foodInputDto);
 
 }

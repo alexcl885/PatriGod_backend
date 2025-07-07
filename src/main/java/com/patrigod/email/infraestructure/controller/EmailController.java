@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+//TODO 5 > Encontrar otra menera para enviar correos o dejar esta porque si...
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/email")
@@ -27,8 +27,8 @@ public class EmailController {
 
 
     /**
-     * Enviar un correo de prueba con Resend.
-     * Ejemplo: http://localhost:8080/api/email/send-email?to=ejemplo@gmail.com
+     * Send a test email using Resend.
+     * Example: http://localhost:8080/api/email/send-email?to=example@gmail.com
      */
     @GetMapping("usuario/send-email")
     public ResponseEntity<String> sendNewPersonEmail(@RequestParam String to) {
@@ -42,10 +42,10 @@ public class EmailController {
     }
 
     /**
-     * Envía un correo de bienvenida a un usuario recién registrado.
+     * Sends a welcome email to a newly registered user.
      */
     @PostMapping("usuario/registro/{email}")
-    public ResponseEntity<String> registrarUsuario(@PathVariable String email) {
+    public ResponseEntity<String> sendWelcomeUser(@PathVariable String email) {
         boolean send = sendWelcomeEmailUseCase.sendWelcomeEmail(email);
         if (send) {
             return ResponseEntity.ok(InformationMessages.EMAIL_SEND);
@@ -53,10 +53,11 @@ public class EmailController {
             return ResponseEntity.status(500).body(ErrorMessages.SEND_EMAIL_ERROR);
         }
     }
+
     /**
-     * 
-     * @param request mensaje del admin al que mandara a todos los usuarios
-     * @return los correos que ha podido enviar desde resend.com
+     *
+     * @param request message from the admin to be sent to all users
+     * @return the emails that were successfully sent via resend.com
      */
     @PostMapping("admin/actualizacion")
     public ResponseEntity<String> emailActualizacionPatriGod(@RequestBody UpdateMessageRequestDto request) {

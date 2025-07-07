@@ -28,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ServiCiudad {
 
-    private final CityMapper cityMapper;
     private final EventMapper eventMapper;
 
     private final CityRepositoryJpa cityRepositoryJpa;
@@ -37,15 +36,7 @@ public class ServiCiudad {
     private final EventRepositoryJpa eventRepositoryJpa;
 
 
-    /**
-     * Metodo que devuelve una ciudad mediante el id
-     * @param id ciudad 
-     * @return una ciudad 
-     */
-    public City findOneCiudad(Long id){
-        CityJpa cityJpa = cityRepositoryJpa.findById(id).orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
-        return cityMapper.toModel(cityJpa);
-    }
+
     /**
      * Metodo que encuentra los monumentos de una ciudad
      * @param idCiudad parametro de la ciudad
@@ -127,31 +118,6 @@ public class ServiCiudad {
             }
         }
         return ciudadesCompletas;
-    }    
-    /**
-     * Devuelve una lista en orden segun la puntuacion de los monumentos
-     * de cada ciudad.
-     * @return lista de ciudades segun la puntuacion de sus monumentos
-     */
-    public List<RankingArticleDto> findRankingByMonumento(){
-        return cityRepositoryJpa.findRankingByMonument();
     }
-    /**
-     * Devuelve una lista en orden segun la puntuacion de las comidas
-     * de cada ciudad.
-     * @return lista de ciudades segun la puntuacion de sus comidas
-     */
-    public List<RankingArticleDto> findRankingByComida(){
-        return cityRepositoryJpa.findRankingByFood();
-    }
-    /**
-     * Devuelve una lista en orden segun la puntuacion de los eventos
-     * de cada ciudad.
-     * @return lista de ciudades segun la puntuacion de sus eventos
-     */
-    public List<RankingArticleDto> findRankignByEvento(){
-        return cityRepositoryJpa.findRankingByEvent();
-    }
-
     
 }

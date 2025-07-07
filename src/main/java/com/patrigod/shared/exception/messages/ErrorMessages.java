@@ -8,9 +8,14 @@ public class ErrorMessages {
     // entity not found
     public static final String CITY_NOT_FOUND_BY_ID_EXCEPTION = "City not found with this id: ";
 
+    public static final String USER_NOT_FOUND_BY_ID_EXCEPTION = "User not found with this id: ";
+
     public static final String MONUMENT_NOT_FOUND_BY_ID_EXCEPTION = "Monument not found with this id: ";
 
-    public static final String USER_NOT_FOUND_BY_ID_EXCEPTION = "User not found with this id: ";
+    public static final String FOOD_NOT_FOUND_BY_ID_EXCEPTION = "Food not found with this id: ";
+
+    public static final String EVENT_NOT_FOUND_BY_ID_EXCEPTION = "Event not found with this id: ";
+
 
     // email
     public static final String SEND_EMAIL_ERROR = "Email not sent correctly!";
