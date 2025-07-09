@@ -35,4 +35,6 @@ public class ErrorMessages {
     public static final String PASSWORD_ERROR = "Password error";
 
 
+    public static final String CITY_NOT_EQUALS = "City is not equal than this article!";
+
 }

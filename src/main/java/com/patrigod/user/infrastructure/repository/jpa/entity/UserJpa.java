@@ -12,6 +12,8 @@ import com.patrigod.user.domain.enums.TypeUser;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+@Table(name = "user")
 public class UserJpa {
 
     @Id

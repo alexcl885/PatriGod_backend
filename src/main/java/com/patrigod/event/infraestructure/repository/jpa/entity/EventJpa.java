@@ -22,8 +22,9 @@ import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 @SuperBuilder
 
 
-@PrimaryKeyJoinColumn(name = "id") // Hereda el ID de Articulo
+@PrimaryKeyJoinColumn(name = "id") // Event class inherits from Article id
 @JsonTypeName("event")
+
 @Table(name = "event")
 public class EventJpa extends ArticleJpa {
 

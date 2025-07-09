@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: patrigod
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+
+  datasource:
+    url: jdbc:mysql://localhost:33306/patrigod
+    username: root
+    password: copado
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  sql:
+    init:
+      mode: always
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+resend:
+  api:
+    key: re_WUevzQu6_22MWhkPCTjYXtgLdFNBmTwcr
+
+configuration:
+  ollama:
+    api: http://localhost:11434/api/chat

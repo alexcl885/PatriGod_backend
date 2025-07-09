@@ -62,16 +62,16 @@ public class SecurityConfiguration {
                                 "/api/auth/**",
                                 "/api/auth/*/**",
                                 "/api/city/**",
-                                "/api/usuario/**",
+                                "/api/user/**",
                                 "/api/email/**",
                                 "/swagger-ui/**",
                                 "v3/api-docs/**")
                         .permitAll()
                         // only admin
                         .requestMatchers(
-                                "/api/comida/**",
-                                "/api/evento/**",
-                                "/api/monumento/**",
+                                "/api/food/**",
+                                "/api/event/**",
+                                "/api/monument/**",
                                 "/api/admin/**")
                         .hasRole("ADMINISTRADOR")
                 )

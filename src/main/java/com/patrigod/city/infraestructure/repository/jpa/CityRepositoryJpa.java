@@ -35,20 +35,31 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      *         de tipo food, event o monument.
      */
 
-    @Query(value = "SELECT ROW_NUMBER() OVER (ORDER BY puntuacion_promedio DESC) AS posicion, " +
-            "ciudad_id, ciudad_nombre, puntuacion_promedio " +
-            "FROM (SELECT c.id AS ciudad_id, c.nombre AS ciudad_nombre, AVG(p.ratingJpa) AS puntuacion_promedio " +
-            "FROM ciudad c " +
-            "JOIN articulo a ON a.ciudad_id = c.id " +
-            "JOIN ratingJpa p ON p.articulo_id = a.id " +
-            "LEFT JOIN food co ON co.id = a.id " +
-            "LEFT JOIN event e ON e.id = a.id " +
-            "LEFT JOIN monument m ON m.id = a.id " +
-            "GROUP BY c.id, c.nombre) AS ranking " +
-            "ORDER BY puntuacion_promedio DESC", nativeQuery = true)
+    @Query(value = """
+    SELECT\s
+        ROW_NUMBER() OVER (ORDER BY average_rating DESC) AS position,
+        city_id,
+        city_name,
+        average_rating
+    FROM (
+        SELECT\s
+            c.id AS city_id,
+            c.name AS city_name,
+            AVG(r.rating) AS average_rating
+        FROM city c
+        JOIN article a ON a.city_id = c.id
+        JOIN rating r ON r.article_id = a.id
+        LEFT JOIN food f ON f.id = a.id
+        LEFT JOIN event e ON e.id = a.id
+        LEFT JOIN monument m ON m.id = a.id
+        GROUP BY c.id, c.name
+    ) AS ranking
+    ORDER BY average_rating DESC
+   \s""", nativeQuery = true)
     List<RankingCityDto> findCityRankingByAverageRating();
 
-    
+
+
 
     /**
      * Obtiene un ranking de ciudades basado en la puntuación promedio de los
@@ -68,14 +79,14 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      */
 
     @Query(value = """
-    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.ratingJpa, 0)) DESC) AS position,
+    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.rating, 0)) DESC) AS position,
            c.id AS city_id,
            c.name AS city_name,
-           AVG(COALESCE(s.ratingJpa, 0)) AS average_score
+           AVG(COALESCE(s.rating, 0)) AS average_score
     FROM city c
-    JOIN articulo a ON c.id = a.city_id
+    JOIN article a ON c.id = a.city_id
     JOIN monument m ON a.id = m.id
-    JOIN ratingJpa s ON a.id = s.article_id
+    JOIN rating s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC
     """, nativeQuery = true)
@@ -100,14 +111,14 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      */
 
     @Query(value = """
-    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.ratingJpa, 0)) DESC) AS position,
+    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.rating, 0)) DESC) AS position,
            c.id AS city_id,
            c.name AS city_name,
-           AVG(COALESCE(s.ratingJpa, 0)) AS average_score
+           AVG(COALESCE(s.rating, 0)) AS average_score
     FROM city c
-    JOIN articulo a ON c.id = a.city_id
+    JOIN article a ON c.id = a.city_id
     JOIN food f ON a.id = f.id
-    JOIN ratingJpa s ON a.id = s.article_id
+    JOIN rating s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC
     """, nativeQuery = true)
@@ -131,14 +142,14 @@ public interface CityRepositoryJpa extends JpaRepository<CityJpa, Long> {
      */
 
     @Query(value = """
-    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.ratingJpa, 0)) DESC) AS position,
+    SELECT ROW_NUMBER() OVER (ORDER BY AVG(COALESCE(s.rating, 0)) DESC) AS position,
            c.id AS city_id,
            c.name AS city_name,
-           AVG(COALESCE(s.ratingJpa, 0)) AS average_score
+           AVG(COALESCE(s.rating, 0)) AS average_score
     FROM city c
-    JOIN articulo a ON c.id = a.city_id
+    JOIN article a ON c.id = a.city_id
     JOIN event e ON a.id = e.id
-    JOIN ratingJpa s ON a.id = s.article_id
+    JOIN rating s ON a.id = s.article_id
     GROUP BY c.id
     ORDER BY average_score DESC
     """, nativeQuery = true)

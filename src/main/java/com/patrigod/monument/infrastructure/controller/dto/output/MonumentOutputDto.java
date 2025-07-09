@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MonumentoOutputDto {
+public class MonumentOutputDto {
     private Long id;
 
     private CityOutputDto city;
@@ -22,7 +22,7 @@ public class MonumentoOutputDto {
 
     private List<RatingJpa> ratings = new ArrayList<>();
 
-    private String imagen;
+    private String image;
 
     private String architecturalStyle;
 

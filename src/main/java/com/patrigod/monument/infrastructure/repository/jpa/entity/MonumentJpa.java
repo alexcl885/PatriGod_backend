@@ -27,11 +27,12 @@ import lombok.Setter;
 @OnDelete(action = OnDeleteAction.CASCADE)
 @PrimaryKeyJoinColumn(name = "id")
 @JsonTypeName("monument")
+
 @Table(name = "monument")
 public class MonumentJpa extends ArticleJpa {
 
     @Column(length = 255)
-    private String imagen;
+    private String image;
 
     private String architecturalStyle;
 

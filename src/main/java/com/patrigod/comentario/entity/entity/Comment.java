@@ -19,7 +19,7 @@ import com.patrigod.article.infraestructure.repository.jpa.entity.ArticleJpa;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Comentario {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,18 +28,18 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
-                foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
+                foreignKey = @ForeignKey(name = "fk_comment_user"))
     private UserJpa userJpa;
 
     @ManyToOne
-    @JoinColumn(name = "articulo_id", nullable = false,
-                foreignKey = @ForeignKey(name = "fk_comentario_articulo"))
-    private ArticleJpa articulo;
+    @JoinColumn(name = "article_id", nullable = false,
+                foreignKey = @ForeignKey(name = "fk_comment_article"))
+    private ArticleJpa article;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String contenido;
+    private String content;
 
     @Column(nullable = false)
-    private LocalDateTime fecha = LocalDateTime.now();
+    private LocalDateTime dateOfComment = LocalDateTime.now();
 }
  

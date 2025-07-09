@@ -7,6 +7,8 @@ import com.patrigod.monument.application.DeleteMonumentByIdUseCase;
 import com.patrigod.monument.application.GetAllMonumentUseCase;
 import com.patrigod.monument.application.GetMonumentByIdUseCase;
 import com.patrigod.monument.domain.entity.Monument;
+import com.patrigod.monument.infrastructure.controller.dto.input.MonumentInputDto;
+import com.patrigod.monument.infrastructure.controller.dto.output.MonumentOutputDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.patrigod.monument.infrastructure.controller.dto.input.MonumentoInputDto;
-import com.patrigod.monument.infrastructure.controller.dto.output.MonumentoOutputDto;
 import com.patrigod.monument.application.mapper.MonumentMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/api/monumento")
+@RequestMapping("/api/monument")
 @RequiredArgsConstructor
 public class MonumentController {
 
@@ -38,7 +38,7 @@ public class MonumentController {
     private final CreateMonumentUseCase createMonumentUseCase;
 
     @GetMapping
-    public List<MonumentoOutputDto> findAll() {
+    public List<MonumentOutputDto> findAll() {
         return getAllMonumentUseCase.getAllMonument()
                 .stream()
                 .map(monumentMapper::toMonumentOutputDto)
@@ -46,7 +46,7 @@ public class MonumentController {
     }
 
     @PostMapping
-    public MonumentoOutputDto createMonument(@RequestBody MonumentoInputDto monument) {
+    public MonumentOutputDto createMonument(@RequestBody MonumentInputDto monument) {
         Monument monumentObject = monumentMapper.monumentInputDtoToMonument(monument);
         Monument createdMonument = createMonumentUseCase.createMonument(monumentObject, monument.getIdCity());
         return monumentMapper.toMonumentOutputDto(createdMonument);

@@ -17,6 +17,6 @@ public class GetMonumentByIdUseCaseImpl implements GetMonumentByIdUseCase {
     @Override
     public Monument getMonumentById(Long id) {
         return getMonumentByIdRepository.getMonumentById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.MONUMENT_NOT_FOUND_BY_ID_EXCEPTION));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.MONUMENT_NOT_FOUND_BY_ID_EXCEPTION + id));
     }
 }

@@ -16,13 +16,13 @@ import lombok.Setter;
 
 @PrimaryKeyJoinColumn(name = "id")
 @JsonTypeName("food")
+
 @Table(name = "food")
 public class FoodJpa extends ArticleJpa {
 
     @Column(length = 255)
     private String image;
 
-    @Column(name = "typeOfFood",length = 100)
     private String typeOfFood;
 
     @Column(length = 100)

@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MonumentoInputDto {
+public class MonumentInputDto {
     private Long id;
 
     private Long idCity;
@@ -27,7 +27,7 @@ public class MonumentoInputDto {
 
     private String description;
 
-    private String imagen;
+    private String image;
 
     private String architecturalStyle;
 
