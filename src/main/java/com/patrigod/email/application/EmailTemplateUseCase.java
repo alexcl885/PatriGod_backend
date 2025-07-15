@@ -1,5 +1,5 @@
 package com.patrigod.email.application;
 
-public interface BaseTemplateUseCase {
+public interface EmailTemplateUseCase {
     String baseTemplate(String content);
 }

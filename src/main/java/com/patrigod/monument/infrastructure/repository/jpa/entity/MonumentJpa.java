@@ -31,23 +31,30 @@ import lombok.Setter;
 @Table(name = "monument")
 public class MonumentJpa extends ArticleJpa {
 
-    @Column(length = 255)
+    @Column(length = 255, nullable = false)
     private String image;
 
+    @Column(length = 100)
     private String architecturalStyle;
 
+    @Column(length = 100)
     private String constructionPeriod;
 
+    @Column(length = 255)
     private String location;
 
+    @Column(length = 255)
     private String visitingHours;
 
+    @Column(length = 100)
     private String entranceFee;
 
+    @Column(length = 255)
     private String unescoDeclaration;
 
     private Double height;
 
+    @Column(length = 255)
     private String mainMaterials;
 
     @Column(length = 1000)

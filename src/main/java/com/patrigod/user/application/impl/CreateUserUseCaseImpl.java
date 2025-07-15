@@ -7,7 +7,6 @@ import com.patrigod.user.domain.entity.User;
 import com.patrigod.user.domain.enums.TypeUser;
 import com.patrigod.user.domain.repository.CreateUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

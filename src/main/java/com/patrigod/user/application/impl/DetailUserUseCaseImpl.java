@@ -16,7 +16,7 @@ import com.patrigod.user.infrastructure.repository.jpa.UserRepositoryJpa;
 @Service
 @Primary
 @RequiredArgsConstructor
-public class ServiceDetailUser implements UserDetailsService {
+public class DetailUserUseCaseImpl implements UserDetailsService {
 
     @Autowired
     private UserRepositoryJpa userRepositoryJpa;

@@ -1,4 +1,4 @@
-package com.patrigod.shared.configuraciones;
+package com.patrigod.shared.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

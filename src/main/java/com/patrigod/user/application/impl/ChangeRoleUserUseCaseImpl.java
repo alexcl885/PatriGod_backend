@@ -9,7 +9,6 @@ import com.patrigod.user.application.GetUserByIdUseCase;
 import com.patrigod.user.domain.entity.User;
 import com.patrigod.user.infrastructure.controller.dto.input.ChangeRoleInputDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

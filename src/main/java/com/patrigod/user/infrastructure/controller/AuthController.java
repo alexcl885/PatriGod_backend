@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.patrigod.shared.componentes.JwtUtil;
-import com.patrigod.user.application.impl.ServiceDetailUser;
+import com.patrigod.shared.configurations.security.components.JwtUtil;
+import com.patrigod.user.application.impl.DetailUserUseCaseImpl;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,18 +24,18 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private ServiceDetailUser serviceDetailUser;
+    private DetailUserUseCaseImpl detailUserUseCaseImpl;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(
-        @RequestBody AuthRequest request) {
+        @Valid @RequestBody AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-        final UserDetails userDetails = serviceDetailUser.loadUserByUsername(request.getUsername());
+        final UserDetails userDetails = detailUserUseCaseImpl.loadUserByUsername(request.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(jwt));
     }

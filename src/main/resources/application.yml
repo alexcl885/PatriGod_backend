@@ -1,9 +1,6 @@
 spring:
   application:
     name: patrigod
-  ai:
-    ollama:
-      base-url: http://localhost:11434
 
   datasource:
     url: jdbc:mysql://localhost:33306/patrigod

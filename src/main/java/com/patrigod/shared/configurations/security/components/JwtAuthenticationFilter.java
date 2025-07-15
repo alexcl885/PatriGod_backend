@@ -1,4 +1,4 @@
-package com.patrigod.shared.componentes;
+package com.patrigod.shared.configurations.security.components;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.patrigod.user.application.impl.ServiceDetailUser;
+import com.patrigod.user.application.impl.DetailUserUseCaseImpl;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Autowired
-    ServiceDetailUser serviceDetailUser;
+    DetailUserUseCaseImpl detailUserUseCaseImpl;
 
     /**
      * Filter that intercepts each HTTP request to verify the validity of the JWT.
@@ -58,7 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = serviceDetailUser.loadUserByUsername(username);
+            UserDetails userDetails = detailUserUseCaseImpl.loadUserByUsername(username);
             if (jwtUtil.validateToken(jwtToken, userDetails)) {
                 var authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

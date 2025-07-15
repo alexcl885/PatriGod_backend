@@ -1,4 +1,4 @@
-package com.patrigod.shared.componentes;
+package com.patrigod.shared.configurations.security.components;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

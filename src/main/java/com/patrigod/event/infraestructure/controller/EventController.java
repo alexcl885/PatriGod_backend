@@ -52,7 +52,7 @@ public class EventController {
     @PostMapping
     public ResponseEntity<EventOutputDto> createEvent(@RequestBody EventInputDto eventInputDto) {
         Event eventObject = eventMapper.toInputDto(eventInputDto);
-        Event eventCreated = createEventUseCase.createEvent(eventObject);
+        Event eventCreated = createEventUseCase.createEvent(eventObject, eventInputDto.getCityId());
         return new ResponseEntity<>(eventMapper.toOutputDto(eventCreated), HttpStatus.CREATED);
         
     }

@@ -5,12 +5,10 @@ import com.patrigod.user.application.ChangeEmailOrUsernameUseCase;
 import com.patrigod.user.application.CreateUserUseCase;
 import com.patrigod.user.application.GetUserByIdUseCase;
 import com.patrigod.user.domain.entity.User;
-import com.patrigod.user.domain.repository.GetUserByIdRepository;
 import com.patrigod.user.infrastructure.repository.jpa.UserRepositoryJpa;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

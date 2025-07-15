@@ -57,7 +57,7 @@ public class FoodController {
     @PostMapping
     public FoodOutputDto createFood(@RequestBody FoodInputDto foodInputDto) {
         Food food = foodMapper.foodInputDtoToFood(foodInputDto);
-        Food createdFood = createFoodUseCase.createFood(food);
+        Food createdFood = createFoodUseCase.createFood(food, foodInputDto.getCityId());
         return foodMapper.toFoodOutputDto(createdFood);
     }
 

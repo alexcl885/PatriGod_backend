@@ -1,12 +1,12 @@
 package com.patrigod.email.application.impl;
 
-import com.patrigod.email.application.BaseTemplateUseCase;
+import com.patrigod.email.application.EmailTemplateUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class BaseTemplateUseCaseImpl implements BaseTemplateUseCase {
+public class EmailTemplateUseCaseImpl implements EmailTemplateUseCase {
 
     @Override
     public String baseTemplate(String content) {

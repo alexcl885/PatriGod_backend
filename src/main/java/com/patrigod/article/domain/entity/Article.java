@@ -1,5 +1,6 @@
 package com.patrigod.article.domain.entity;
 
+import com.patrigod.city.domain.entity.City;
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.rating.domain.entity.Rating;
 import lombok.*;
@@ -16,7 +17,7 @@ public class Article {
 
     private Long id;
 
-    private CityJpa city;
+    private City city;
 
     private String name;
 

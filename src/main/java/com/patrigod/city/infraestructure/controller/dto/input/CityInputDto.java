@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CiudadInputDto {
+public class CityInputDto {
 
     private Long id;
 

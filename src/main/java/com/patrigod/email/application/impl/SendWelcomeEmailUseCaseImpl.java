@@ -1,6 +1,6 @@
 package com.patrigod.email.application.impl;
 
-import com.patrigod.email.application.BaseTemplateUseCase;
+import com.patrigod.email.application.EmailTemplateUseCase;
 import com.patrigod.email.application.SendEmailUseCase;
 import com.patrigod.email.application.SendWelcomeEmailUseCase;
 import lombok.RequiredArgsConstructor;
@@ -12,14 +12,14 @@ public class SendWelcomeEmailUseCaseImpl implements SendWelcomeEmailUseCase {
 
     private final SendEmailUseCase sendEmailUseCase;
 
-    private final BaseTemplateUseCase baseTemplateUseCase;
+    private final EmailTemplateUseCase emailTemplateUseCase;
 
     @Override
     public boolean sendWelcomeEmail(String to) {
-        String subject = "¡Bienvenido a Patrigod!";
-        String htmlContent = baseTemplateUseCase.baseTemplate("""
-            <h2>Gracias por registrarte 🎉</h2>
-            <p>Estamos encantados de tenerte con nosotros. A partir de ahora estarás al tanto de todas las novedades de la aplicación.</p>
+        String subject = "Welcome to Patrigod!";
+        String htmlContent = emailTemplateUseCase.baseTemplate("""
+            <h2>Thank you for signing up 🎉</h2>
+            <p>We’re excited to have you with us. From now on, you’ll stay updated on all the latest news from the app.</p>
         """);
         return sendEmailUseCase.sendEmail(to, subject, htmlContent);
     }

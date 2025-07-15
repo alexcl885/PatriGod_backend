@@ -1,4 +1,4 @@
-package com.patrigod.shared.configuraciones;
+package com.patrigod.shared.configurations.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.patrigod.shared.componentes.JwtAuthenticationFilter;
-import com.patrigod.user.application.impl.ServiceDetailUser;
+import com.patrigod.shared.configurations.security.components.JwtAuthenticationFilter;
+import com.patrigod.user.application.impl.DetailUserUseCaseImpl;
 
 /**
  * Main security configuration for the Spring Boot application.
@@ -97,7 +97,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public UserDetailsService userDetailsService() {
-        return new ServiceDetailUser();
+        return new DetailUserUseCaseImpl();
     }
 
     /**

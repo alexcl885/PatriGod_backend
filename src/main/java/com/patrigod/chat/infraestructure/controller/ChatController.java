@@ -12,9 +12,9 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Controlador REST para interactuar con el modelo de IA Ollama.
- * Permite enviar prompts y recibir respuestas relacionadas con las Ciudades
- * Patrimonio de la Humanidad en España.
+ * REST controller to interact with the Ollama AI model.
+ * Allows sending prompts and receiving responses related to
+ * the World Heritage Cities in Spain.
  */
 @RestController
 @RequestMapping("/api/ollama")
