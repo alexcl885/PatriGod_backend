@@ -3,8 +3,8 @@ package com.patrigod.monument.application.impl;
 import com.patrigod.monument.application.GetMonumentByIdUseCase;
 import com.patrigod.monument.domain.entity.Monument;
 import com.patrigod.monument.domain.repository.GetMonumentByIdRepository;
-import com.patrigod.shared.exception.messages.ErrorMessages;
-import com.patrigod.shared.exception.type.EntityNotFoundException;
+import com.patrigod.exception.messages.ErrorMessages;
+import com.patrigod.exception.type.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

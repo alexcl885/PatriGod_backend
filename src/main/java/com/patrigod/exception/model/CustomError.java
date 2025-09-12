@@ -1,4 +1,4 @@
-package com.patrigod.shared.exception.model;
+package com.patrigod.exception.model;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

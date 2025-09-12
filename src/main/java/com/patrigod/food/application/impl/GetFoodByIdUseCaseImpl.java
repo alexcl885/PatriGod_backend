@@ -3,8 +3,8 @@ package com.patrigod.food.application.impl;
 import com.patrigod.food.application.GetFoodByIdUseCase;
 import com.patrigod.food.domain.entity.Food;
 import com.patrigod.food.domain.repository.GetFoodByIdRepository;
-import com.patrigod.shared.exception.messages.ErrorMessages;
-import com.patrigod.shared.exception.type.EntityNotFoundException;
+import com.patrigod.exception.messages.ErrorMessages;
+import com.patrigod.exception.type.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

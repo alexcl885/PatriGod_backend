@@ -1,6 +1,6 @@
 package com.patrigod.user.application.impl;
 
-import com.patrigod.shared.exception.messages.ErrorMessages;
+import com.patrigod.exception.messages.ErrorMessages;
 import com.patrigod.user.application.ChangeStateUserUseCase;
 import com.patrigod.user.application.CreateUserUseCase;
 import com.patrigod.user.application.GetUserByIdUseCase;

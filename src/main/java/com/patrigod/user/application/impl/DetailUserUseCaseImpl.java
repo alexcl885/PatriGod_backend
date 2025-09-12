@@ -1,7 +1,7 @@
 package com.patrigod.user.application.impl;
 
 import java.util.List;
-import com.patrigod.shared.exception.messages.ErrorMessages;
+import com.patrigod.exception.messages.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;

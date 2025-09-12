@@ -1,13 +1,13 @@
-package com.patrigod.shared.exception;
+package com.patrigod.exception;
 
-import com.patrigod.shared.exception.type.ConflictException;
+import com.patrigod.exception.type.ConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.patrigod.shared.exception.model.CustomError;
-import com.patrigod.shared.exception.type.EntityNotFoundException;
+import com.patrigod.exception.model.CustomError;
+import com.patrigod.exception.type.EntityNotFoundException;
 
 import java.util.stream.Collectors;
 

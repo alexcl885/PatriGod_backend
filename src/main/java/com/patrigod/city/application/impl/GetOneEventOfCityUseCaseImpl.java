@@ -3,8 +3,8 @@ package com.patrigod.city.application.impl;
 import com.patrigod.city.application.GetOneEventOfCityUseCase;
 import com.patrigod.event.application.GetEventByIdUseCase;
 import com.patrigod.event.domain.entity.Event;
-import com.patrigod.shared.exception.messages.ErrorMessages;
-import com.patrigod.shared.exception.type.ConflictException;
+import com.patrigod.exception.messages.ErrorMessages;
+import com.patrigod.exception.type.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
