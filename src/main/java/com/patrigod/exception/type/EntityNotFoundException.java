@@ -1,4 +1,4 @@
-package com.patrigod.shared.exception.type;
+package com.patrigod.exception.type;
 
 public class EntityNotFoundException extends RuntimeException {
 

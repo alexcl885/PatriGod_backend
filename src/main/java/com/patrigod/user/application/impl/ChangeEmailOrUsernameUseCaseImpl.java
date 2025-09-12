@@ -1,6 +1,6 @@
 package com.patrigod.user.application.impl;
 
-import com.patrigod.shared.exception.type.ConflictException;
+import com.patrigod.exception.type.ConflictException;
 import com.patrigod.user.application.ChangeEmailOrUsernameUseCase;
 import com.patrigod.user.application.CreateUserUseCase;
 import com.patrigod.user.application.GetUserByIdUseCase;

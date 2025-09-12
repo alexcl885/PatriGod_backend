@@ -1,4 +1,4 @@
-package com.patrigod.shared.configurations.security.cors;
+package com.patrigod.platform.configurations.security.cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

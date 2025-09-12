@@ -2,7 +2,7 @@ package com.patrigod.chat.application.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patrigod.chat.application.ChatOllamaUseCase;
-import com.patrigod.shared.exception.messages.ErrorMessages;
+import com.patrigod.exception.messages.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;

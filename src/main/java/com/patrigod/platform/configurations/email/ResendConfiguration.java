@@ -1,4 +1,4 @@
-package com.patrigod.shared.configurations;
+package com.patrigod.platform.configurations.email;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

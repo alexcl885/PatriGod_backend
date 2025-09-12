@@ -1,7 +1,7 @@
 package com.patrigod.user.application.impl;
 
-import com.patrigod.shared.exception.messages.ErrorMessages;
-import com.patrigod.shared.exception.type.ConflictException;
+import com.patrigod.exception.messages.ErrorMessages;
+import com.patrigod.exception.type.ConflictException;
 import com.patrigod.user.application.CreateUserUseCase;
 import com.patrigod.user.domain.entity.User;
 import com.patrigod.user.domain.enums.TypeUser;

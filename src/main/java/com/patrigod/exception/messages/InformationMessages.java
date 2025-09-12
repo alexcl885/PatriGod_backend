@@ -1,4 +1,4 @@
-package com.patrigod.shared.exception.messages;
+package com.patrigod.exception.messages;
 
 import lombok.NoArgsConstructor;
 

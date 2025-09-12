@@ -3,8 +3,8 @@ package com.patrigod.city.application.impl;
 import com.patrigod.city.application.GetCityByIdUseCase;
 import com.patrigod.city.domain.entity.City;
 import com.patrigod.city.domain.repository.GetCityByIdRepository;
-import com.patrigod.shared.exception.messages.ErrorMessages;
-import com.patrigod.shared.exception.type.EntityNotFoundException;
+import com.patrigod.exception.messages.ErrorMessages;
+import com.patrigod.exception.type.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

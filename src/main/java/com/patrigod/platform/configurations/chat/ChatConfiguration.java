@@ -1,4 +1,4 @@
-package com.patrigod.shared.configurations;
+package com.patrigod.platform.configurations.chat;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
