@@ -54,7 +54,7 @@ public class SecurityConfiguration {
                         // Admins and user authenticated
                         .requestMatchers(
                                 "/api/ollama/chat/**",
-                                "/api/puntuacion/**")
+                                "/api/rating/**")
                         .authenticated()
 
                         // router public

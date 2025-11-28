@@ -3,6 +3,7 @@ package com.patrigod.article.infraestructure.controller.dto.output;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.patrigod.city.infraestructure.controller.dto.output.CityOutputDto;
 import com.patrigod.city.infraestructure.repository.jpa.entity.CityJpa;
 import com.patrigod.rating.infrastructure.controller.dto.output.RatingOutputDto;
 
@@ -20,7 +21,7 @@ import lombok.Setter;
 public class ArticleOutputDto {
     private Long id;
 
-    private CityJpa city;
+    private CityOutputDto city;
 
     private String name;
 
